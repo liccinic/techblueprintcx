@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;800&display=swap');
+:root{
+  --mars-blue:#0000a0;--kell-red:#F60B45;--wrig-blue:#009EEA;
+  --snack-orange:#FF8B00;--mars-light:#BFBFF1;--snack-light:#FFE8CC;
+  --bg:#F5F5F8;--card:#fff;--border:#E2E2EC;--text:#3C3C3C;
+  --muted:#6B6B80;--sub:#9999AA;
+  --green:#0F7B3A;--green-bg:#E6F5EC;--green-dot:#22C55E;
+  --amber:#995500;--amber-bg:#FFF4E0;--amber-dot:#FF8B00;
+  --red:#C8102E;--red-bg:#FDE8EC;
+  --font:'Nunito','Segoe UI',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:14px;-webkit-font-smoothing:antialiased}
+
+/* ── HEADER ── */
+.header{background:var(--mars-blue);position:relative;overflow:hidden}
+.header-accent{position:absolute;top:0;right:0;width:340px;height:100%;background:linear-gradient(135deg,transparent 40%,rgba(0,158,234,0.18) 100%);pointer-events:none}
+.header-bar{position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--kell-red) 0%,var(--snack-orange) 33%,var(--wrig-blue) 66%,var(--mars-light) 100%)}
+.header-inner{padding:18px 28px 22px;position:relative;z-index:1}
+.header-top{display:flex;align-items:center;justify-content:space-between;gap:24px}
+.header-logo{height:54px;width:auto}
+.header-right{text-align:right}
+.header-title{font-size:20px;font-weight:800;color:#fff;letter-spacing:-0.01em;line-height:1.2}
+.header-title span{color:var(--wrig-blue)}
+.header-meta{font-size:11px;color:rgba(255,255,255,0.55);margin-top:4px}
+.header-meta strong{color:rgba(255,255,255,0.85);font-weight:600}
+
+/* ── PERSONA TOGGLE ── */
+.persona-bar{background:#fff;border-bottom:2px solid var(--border);padding:0 28px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.persona-toggle{display:flex;gap:0}
+.persona-btn{padding:12px 22px;font-size:12px;font-weight:800;letter-spacing:0.04em;text-transform:uppercase;cursor:pointer;border:none;background:none;font-family:var(--font);color:var(--muted);border-bottom:3px solid transparent;margin-bottom:-2px;transition:all .15s;display:flex;align-items:center;gap:8px}
+.persona-btn:hover{color:var(--mars-blue)}
+.persona-btn.active-assoc{color:var(--wrig-blue);border-bottom-color:var(--wrig-blue)}
+.persona-btn.active-leader{color:var(--snack-orange);border-bottom-color:var(--snack-orange)}
+.persona-btn .persona-icon{font-size:15px}
+.persona-divider{width:1px;height:28px;background:var(--border);margin:0 4px;align-self:center}
+.version-switcher{display:flex;align-items:center;gap:8px;font-size:11px;color:var(--muted)}
+.vs-label{font-weight:600;text-transform:uppercase;letter-spacing:0.05em}
+.vs-btn{padding:4px 10px;border-radius:4px;border:1px solid var(--border);background:var(--bg);font-family:var(--font);font-size:11px;font-weight:600;cursor:pointer;color:var(--muted);transition:all .15s}
+.vs-btn.active{background:var(--mars-blue);color:white;border-color:var(--mars-blue)}
+.vs-btn:hover:not(.active){background:var(--border)}
+
+/* ── NAV TABS ── */
+.nav{display:flex;padding:0 28px;background:#FAFAFE;border-bottom:1px solid var(--border)}
+.nav-tab{padding:10px 18px;font-size:12px;font-weight:600;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .15s;letter-spacing:0.03em;text-transform:uppercase}
+.nav-tab:hover{color:var(--mars-blue)}
+.nav-tab.active{color:var(--mars-blue);border-bottom-color:var(--mars-blue)}
+
+/* ── MAIN ── */
+.main{padding:20px 28px;display:flex;flex-direction:column;gap:16px}
+.tab-content{display:none}.tab-content.active{display:flex;flex-direction:column;gap:16px}
+.persona-view{display:none}.persona-view.active{display:flex;flex-direction:column;gap:16px}
+
+/* ── PERSONA CONTEXT BANNER ── */
+.persona-banner{border-radius:8px;padding:14px 18px;display:flex;align-items:flex-start;gap:14px;border:1px solid}
+.persona-banner.assoc{background:#EEF8FF;border-color:#B3DEFF}
+.persona-banner.leader{background:#FFF5E6;border-color:#FFD599}
+.pb-icon{font-size:24px;flex-shrink:0}
+.pb-title{font-size:13px;font-weight:800;margin-bottom:3px}
+.pb-title.assoc{color:var(--wrig-blue)}
+.pb-title.leader{color:var(--snack-orange)}
+.pb-desc{font-size:12px;color:var(--muted);line-height:1.6}
+.pb-tags{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}
+.pb-tag{padding:2px 8px;border-radius:3px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em}
+.pb-tag.assoc{background:#B3DEFF;color:#005C99}
+.pb-tag.leader{background:#FFD599;color:#7A4000}
+
+/* ── SUMMARY ROW ── */
+.summary-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.scard{background:var(--card);border:1px solid var(--border);border-top:3px solid var(--mars-blue);border-radius:8px;padding:15px 17px;display:flex;align-items:flex-start;gap:13px;transition:box-shadow .15s}
+.scard:hover{box-shadow:0 4px 16px rgba(0,0,160,0.08)}
+.scard-icon{width:36px;height:36px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0}
+.scard-label{font-size:10px;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;color:var(--muted);margin-bottom:3px}
+.scard-stat{font-size:13px;font-weight:600;color:var(--text)}
+.rag-row{display:flex;gap:5px;margin-top:7px;flex-wrap:wrap}
+.rag-chip{display:flex;align-items:center;gap:4px;padding:2px 7px;border-radius:4px;font-size:11px;font-weight:600}
+.rag-chip.g{background:var(--green-bg);color:var(--green)}.rag-chip.a{background:var(--amber-bg);color:var(--amber)}.rag-chip.r{background:var(--red-bg);color:var(--red)}
+.rag-dot{width:6px;height:6px;border-radius:50%}
+.rag-dot.g{background:var(--green-dot)}.rag-dot.a{background:var(--amber-dot)}.rag-dot.r{background:var(--kell-red)}
+
+/* ── CAT SECTION ── */
+.cat-section{background:var(--card);border:1px solid var(--border);border-radius:8px;overflow:hidden;transition:box-shadow .15s}
+.cat-section:hover{box-shadow:0 2px 12px rgba(0,0,160,0.05)}
+.cat-header{display:flex;align-items:center;gap:12px;padding:13px 18px;border-bottom:1px solid var(--border);background:#FAFAFE}
+.cat-stripe{width:4px;height:34px;border-radius:2px;flex-shrink:0}
+.cat-icon{font-size:18px}
+.cat-title{font-size:13px;font-weight:800;color:var(--mars-blue)}
+.cat-sub{font-size:11px;color:var(--muted);margin-top:1px}
+.cat-header-right{margin-left:auto;display:flex;align-items:center;gap:8px}
+
+/* ── SERVICE CARDS ── */
+.svc-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--border)}
+.svc-card{background:var(--card);padding:14px 18px;display:flex;flex-direction:column;gap:7px;transition:background .12s}
+.svc-card:hover{background:#FAFAFE}
+.svc-card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
+.svc-name{font-size:13px;font-weight:600;color:var(--text);font-style:italic}
+.status-badge{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600;flex-shrink:0}
+.status-badge.g{background:var(--green-bg);color:var(--green)}.status-badge.a{background:var(--amber-bg);color:var(--amber)}.status-badge.r{background:var(--red-bg);color:var(--red)}.status-badge.tbc{background:#F0F0F8;color:var(--muted)}
+.status-dot{width:6px;height:6px;border-radius:50%}
+.status-dot.g{background:var(--green-dot)}.status-dot.a{background:var(--amber-dot)}.status-dot.r{background:var(--kell-red)}.status-dot.tbc{background:var(--sub)}
+.svc-desc{font-size:12px;color:var(--muted);line-height:1.5}
+.svc-eta{font-size:11px;font-weight:600;color:var(--wrig-blue);margin-top:1px}
+.svc-action{font-size:11px;font-weight:700;color:var(--mars-blue);cursor:pointer;margin-top:2px;display:inline-flex;align-items:center;gap:3px}
+.svc-action:hover{text-decoration:underline;color:var(--wrig-blue)}
+.svc-action.orange{color:var(--snack-orange)}
+.svc-action.orange:hover{color:#CC7000}
+
+/* ── APP CARDS (Functional) ── */
+.func-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;padding:16px 18px}
+.func-card{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:14px 16px;display:flex;flex-direction:column;gap:8px}
+.func-card-top{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.func-name{font-size:13px;font-weight:800;color:var(--mars-blue)}
+.func-demand-badge{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;padding:2px 7px;border-radius:3px;background:#EEF0FF;color:var(--mars-blue)}
+.func-demand-badge.live{background:var(--green-bg);color:var(--green)}
+.app-list{display:flex;flex-direction:column;gap:4px}
+.app-row{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:5px 8px;background:var(--card);border-radius:5px;border:1px solid var(--border)}
+.app-row:hover{border-color:#B8B8D8}
+.app-name{font-size:12px;font-weight:600;color:var(--text)}
+.app-heritage{font-size:10px;color:var(--sub);margin-top:1px}
+.app-right{display:flex;align-items:center;gap:6px}
+.app-status{display:inline-flex;align-items:center;gap:3px;padding:2px 6px;border-radius:3px;font-size:10px;font-weight:700}
+.app-status.enabled{background:var(--green-bg);color:var(--green)}
+.app-status.in-progress{background:var(--amber-bg);color:var(--amber)}
+.app-status.not-started{background:#F0F0F8;color:var(--muted)}
+.app-status.by-request{background:#FDE8EC;color:var(--red)}
+.app-how{font-size:10px;font-weight:700;color:var(--mars-blue);cursor:pointer;white-space:nowrap}
+.app-how:hover{text-decoration:underline}
+.func-footer{padding:8px 18px 14px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.func-cta{font-size:11px;font-weight:700;color:var(--mars-blue);cursor:pointer}
+.func-cta:hover{text-decoration:underline}
+.coming-soon-func{padding:24px 18px;text-align:center;color:var(--muted);font-size:12px;display:flex;flex-direction:column;align-items:center;gap:8px}
+.cs-icon-sm{font-size:24px}
+
+/* ── LEADER-SPECIFIC: BUNDLE CARDS ── */
+.bundle-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:16px 18px}
+.bundle-card{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:14px 16px}
+.bundle-name{font-size:12px;font-weight:800;color:var(--mars-blue);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.bundle-badge{font-size:10px;font-weight:600;padding:2px 7px;border-radius:3px;background:#EEF0FF;color:var(--mars-blue);text-transform:none;letter-spacing:0}
+.bundle-apps{display:flex;flex-direction:column;gap:4px}
+.bundle-app{display:flex;align-items:center;justify-content:space-between;padding:5px 8px;background:var(--card);border-radius:5px;border:1px solid var(--border);font-size:12px;font-weight:600;color:var(--text)}
+.bundle-app-status{font-size:10px;font-weight:700;padding:2px 6px;border-radius:3px}
+.bundle-app-status.auto{background:var(--green-bg);color:var(--green)}
+.bundle-app-status.config{background:var(--amber-bg);color:var(--amber)}
+
+/* ── JOURNEY STRIP ── */
+.journey-strip{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px 20px}
+.journey-title{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:0.07em;color:var(--muted);margin-bottom:12px}
+.journey-steps{display:flex;align-items:flex-start;gap:0}
+.journey-step{flex:1;display:flex;flex-direction:column;align-items:center;position:relative}
+.journey-step:not(:last-child)::after{content:'';position:absolute;top:14px;left:60%;width:80%;height:2px;background:var(--border)}
+.js-circle{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:white;position:relative;z-index:1;flex-shrink:0}
+.js-circle.done{background:var(--green)}
+.js-circle.active{background:var(--mars-blue)}
+.js-circle.pending{background:var(--border);color:var(--muted)}
+.js-label{font-size:10px;font-weight:600;color:var(--text);margin-top:6px;text-align:center;line-height:1.4}
+.js-sub{font-size:9px;color:var(--muted);text-align:center;margin-top:2px}
+
+/* ── HOW TO REQUEST PANEL ── */
+.how-to-panel{background:linear-gradient(135deg,var(--mars-blue) 0%,#0000CC 100%);border-radius:8px;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.htp-left{flex:1}
+.htp-title{font-size:13px;font-weight:800;color:white}
+.htp-sub{font-size:11px;color:rgba(255,255,255,0.6);margin-top:3px;line-height:1.5}
+.htp-btn{padding:9px 18px;background:var(--wrig-blue);color:white;border:none;border-radius:4px;font-family:var(--font);font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;flex-shrink:0}
+.htp-btn:hover{background:#007DC4}
+.htp-btn.orange{background:var(--snack-orange)}
+.htp-btn.orange:hover{background:#CC7000}
+
+/* ── COMMS ── */
+.comms-item{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px 16px;display:grid;grid-template-columns:1.8fr 1fr 1fr 1fr;gap:12px;align-items:center;transition:box-shadow .12s}
+.comms-item:hover{box-shadow:0 2px 10px rgba(0,0,160,0.07);border-color:#C8C8E8}
+.ci-title{font-size:13px;font-weight:600;color:var(--text)}.ci-sub{font-size:11px;color:var(--muted);margin-top:2px}
+.ci-badge{display:inline-flex;align-items:center;gap:4px;padding:2px 9px;border-radius:4px;font-size:11px;font-weight:600}
+.ci-badge.sent{background:var(--green-bg);color:var(--green)}.ci-badge.draft{background:var(--amber-bg);color:var(--amber)}.ci-badge.planned{background:#EEF0FF;color:var(--mars-blue)}
+.ci-audience{font-size:12px;color:var(--muted)}
+.ci-action{font-size:11px;color:var(--mars-blue);cursor:pointer;font-weight:600}
+.ci-action:hover{text-decoration:underline}
+.section-block-label{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);padding:10px 0 4px;border-bottom:1px solid var(--border);margin-top:4px}
+
+/* ── GUIDES ── */
+.guides-layout{display:grid;grid-template-columns:210px 1fr;gap:16px;align-items:start}
+.guides-sidebar{background:var(--card);border:1px solid var(--border);border-radius:8px;overflow:hidden;position:sticky;top:12px}
+.sidebar-header{padding:13px 15px;background:var(--mars-blue)}
+.sidebar-header-title{font-size:11px;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,.9)}
+.sidebar-header-sub{font-size:10px;color:rgba(255,255,255,.5);margin-top:2px}
+.sidebar-section{padding:7px}
+.sidebar-section-label{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.09em;color:var(--sub);padding:8px 8px 4px}
+.guide-btn{width:100%;text-align:left;background:none;border:none;padding:8px 9px;border-radius:6px;cursor:pointer;font-family:var(--font);transition:background .12s;display:flex;align-items:center;gap:8px}
+.guide-btn:hover{background:var(--bg)}.guide-btn.active{background:#EEF0FF}.guide-btn.active .guide-btn-title{color:var(--mars-blue)}
+.guide-btn-icon{font-size:14px;flex-shrink:0}.guide-btn-body{flex:1;min-width:0}
+.guide-btn-title{font-size:12px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.guide-btn-sub{font-size:10px;color:var(--muted);margin-top:1px}
+.guide-status-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.dot-live{background:var(--green-dot)}.dot-coming{background:var(--amber-dot)}.dot-empty{background:#D0D0E0}
+.sidebar-divider{height:1px;background:var(--border);margin:3px 7px}
+.guide-pane{background:var(--card);border:1px solid var(--border);border-radius:8px;overflow:hidden}
+.guide-pane-header{padding:18px 22px 14px;border-bottom:2px solid var(--border);background:#FAFAFE}
+.guide-pane-icon{font-size:24px;margin-bottom:7px}
+.guide-pane-title{font-size:16px;font-weight:800;color:var(--mars-blue)}
+.guide-pane-desc{font-size:12px;color:var(--muted);margin-top:4px;line-height:1.6}
+.guide-pane-badges{display:flex;gap:7px;margin-top:9px;flex-wrap:wrap}
+.gpb{padding:2px 9px;border-radius:4px;font-size:11px;font-weight:600}
+.gpb-orange{background:var(--snack-light);color:var(--amber)}.gpb-blue{background:#EEF0FF;color:var(--mars-blue)}.gpb-teal{background:#E0F4FF;color:#006A9E}
+.guide-pane-body{padding:18px 22px;display:flex;flex-direction:column;gap:16px}
+.steps-section-title{font-size:11px;font-weight:800;color:var(--mars-blue);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:9px}
+.steps-list{display:flex;flex-direction:column}
+.step-item{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid #F2F2F8}.step-item:last-child{border-bottom:none}
+.step-num{width:26px;height:26px;border-radius:50%;background:var(--mars-blue);color:white;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.step-body{flex:1}.step-title{font-size:13px;font-weight:600;color:var(--text)}.step-desc{font-size:12px;color:var(--muted);margin-top:2px;line-height:1.6}
+.step-note{display:inline-flex;align-items:flex-start;gap:5px;background:var(--amber-bg);border-left:3px solid var(--snack-orange);border-radius:0 4px 4px 0;padding:5px 9px;font-size:11px;color:var(--amber);margin-top:7px;font-weight:500;line-height:1.5}
+.step-tip{display:inline-flex;align-items:flex-start;gap:5px;background:var(--green-bg);border-left:3px solid var(--green-dot);border-radius:0 4px 4px 0;padding:5px 9px;font-size:11px;color:var(--green);margin-top:7px;font-weight:500;line-height:1.5}
+.quick-ref{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.qr-card{background:var(--bg);border:1px solid var(--border);border-left:3px solid var(--wrig-blue);border-radius:0 6px 6px 0;padding:10px 13px}
+.qr-label{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:4px}.qr-val{font-size:13px;font-weight:600;color:var(--text)}.qr-sub{font-size:11px;color:var(--muted);margin-top:2px}
+.faq-list{display:flex;flex-direction:column;gap:5px}
+.faq-item{border:1px solid var(--border);border-radius:6px;overflow:hidden}
+.faq-q{padding:11px 13px;font-size:13px;font-weight:600;color:var(--text);cursor:pointer;display:flex;justify-content:space-between;align-items:center;background:#FAFAFE;gap:8px}
+.faq-q:hover{background:#EEF0FF;color:var(--mars-blue)}.faq-chevron{font-size:10px;color:var(--muted);transition:transform .2s}.faq-chevron.open{transform:rotate(180deg);color:var(--mars-blue)}
+.faq-a{display:none;padding:11px 13px;font-size:12px;color:var(--muted);line-height:1.7;border-top:1px solid var(--border)}.faq-a.open{display:block}
+.guide-cta-banner{background:linear-gradient(135deg,var(--mars-blue) 0%,#0000CC 100%);border-radius:6px;padding:13px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.gcta-title{font-size:12px;font-weight:800;color:white}.gcta-sub{font-size:11px;color:rgba(255,255,255,0.6);margin-top:2px}
+.gcta-btn{padding:7px 14px;background:var(--wrig-blue);color:white;border:none;border-radius:4px;font-family:var(--font);font-size:12px;font-weight:600;cursor:pointer}
+.gcta-btn:hover{background:#007DC4}
+.placeholder-notice{background:var(--snack-light);border:1px solid #FFCC88;border-left:3px solid var(--snack-orange);border-radius:0 6px 6px 0;padding:11px 13px;display:flex;gap:9px;align-items:flex-start}
+.pn-title{font-size:12px;font-weight:600;color:var(--amber);margin-bottom:2px}.pn-sub{font-size:11px;color:var(--muted);line-height:1.6}
+.coming-soon-pane{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:40px 22px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:11px}
+.cs-icon{font-size:34px}.cs-title{font-size:15px;font-weight:800;color:var(--mars-blue)}.cs-sub{font-size:13px;color:var(--muted);max-width:340px;line-height:1.6}
+.cs-cta{margin-top:5px;padding:9px 20px;background:var(--mars-blue);color:white;border:none;border-radius:4px;font-family:var(--font);font-size:13px;font-weight:600;cursor:pointer}
+
+/* ── VERSION A: SEPARATE TABS ── */
+#version-a .nav{display:flex}
+#version-b{display:none}
+
+/* ── VERSION B: PERSONA-DRIVEN (no sub-nav, sections inline) ── */
+#version-b .nav{display:none}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-accent"></div>
+  <div class="header-inner">
+    <div class="header-top">
+      <img class="header-logo" src="data:image/png;base64,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" alt="Mars Snacking"/>
+      <div class="header-right">
+        <div class="header-title">Associate Experience <span>enabled by Tech</span></div>
+        <div class="header-meta">Current status &nbsp;·&nbsp; <strong id="timestamp">--</strong></div>
+      </div>
+    </div>
+  </div>
+  <div class="header-bar"></div>
+</div>
+
+<!-- PERSONA + VERSION SWITCHER BAR -->
+<div class="persona-bar">
+  <div class="persona-toggle">
+    <button class="persona-btn active-assoc" id="pBtn-assoc" onclick="switchPersona('assoc')">
+      <span class="persona-icon">👤</span> Associate
+    </button>
+    <div class="persona-divider"></div>
+    <button class="persona-btn" id="pBtn-leader" onclick="switchPersona('leader')">
+      <span class="persona-icon">👥</span> Leader / Line Manager
+    </button>
+  </div>
+  <div class="version-switcher">
+    <span class="vs-label">Dashboard style:</span>
+    <button class="vs-btn active" id="vsA" onclick="switchVersion('a')">A — Separate Tabs</button>
+    <button class="vs-btn" id="vsB" onclick="switchVersion('b')">B — Persona-Driven</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════
+     VERSION A — SEPARATE TABS
+═══════════════════════════════════ -->
+<div id="version-a">
+  <div class="nav">
+    <div class="nav-tab active" id="navA-it4it" onclick="showTabA('it4it',this)">IT4IT Services</div>
+    <div class="nav-tab" id="navA-apps" onclick="showTabA('apps',this)">Functional Apps</div>
+    <div class="nav-tab" id="navA-comms" onclick="showTabA('comms',this)">Comms Tracker</div>
+    <div class="nav-tab" id="navA-guides" onclick="showTabA('guides',this)">Guides &amp; How-Tos</div>
+  </div>
+
+  <div class="main">
+
+    <!-- A: IT4IT TAB -->
+    <div class="tab-content active" id="tabA-it4it">
+      <!-- Associate view -->
+      <div class="persona-view active" id="A-it4it-assoc">
+        <div class="persona-banner assoc">
+          <div class="pb-icon">👤</div>
+          <div>
+            <div class="pb-title assoc">Associate — Familiar Experience</div>
+            <div class="pb-desc">These are the IT services that affect how you work day-to-day. Most changes happen in the background. Where action is needed from you, we'll tell you clearly what to do.</div>
+            <div class="pb-tags"><span class="pb-tag assoc">Self-serve</span><span class="pb-tag assoc">ServiceNow</span><span class="pb-tag assoc">No approval needed</span></div>
+          </div>
+        </div>
+        <div class="summary-row">
+          <div class="scard" style="border-top-color:var(--mars-blue)"><div class="scard-icon" style="background:#EEF0FF">👥</div><div><div class="scard-label">How I collaborate</div><div class="scard-stat">4 services</div><div class="rag-row"><div class="rag-chip a"><div class="rag-dot a"></div>3 in progress</div><div class="rag-chip r"><div class="rag-dot r"></div>1 friction</div></div></div></div>
+          <div class="scard" style="border-top-color:var(--wrig-blue)"><div class="scard-icon" style="background:#E0F4FF">💻</div><div><div class="scard-label">How I perform my job</div><div class="scard-stat">4 services</div><div class="rag-row"><div class="rag-chip a"><div class="rag-dot a"></div>2 in progress</div><div class="rag-chip r"><div class="rag-dot r"></div>2 friction</div></div></div></div>
+          <div class="scard" style="border-top-color:var(--green-dot)"><div class="scard-icon" style="background:#E6F5EC">🌱</div><div><div class="scard-label">How I grow &amp; lead</div><div class="scard-stat">4 services</div><div class="rag-row"><div class="rag-chip g"><div class="rag-dot g"></div>2 working well</div><div class="rag-chip a"><div class="rag-dot a"></div>1 in progress</div></div></div></div>
+        </div>
+        <div class="cat-section">
+          <div class="cat-header"><div class="cat-stripe" style="background:var(--mars-blue)"></div><div class="cat-icon">👥</div><div><div class="cat-title">How I collaborate</div><div class="cat-sub">Microsoft Tools · Meeting Spaces · Guest Wi-Fi · Calendar Visibility</div></div></div>
+          <div class="svc-grid">
+            <div class="svc-card"><div class="svc-card-top"><div class="svc-name">Microsoft Tools</div><div class="status-badge a"><div class="status-dot a"></div>In progress</div></div><div class="svc-desc">Collaboration through Teams federation. Full functionality coming.</div><div class="svc-eta">Full functionality — end 2027</div></div>
+            <div class="svc-card"><div class="svc-card-top"><div class="svc-name">Meeting Spaces</div><div class="status-badge r"><div class="status-dot r"></div>Friction</div></div><div class="svc-desc">Testing add-on solution for cross-entity room booking.</div><div class="svc-eta">Full booking — end 2026</div><div class="svc-action" onclick="switchTabAndGuide('a','guides','rooms','navA-guides')">View booking guide →</div></div>
+            <div class="svc-card"><div class="svc-card-top"><div class="svc-name">Guest Wi-Fi</div><div class="status-badge a"><div class="status-dot a"></div>In progress</div></div><div class="svc-desc">Enhanced connectivity in place. Daily log-in still required at some sites.</div><div class="svc-eta">Seamless Wi-Fi — Oct 2026</div><div class="svc-action" onclick="switchTabAndGuide('a','guides','wifi','navA-guides')">View Wi-Fi guide →</div></div>
+            <div class="svc-card"><div class="svc-card-top"><div class="svc-name">Calendar Visibility</div><div class="status-badge a"><div class="status-dot a"></div>In progress</div></div><div class="svc-desc">Free/busy visible in scheduler view only.</div><div class="svc-eta">Full calendar controls — end 2027</div></div>
+          </div>
+        </div>
+        <div class="cat-section">
+          <div class="cat-header"><div class="cat-stripe" style="background:var(--wrig-blue)"></div><div class="cat-icon">💻</div><div><div class="cat-title">How I perform my job</div><div class="cat-sub">Cross Company Access · Printing · IT Help Desk</div></div></div>
+          <div class="svc-grid">
+            <div class="svc-card"><div class="svc-card-top"><div class="svc-name">Cross Company Access</div><div class="status-badge a"><div class="status-dot a"></div>In progress</div></div><div class="svc-desc">Apps available by exception via ServiceNow request form.</div><div class="svc-eta">Consistent access — end 2027</div><div class="svc-action" onclick="switchTabA('apps',document.getElementById('navA-apps'))">Request an app →</div></div>
+            <div class="svc-card"><div class="svc-card-top"><div class="svc-name">Printing</div><div class="status-badge r"><div class="status-dot r"></div>Friction</div></div><div class="svc-desc">Limited to legacy site associates only. Modified solution in progress.</div><div class="svc-eta">Print from any printer — end 2026</div></div>
+            <div class="svc-card"><div class="svc-card-top"><div class="svc-name">IT Help Desk</div><div class="status-badge a"><div class="status-dot a"></div>In progress</div></div><div class="svc-desc">Hotline support via legacy IT systems at both companies.</div><div class="svc-eta">One integrated Service Desk — end 2027</div></div>
+            <div class="svc-card"><div class="svc-card-top"><div class="svc-name">Learning &amp; Development</div><div class="status-badge g"><div class="status-dot g"></div>Working well</div></div><div class="svc-desc">L&amp;D fully available through existing systems at both companies.</div><div class="svc-eta">Integrated platforms — mid 2027</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Leader view -->
+      <div class="persona-view" id="A-it4it-leader">
+        <div class="persona-banner leader">
+          <div class="pb-icon">👥</div>
+          <div>
+            <div class="pb-title leader">Leader / Line Manager — Guided Experience</div>
+            <div class="pb-desc">As a leader with a blended team, your access is configured for you by the CXA team. You don't need to request applications individually — your standard bundle is provisioned automatically when you're identified for placement.</div>
+            <div class="pb-tags"><span class="pb-tag leader">Auto-provisioned</span><span class="pb-tag leader">P&amp;O-led</span><span class="pb-tag leader">CXA managed</span></div>
+          </div>
+        </div>
+        <!-- Journey strip -->
+        <div class="journey-strip">
+          <div class="journey-title">Your provisioning journey</div>
+          <div class="journey-steps">
+            <div class="journey-step"><div class="js-circle done">✓</div><div class="js-label">Identified for placement</div><div class="js-sub">Snacking P&amp;O</div></div>
+            <div class="journey-step"><div class="js-circle done">✓</div><div class="js-label">P&amp;O notifies CXA</div><div class="js-sub">MGS P&amp;O &amp; CXA</div></div>
+            <div class="journey-step"><div class="js-circle active">3</div><div class="js-label">HRIS profile created</div><div class="js-sub">Cross-company setup</div></div>
+            <div class="journey-step"><div class="js-circle pending">4</div><div class="js-label">App bundle configured</div><div class="js-sub">Standard LM bundle</div></div>
+            <div class="journey-step"><div class="js-circle pending">5</div><div class="js-label">You're notified</div><div class="js-sub">Automated email</div></div>
+          </div>
+        </div>
+        <div class="summary-row">
+          <div class="scard" style="border-top-color:var(--snack-orange)"><div class="scard-icon" style="background:#FFF4E0">📋</div><div><div class="scard-label">Your app bundle</div><div class="scard-stat">Auto-configured</div><div class="rag-row"><div class="rag-chip g"><div class="rag-dot g"></div>No action needed</div></div></div></div>
+          <div class="scard" style="border-top-color:var(--mars-blue)"><div class="scard-icon" style="background:#EEF0FF">👥</div><div><div class="scard-label">IT4IT services</div><div class="scard-stat">Same as associates</div><div class="rag-row"><div class="rag-chip a"><div class="rag-dot a"></div>Some in progress</div></div></div></div>
+          <div class="scard" style="border-top-color:var(--wrig-blue)"><div class="scard-icon" style="background:#E0F4FF">🎧</div><div><div class="scard-label">Digital Hypercare</div><div class="scard-stat">Available to you</div><div class="rag-row"><div class="rag-chip g"><div class="rag-dot g"></div>Active support</div></div></div></div>
+        </div>
+        <div class="cat-section">
+          <div class="cat-header"><div class="cat-stripe" style="background:var(--snack-orange)"></div><div class="cat-icon">📦</div><div><div class="cat-title">Your Standard Line Manager App Bundle</div><div class="cat-sub">Automatically configured — no request needed</div></div></div>
+          <div class="bundle-grid">
+            <div class="bundle-card">
+              <div class="bundle-name">🔴 Mars Apps <span class="bundle-badge">Heritage Mars</span></div>
+              <div class="bundle-apps">
+                <div class="bundle-app">Ariba <span class="bundle-app-status auto">Auto-provisioned</span></div>
+                <div class="bundle-app">Concur <span class="bundle-app-status auto">Auto-provisioned</span></div>
+                <div class="bundle-app">MobileXpense <span class="bundle-app-status auto">Auto-provisioned</span></div>
+                <div class="bundle-app">Workday <span class="bundle-app-status auto">Auto-provisioned</span></div>
+                <div class="bundle-app">ServiceNow MyHub <span class="bundle-app-status auto">Auto-provisioned</span></div>
+              </div>
+            </div>
+            <div class="bundle-card">
+              <div class="bundle-name">🟡 Kellanova Apps <span class="bundle-badge">Heritage Kellanova</span></div>
+              <div class="bundle-apps">
+                <div class="bundle-app">Concur <span class="bundle-app-status auto">Auto-provisioned</span></div>
+                <div class="bundle-app">KBUY / Smart by GEP <span class="bundle-app-status auto">Auto-provisioned</span></div>
+                <div class="bundle-app">SAP SuccessFactors <span class="bundle-app-status auto">Auto-provisioned</span></div>
+                <div class="bundle-app">ServiceNow HRSD – EPIC <span class="bundle-app-status auto">Auto-provisioned</span></div>
+                <div class="bundle-app">Digital Concierge <span class="bundle-app-status config">Being configured</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="cat-section">
+          <div class="cat-header"><div class="cat-stripe" style="background:var(--mars-blue)"></div><div class="cat-icon">💻</div><div><div class="cat-title">IT4IT services — same as all associates</div><div class="cat-sub">Wi-Fi · Room booking · Printing · Help Desk</div></div></div>
+          <div class="svc-grid">
+            <div class="svc-card"><div class="svc-card-top"><div class="svc-name">Guest Wi-Fi</div><div class="status-badge a"><div class="status-dot a"></div>In progress</div></div><div class="svc-desc">Enhanced connectivity in place. Daily log-in still required at some sites.</div><div class="svc-eta">Seamless Wi-Fi — Oct 2026</div></div>
+            <div class="svc-card"><div class="svc-card-top"><div class="svc-name">Meeting Spaces</div><div class="status-badge r"><div class="status-dot r"></div>Friction</div></div><div class="svc-desc">Cross-entity room booking via add-on solution being tested.</div><div class="svc-eta">Full booking — end 2026</div></div>
+            <div class="svc-card"><div class="svc-card-top"><div class="svc-name">Microsoft Tools / Teams</div><div class="status-badge a"><div class="status-dot a"></div>In progress</div></div><div class="svc-desc">Federation active. Full tenant merge coming later.</div><div class="svc-eta">Full functionality — end 2027</div></div>
+            <div class="svc-card"><div class="svc-card-top"><div class="svc-name">IT Help Desk</div><div class="status-badge a"><div class="status-dot a"></div>In progress</div></div><div class="svc-desc">Legacy IT systems active. One integrated desk coming.</div><div class="svc-eta">One Service Desk — end 2027</div></div>
+          </div>
+        </div>
+        <div class="how-to-panel" style="background:linear-gradient(135deg,#7A4000 0%,var(--snack-orange) 100%)">
+          <div class="htp-left"><div class="htp-title">Need an additional app not in your bundle?</div><div class="htp-sub">Contact your CXA team or raise a request via ServiceNow. Apps outside the standard bundle go through the Cross-Company App Enablement process.</div></div>
+          <button class="htp-btn">Contact CXA team →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- A: FUNCTIONAL APPS TAB -->
+    <div class="tab-content" id="tabA-apps">
+      <!-- Associate view -->
+      <div class="persona-view active" id="A-apps-assoc">
+        <div class="persona-banner assoc">
+          <div class="pb-icon">🔐</div>
+          <div>
+            <div class="pb-title assoc">Requesting cross-company app access — Associate</div>
+            <div class="pb-desc">Apps must be enabled before they can be requested. If your app is listed below, submit a request via ServiceNow. If it's not listed, submit an enablement form — this kicks off a process to make it available.</div>
+            <div class="pb-tags"><span class="pb-tag assoc">ServiceNow form</span><span class="pb-tag assoc">Self-serve</span><span class="pb-tag assoc">2,500+ SSO apps</span></div>
+          </div>
+        </div>
+        <div class="how-to-panel">
+          <div class="htp-left"><div class="htp-title">How to request cross-company app access</div><div class="htp-sub">Navigate to the Cross-Company ServiceNow Request Form → Find your app → Submit. If not listed, submit the App Enablement Form instead.</div></div>
+          <button class="htp-btn">Open ServiceNow →</button>
+        </div>
+        <!-- Current demand functions -->
+        <div class="cat-section">
+          <div class="cat-header"><div class="cat-stripe" style="background:var(--mars-blue)"></div><div class="cat-icon">📊</div><div><div class="cat-title">Functional apps — current demand areas</div><div class="cat-sub">Apps being enabled for cross-company access · Additional functions coming</div></div></div>
+          <div class="func-grid">
+            <!-- Commercial -->
+            <div class="func-card">
+              <div class="func-card-top"><div class="func-name">💼 Commercial</div><div class="func-demand-badge live">Active</div></div>
+              <div class="app-list">
+                <div class="app-row"><div><div class="app-name">Salesforce</div><div class="app-heritage">Cross-company</div></div><div class="app-right"><span class="app-status enabled">Enabled</span><span class="app-how">Request →</span></div></div>
+                <div class="app-row"><div><div class="app-name">Ariba</div><div class="app-heritage">Mars heritage</div></div><div class="app-right"><span class="app-status enabled">Enabled</span><span class="app-how">Request →</span></div></div>
+                <div class="app-row"><div><div class="app-name">Trade Promotion Mgmt</div><div class="app-heritage">Mars heritage</div></div><div class="app-right"><span class="app-status in-progress">Enabling</span><span class="app-how">ETA soon</span></div></div>
+                <div class="app-row"><div><div class="app-name">KBUY / Smart by GEP</div><div class="app-heritage">KN heritage</div></div><div class="app-right"><span class="app-status in-progress">Enabling</span><span class="app-how">ETA soon</span></div></div>
+              </div>
+            </div>
+            <!-- North America Sales -->
+            <div class="func-card">
+              <div class="func-card-top"><div class="func-name">🛒 North America Sales</div><div class="func-demand-badge live">Active</div></div>
+              <div class="app-list">
+                <div class="app-row"><div><div class="app-name">Salesforce CRM</div><div class="app-heritage">Cross-company</div></div><div class="app-right"><span class="app-status enabled">Enabled</span><span class="app-how">Request →</span></div></div>
+                <div class="app-row"><div><div class="app-name">SAP SuccessFactors</div><div class="app-heritage">KN heritage</div></div><div class="app-right"><span class="app-status in-progress">Enabling</span><span class="app-how">ETA soon</span></div></div>
+                <div class="app-row"><div><div class="app-name">Route Planning Tool</div><div class="app-heritage">Mars heritage</div></div><div class="app-right"><span class="app-status not-started">Not yet</span><span class="app-how">Enablement →</span></div></div>
+              </div>
+            </div>
+            <!-- Tax & Treasury -->
+            <div class="func-card">
+              <div class="func-card-top"><div class="func-name">💰 Tax &amp; Treasury</div><div class="func-demand-badge live">Active</div></div>
+              <div class="app-list">
+                <div class="app-row"><div><div class="app-name">Workday Financials</div><div class="app-heritage">Mars heritage</div></div><div class="app-right"><span class="app-status enabled">Enabled</span><span class="app-how">Request →</span></div></div>
+                <div class="app-row"><div><div class="app-name">Concur Expense</div><div class="app-heritage">Cross-company</div></div><div class="app-right"><span class="app-status enabled">Enabled</span><span class="app-how">Request →</span></div></div>
+                <div class="app-row"><div><div class="app-name">Treasury Mgmt System</div><div class="app-heritage">Mars heritage</div></div><div class="app-right"><span class="app-status in-progress">Enabling</span><span class="app-how">ETA soon</span></div></div>
+                <div class="app-row"><div><div class="app-name">Tax Compliance Tool</div><div class="app-heritage">KN heritage</div></div><div class="app-right"><span class="app-status not-started">Not yet</span><span class="app-how">Enablement →</span></div></div>
+              </div>
+            </div>
+            <!-- Growth & Marketing -->
+            <div class="func-card">
+              <div class="func-card-top"><div class="func-name">📣 Growth &amp; Marketing</div><div class="func-demand-badge live">Active</div></div>
+              <div class="app-list">
+                <div class="app-row"><div><div class="app-name">Adobe Experience</div><div class="app-heritage">Cross-company</div></div><div class="app-right"><span class="app-status enabled">Enabled</span><span class="app-how">Request →</span></div></div>
+                <div class="app-row"><div><div class="app-name">Salesforce Marketing</div><div class="app-heritage">Cross-company</div></div><div class="app-right"><span class="app-status in-progress">Enabling</span><span class="app-how">ETA soon</span></div></div>
+                <div class="app-row"><div><div class="app-name">Content Mgmt System</div><div class="app-heritage">Mars heritage</div></div><div class="app-right"><span class="app-status not-started">Not yet</span><span class="app-how">Enablement →</span></div></div>
+              </div>
+            </div>
+          </div>
+          <div class="func-footer"><div style="font-size:11px;color:var(--muted)">* App statuses are illustrative — replace with your real enablement data</div><div class="func-cta">+ Request a new function be added →</div></div>
+        </div>
+        <div style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px 20px">
+          <div style="font-size:12px;font-weight:800;color:var(--mars-blue);margin-bottom:10px;text-transform:uppercase;letter-spacing:0.06em">Functions coming soon</div>
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px">
+            <div style="padding:10px 12px;background:var(--bg);border:1px dashed var(--border);border-radius:6px;font-size:12px;font-weight:600;color:var(--muted);text-align:center">🏭 Supply Chain</div>
+            <div style="padding:10px 12px;background:var(--bg);border:1px dashed var(--border);border-radius:6px;font-size:12px;font-weight:600;color:var(--muted);text-align:center">🧑‍💼 HR / P&amp;O</div>
+            <div style="padding:10px 12px;background:var(--bg);border:1px dashed var(--border);border-radius:6px;font-size:12px;font-weight:600;color:var(--muted);text-align:center">⚖️ Legal</div>
+            <div style="padding:10px 12px;background:var(--bg);border:1px dashed var(--border);border-radius:6px;font-size:12px;font-weight:600;color:var(--muted);text-align:center">+ Add function</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Leader apps view -->
+      <div class="persona-view" id="A-apps-leader">
+        <div class="persona-banner leader">
+          <div class="pb-icon">📦</div>
+          <div>
+            <div class="pb-title leader">Leader / Line Manager — Your apps are pre-configured</div>
+            <div class="pb-desc">Your standard application bundle is automatically provisioned. You do not need to request individual apps. If a member of your blended team needs an app, they request it via ServiceNow.</div>
+            <div class="pb-tags"><span class="pb-tag leader">Auto-provisioned</span><span class="pb-tag leader">No action needed</span></div>
+          </div>
+        </div>
+        <div class="cat-section">
+          <div class="cat-header"><div class="cat-stripe" style="background:var(--snack-orange)"></div><div class="cat-icon">📦</div><div><div class="cat-title">Your Standard Line Manager App Bundle</div><div class="cat-sub">All provisioned automatically — no ServiceNow request required</div></div></div>
+          <div class="bundle-grid">
+            <div class="bundle-card">
+              <div class="bundle-name">🔴 Mars Apps <span class="bundle-badge">Heritage Mars</span></div>
+              <div class="bundle-apps">
+                <div class="bundle-app">Ariba <span class="bundle-app-status auto">Auto-provisioned</span></div>
+                <div class="bundle-app">Concur <span class="bundle-app-status auto">Auto-provisioned</span></div>
+                <div class="bundle-app">MobileXpense <span class="bundle-app-status auto">Auto-provisioned</span></div>
+                <div class="bundle-app">Workday <span class="bundle-app-status auto">Auto-provisioned</span></div>
+                <div class="bundle-app">ServiceNow MyHub <span class="bundle-app-status auto">Auto-provisioned</span></div>
+              </div>
+            </div>
+            <div class="bundle-card">
+              <div class="bundle-name">🟡 Kellanova Apps <span class="bundle-badge">Heritage Kellanova</span></div>
+              <div class="bundle-apps">
+                <div class="bundle-app">Concur <span class="bundle-app-status auto">Auto-provisioned</span></div>
+                <div class="bundle-app">KBUY / Smart by GEP <span class="bundle-app-status auto">Auto-provisioned</span></div>
+                <div class="bundle-app">SAP SuccessFactors <span class="bundle-app-status auto">Auto-provisioned</span></div>
+                <div class="bundle-app">ServiceNow HRSD – EPIC <span class="bundle-app-status auto">Auto-provisioned</span></div>
+                <div class="bundle-app">Digital Concierge <span class="bundle-app-status config">Being configured</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="how-to-panel" style="background:linear-gradient(135deg,#7A4000 0%,var(--snack-orange) 100%)">
+          <div class="htp-left"><div class="htp-title">Your team member needs an app?</div><div class="htp-sub">Direct them to the Cross-Company ServiceNow form. If the app isn't listed, they submit an enablement request and the CAM team takes it from there.</div></div>
+          <button class="htp-btn">Open ServiceNow for team →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- A: COMMS TAB -->
+    <div class="tab-content" id="tabA-comms">
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:18px">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px"><div style="font-size:14px;font-weight:800;color:var(--mars-blue)">Communications tracker</div><div style="font-size:11px;color:var(--mars-blue);font-weight:600;cursor:pointer">Generate next piece ↗</div></div>
+        <div style="display:grid;grid-template-columns:1.8fr 1fr 1fr 1fr;gap:12px;padding:6px 0;border-bottom:2px solid var(--border);margin-bottom:10px">
+          <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:var(--muted)">Communication</div>
+          <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:var(--muted)">Audience</div>
+          <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:var(--muted)">Status</div>
+          <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:var(--muted)">Action</div>
+        </div>
+        <div class="section-block-label" style="border:none;margin-top:0;padding-top:0">Sent</div>
+        <div style="display:flex;flex-direction:column;gap:6px;margin-top:8px">
+          <div class="comms-item"><div><div class="ci-title">Day 1 IAM welcome email</div><div class="ci-sub">Login &amp; access overview</div></div><div class="ci-audience">All associates</div><span class="ci-badge sent">Sent</span><div class="ci-action">View ↗</div></div>
+          <div class="comms-item"><div><div class="ci-title">Leader bundle notification</div><div class="ci-sub">Your apps are being configured</div></div><div class="ci-audience">Leaders</div><span class="ci-badge sent">Sent</span><div class="ci-action">View ↗</div></div>
+          <div class="comms-item"><div><div class="ci-title">ServiceNow access guide</div><div class="ci-sub">How to request cross-company apps</div></div><div class="ci-audience">All associates</div><span class="ci-badge sent">Sent</span><div class="ci-action">View ↗</div></div>
+        </div>
+        <div class="section-block-label">In progress / planned</div>
+        <div style="display:flex;flex-direction:column;gap:6px;margin-top:8px">
+          <div class="comms-item" style="background:#FFFBF5;border-color:#FFD899"><div><div class="ci-title">Commercial function app update</div><div class="ci-sub">Which apps are now enabled</div></div><div class="ci-audience">Commercial</div><span class="ci-badge draft">Draft</span><div class="ci-action">Draft now ↗</div></div>
+          <div class="comms-item" style="background:#FFFBF5;border-color:#FFD899"><div><div class="ci-title">NA Sales enablement update</div><div class="ci-sub">Salesforce CRM now available</div></div><div class="ci-audience">NA Sales</div><span class="ci-badge draft">Draft</span><div class="ci-action">Draft now ↗</div></div>
+          <div class="comms-item"><div><div class="ci-title">Printing workaround guide</div><div class="ci-sub">What works now</div></div><div class="ci-audience">All associates</div><span class="ci-badge planned">Planned</span><div class="ci-action">Pre-write ↗</div></div>
+          <div class="comms-item"><div><div class="ci-title">Seamless Wi-Fi launch (Oct '26)</div></div><div class="ci-audience">All associates</div><span class="ci-badge planned">Planned</span><div class="ci-action">Pre-write ↗</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- A: GUIDES TAB -->
+    <div class="tab-content" id="tabA-guides">
+      <div class="guides-layout">
+        <div class="guides-sidebar">
+          <div class="sidebar-header"><div class="sidebar-header-title">Self-service guides</div><div class="sidebar-header-sub">Help for any IT service</div></div>
+          <div class="sidebar-section">
+            <div class="sidebar-section-label">IT4IT — Available now</div>
+            <button class="guide-btn active" id="gbtn-wifi" onclick="showGuideA('wifi')"><span class="guide-btn-icon">📶</span><div class="guide-btn-body"><div class="guide-btn-title">Guest Wi-Fi</div><div class="guide-btn-sub">How to connect</div></div><div class="guide-status-dot dot-live"></div></button>
+            <button class="guide-btn" id="gbtn-rooms" onclick="showGuideA('rooms')"><span class="guide-btn-icon">📅</span><div class="guide-btn-body"><div class="guide-btn-title">Meeting rooms</div><div class="guide-btn-sub">Interim booking</div></div><div class="guide-status-dot dot-live"></div></button>
+            <button class="guide-btn" id="gbtn-access" onclick="showGuideA('access')"><span class="guide-btn-icon">🔐</span><div class="guide-btn-body"><div class="guide-btn-title">App access request</div><div class="guide-btn-sub">ServiceNow how-to</div></div><div class="guide-status-dot dot-live"></div></button>
+          </div>
+          <div class="sidebar-divider"></div>
+          <div class="sidebar-section">
+            <div class="sidebar-section-label">Leaders only</div>
+            <button class="guide-btn" id="gbtn-bundle" onclick="showGuideA('bundle')"><span class="guide-btn-icon">📦</span><div class="guide-btn-body"><div class="guide-btn-title">Your app bundle</div><div class="guide-btn-sub">What's included</div></div><div class="guide-status-dot dot-live"></div></button>
+            <button class="guide-btn" id="gbtn-team" onclick="showGuideA('team')"><span class="guide-btn-icon">👥</span><div class="guide-btn-body"><div class="guide-btn-title">Supporting your team</div><div class="guide-btn-sub">How to help them request</div></div><div class="guide-status-dot dot-live"></div></button>
+          </div>
+          <div class="sidebar-divider"></div>
+          <div class="sidebar-section">
+            <div class="sidebar-section-label">Coming soon</div>
+            <button class="guide-btn" id="gbtn-print" onclick="showGuideA('print')"><span class="guide-btn-icon">🖨️</span><div class="guide-btn-body"><div class="guide-btn-title">Printing</div><div class="guide-btn-sub">Workaround guide</div></div><div class="guide-status-dot dot-coming"></div></button>
+            <button class="guide-btn" id="gbtn-mfa" onclick="showGuideA('mfa')"><span class="guide-btn-icon">🔒</span><div class="guide-btn-body"><div class="guide-btn-title">MFA setup</div><div class="guide-btn-sub">Authenticator app</div></div><div class="guide-status-dot dot-coming"></div></button>
+          </div>
+          <div class="sidebar-divider"></div>
+          <div style="padding:10px 12px"><button style="width:100%;padding:8px 12px;background:var(--bg);border:1px dashed var(--border);border-radius:6px;font-family:var(--font);font-size:12px;font-weight:600;color:var(--muted);cursor:pointer">+ Suggest a guide</button></div>
+        </div>
+        <div id="guide-content-a">
+          <div id="guideA-wifi" class="guide-pane">
+            <div class="guide-pane-header"><div class="guide-pane-icon">📶</div><div class="guide-pane-title">Guest Wi-Fi — how to connect</div><div class="guide-pane-desc">Connecting to Wi-Fi across Mars and Kellanova sites during the integration.</div><div class="guide-pane-badges"><span class="gpb gpb-orange">Interim solution</span><span class="gpb gpb-blue">All associates</span></div></div>
+            <div class="guide-pane-body">
+              <div class="placeholder-notice"><span style="font-size:14px">✏️</span><div><div class="pn-title">Paste your real Wi-Fi guide here</div><div class="pn-sub">Content will be formatted and embedded automatically.</div></div></div>
+              <div><div class="steps-section-title">How to connect</div><div class="steps-list"><div class="step-item"><div class="step-num">1</div><div class="step-body"><div class="step-title">Open Wi-Fi settings</div><div class="step-desc">Navigate to network settings on your device and ensure Wi-Fi is on.</div></div></div><div class="step-item"><div class="step-num">2</div><div class="step-body"><div class="step-title">Select the network</div><div class="step-desc">Choose <strong>[Network name]</strong> for your site.<div class="step-note">⚠️ Daily log-in required until Oct 2026.</div></div></div></div><div class="step-item"><div class="step-num">3</div><div class="step-body"><div class="step-title">Sign in</div><div class="step-desc">Enter your credentials on the sign-in page.<div class="step-tip">✓ If page doesn't load, open any browser tab to trigger it.</div></div></div></div><div class="step-item"><div class="step-num">4</div><div class="step-body"><div class="step-title">You're connected</div><div class="step-desc">Connection is active for 24 hours.</div></div></div></div></div>
+              <div class="quick-ref"><div class="qr-card"><div class="qr-label">Mars network</div><div class="qr-val">[SSID]</div></div><div class="qr-card"><div class="qr-label">Kellanova network</div><div class="qr-val">[SSID]</div></div><div class="qr-card"><div class="qr-label">Session</div><div class="qr-val">24 hours</div></div><div class="qr-card"><div class="qr-label">IT support</div><div class="qr-val">[Number]</div></div></div>
+              <div class="guide-cta-banner"><div style="flex:1"><div class="gcta-title">Add your real Wi-Fi guide content</div><div class="gcta-sub">Paste into chat and it'll be embedded here.</div></div><button class="gcta-btn">Add content ↗</button></div>
+            </div>
+          </div>
+          <div id="guideA-rooms" class="guide-pane" style="display:none"><div class="guide-pane-header"><div class="guide-pane-icon">📅</div><div class="guide-pane-title">Meeting rooms — interim booking</div><div class="guide-pane-desc">Booking rooms across Mars and Kellanova sites via EMS.</div><div class="guide-pane-badges"><span class="gpb gpb-orange">Interim (EMS)</span><span class="gpb gpb-blue">All associates</span></div></div><div class="guide-pane-body"><div class="placeholder-notice"><span style="font-size:14px">✏️</span><div><div class="pn-title">Guide coming soon</div><div class="pn-sub">Paste content or click generate below.</div></div></div><div class="guide-cta-banner"><div style="flex:1"><div class="gcta-title">Generate this guide</div><div class="gcta-sub">Click to draft the room booking guide.</div></div><button class="gcta-btn">Generate draft ↗</button></div></div></div>
+          <div id="guideA-access" class="guide-pane" style="display:none"><div class="guide-pane-header"><div class="guide-pane-icon">🔐</div><div class="guide-pane-title">Requesting cross-company app access</div><div class="guide-pane-desc">Step-by-step guide for the ServiceNow request process.</div><div class="guide-pane-badges"><span class="gpb gpb-blue">All associates</span><span class="gpb gpb-orange">Self-serve</span></div></div><div class="guide-pane-body"><div class="steps-section-title">How to request</div><div class="steps-list"><div class="step-item"><div class="step-num">1</div><div class="step-body"><div class="step-title">Go to the Cross-Company ServiceNow form</div><div class="step-desc">Navigate to [ServiceNow URL] and select "Cross-Company Application Request".</div></div></div><div class="step-item"><div class="step-num">2</div><div class="step-body"><div class="step-title">Find your app</div><div class="step-desc">Browse or search the available app list. Only enabled apps will appear.<div class="step-note">⚠️ If your app isn't listed, use the App Enablement Form instead.</div></div></div></div><div class="step-item"><div class="step-num">3</div><div class="step-body"><div class="step-title">Submit the request</div><div class="step-desc">Fill in the required fields and submit. You'll get an automated confirmation.</div></div></div><div class="step-item"><div class="step-num">4</div><div class="step-body"><div class="step-title">Receive access</div><div class="step-desc">Once approved, access is provisioned and you'll be notified automatically.<div class="step-tip">✓ Training will be provided by the Functional Onboarding team.</div></div></div></div></div><div class="quick-ref"><div class="qr-card"><div class="qr-label">Request form</div><div class="qr-val">[ServiceNow URL]</div></div><div class="qr-card"><div class="qr-label">Enablement form</div><div class="qr-val">[Form URL]</div></div><div class="qr-card"><div class="qr-label">Support</div><div class="qr-val">Digital Hypercare</div></div><div class="qr-card"><div class="qr-label">SSO apps available</div><div class="qr-val">2,500+</div></div></div></div></div>
+          <div id="guideA-bundle" class="guide-pane" style="display:none"><div class="guide-pane-header"><div class="guide-pane-icon">📦</div><div class="guide-pane-title">Your standard app bundle — Leaders</div><div class="guide-pane-desc">What's included in your auto-provisioned bundle and how it works.</div><div class="guide-pane-badges"><span class="gpb gpb-orange">Leaders only</span><span class="gpb gpb-blue">Auto-provisioned</span></div></div><div class="guide-pane-body"><div class="steps-section-title">What happens automatically</div><div class="steps-list"><div class="step-item"><div class="step-num">1</div><div class="step-body"><div class="step-title">You're identified for placement</div><div class="step-desc">Snacking P&O notifies MGS P&O and CXA that you have a blended team.</div></div></div><div class="step-item"><div class="step-num">2</div><div class="step-body"><div class="step-title">Your HRIS profile is created</div><div class="step-desc">A cross-company HRIS profile is configured enabling heritage ID access.</div></div></div><div class="step-item"><div class="step-num">3</div><div class="step-body"><div class="step-title">Standard bundle is provisioned</div><div class="step-desc">All apps in your standard bundle are configured automatically. No action needed from you.<div class="step-tip">✓ All line manager apps are SaaS — no legacy on-prem complexity.</div></div></div></div><div class="step-item"><div class="step-num">4</div><div class="step-body"><div class="step-title">You're notified</div><div class="step-desc">You receive an automated notification confirming your access is ready.</div></div></div></div></div></div>
+          <div id="guideA-team" class="guide-pane" style="display:none"><div class="guide-pane-header"><div class="guide-pane-icon">👥</div><div class="guide-pane-title">Supporting your blended team</div><div class="guide-pane-desc">How to help your team members request cross-company app access.</div><div class="guide-pane-badges"><span class="gpb gpb-orange">Leaders only</span></div></div><div class="guide-pane-body"><div class="guide-cta-banner"><div style="flex:1"><div class="gcta-title">Generate this guide</div><div class="gcta-sub">Click to draft the leader team support guide.</div></div><button class="gcta-btn">Generate draft ↗</button></div></div></div>
+          <div id="guideA-print" class="coming-soon-pane" style="display:none"><div class="cs-icon">🖨️</div><div class="cs-title">Printing guide — coming soon</div><div class="cs-sub">Workaround guide in draft.</div><button class="cs-cta">Generate draft ↗</button></div>
+          <div id="guideA-mfa" class="coming-soon-pane" style="display:none"><div class="cs-icon">🔒</div><div class="cs-title">MFA setup — coming soon</div><div class="cs-sub">Step-by-step Authenticator guide coming before Day 30.</div><button class="cs-cta">Generate draft ↗</button></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div><!-- /version-a -->
+
+
+<!-- ═══════════════════════════════════
+     VERSION B — PERSONA-DRIVEN (no tabs, scroll sections)
+═══════════════════════════════════ -->
+<div id="version-b">
+  <div class="main">
+
+    <!-- B: Associate persona -->
+    <div class="persona-view active" id="B-assoc">
+      <div class="persona-banner assoc">
+        <div class="pb-icon">👤</div>
+        <div>
+          <div class="pb-title assoc">Associate — your complete tech picture</div>
+          <div class="pb-desc">Everything you need to know about IT changes, app access, and where to get help — all in one place.</div>
+          <div class="pb-tags"><span class="pb-tag assoc">Self-serve</span><span class="pb-tag assoc">ServiceNow</span><span class="pb-tag assoc">Familiar Experience</span></div>
+        </div>
+      </div>
+
+      <!-- Section 1: IT4IT -->
+      <div style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);padding:4px 0 2px;border-bottom:2px solid var(--border)">IT4IT — Everyday tech services</div>
+      <div class="summary-row" style="margin-top:0">
+        <div class="scard" style="border-top-color:var(--mars-blue)"><div class="scard-icon" style="background:#EEF0FF">👥</div><div><div class="scard-label">How I collaborate</div><div class="scard-stat">4 services</div><div class="rag-row"><div class="rag-chip a"><div class="rag-dot a"></div>3 in progress</div><div class="rag-chip r"><div class="rag-dot r"></div>1 friction</div></div></div></div>
+        <div class="scard" style="border-top-color:var(--wrig-blue)"><div class="scard-icon" style="background:#E0F4FF">💻</div><div><div class="scard-label">How I do my job</div><div class="scard-stat">4 services</div><div class="rag-row"><div class="rag-chip a"><div class="rag-dot a"></div>2 in progress</div><div class="rag-chip r"><div class="rag-dot r"></div>2 friction</div></div></div></div>
+        <div class="scard" style="border-top-color:var(--green-dot)"><div class="scard-icon" style="background:#E6F5EC">🌱</div><div><div class="scard-label">How I grow</div><div class="scard-stat">4 services</div><div class="rag-row"><div class="rag-chip g"><div class="rag-dot g"></div>2 working</div><div class="rag-chip a"><div class="rag-dot a"></div>2 in progress</div></div></div></div>
+      </div>
+      <div class="cat-section">
+        <div class="cat-header"><div class="cat-stripe" style="background:var(--mars-blue)"></div><div class="cat-icon">👥</div><div><div class="cat-title">How I collaborate</div><div class="cat-sub">Teams · Meeting Spaces · Wi-Fi · Calendar</div></div></div>
+        <div class="svc-grid">
+          <div class="svc-card"><div class="svc-card-top"><div class="svc-name">Microsoft Tools</div><div class="status-badge a"><div class="status-dot a"></div>In progress</div></div><div class="svc-desc">Teams federation active. Full merge coming.</div><div class="svc-eta">End 2027</div></div>
+          <div class="svc-card"><div class="svc-card-top"><div class="svc-name">Meeting Spaces</div><div class="status-badge r"><div class="status-dot r"></div>Friction</div></div><div class="svc-desc">Cross-entity booking being tested.</div><div class="svc-eta">End 2026</div></div>
+          <div class="svc-card"><div class="svc-card-top"><div class="svc-name">Guest Wi-Fi</div><div class="status-badge a"><div class="status-dot a"></div>In progress</div></div><div class="svc-desc">Daily log-in required at some sites.</div><div class="svc-eta">Seamless — Oct 2026</div></div>
+          <div class="svc-card"><div class="svc-card-top"><div class="svc-name">Calendar Visibility</div><div class="status-badge a"><div class="status-dot a"></div>In progress</div></div><div class="svc-desc">Free/busy only. Full access coming.</div><div class="svc-eta">End 2027</div></div>
+        </div>
+      </div>
+
+      <!-- Section 2: Functional Apps -->
+      <div style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);padding:4px 0 2px;border-bottom:2px solid var(--border);margin-top:4px">Functional Apps — cross-company access</div>
+      <div class="how-to-panel" style="margin-top:0">
+        <div class="htp-left"><div class="htp-title">Need access to a cross-company app?</div><div class="htp-sub">Go to the ServiceNow Cross-Company Request Form. If your app isn't listed, submit an enablement request.</div></div>
+        <button class="htp-btn">Open ServiceNow →</button>
+      </div>
+      <div class="cat-section">
+        <div class="cat-header"><div class="cat-stripe" style="background:var(--mars-blue)"></div><div class="cat-icon">📊</div><div><div class="cat-title">Apps enabled by function</div><div class="cat-sub">Current demand areas — more functions coming</div></div></div>
+        <div class="func-grid">
+          <div class="func-card"><div class="func-card-top"><div class="func-name">💼 Commercial</div><div class="func-demand-badge live">Active</div></div><div class="app-list"><div class="app-row"><div><div class="app-name">Salesforce</div></div><div class="app-right"><span class="app-status enabled">Enabled</span><span class="app-how">Request →</span></div></div><div class="app-row"><div><div class="app-name">Ariba</div></div><div class="app-right"><span class="app-status enabled">Enabled</span><span class="app-how">Request →</span></div></div><div class="app-row"><div><div class="app-name">Trade Promotion Mgmt</div></div><div class="app-right"><span class="app-status in-progress">Enabling</span></div></div></div></div>
+          <div class="func-card"><div class="func-card-top"><div class="func-name">🛒 North America Sales</div><div class="func-demand-badge live">Active</div></div><div class="app-list"><div class="app-row"><div><div class="app-name">Salesforce CRM</div></div><div class="app-right"><span class="app-status enabled">Enabled</span><span class="app-how">Request →</span></div></div><div class="app-row"><div><div class="app-name">SAP SuccessFactors</div></div><div class="app-right"><span class="app-status in-progress">Enabling</span></div></div></div></div>
+          <div class="func-card"><div class="func-card-top"><div class="func-name">💰 Tax &amp; Treasury</div><div class="func-demand-badge live">Active</div></div><div class="app-list"><div class="app-row"><div><div class="app-name">Workday Financials</div></div><div class="app-right"><span class="app-status enabled">Enabled</span><span class="app-how">Request →</span></div></div><div class="app-row"><div><div class="app-name">Concur</div></div><div class="app-right"><span class="app-status enabled">Enabled</span><span class="app-how">Request →</span></div></div></div></div>
+          <div class="func-card"><div class="func-card-top"><div class="func-name">📣 Growth &amp; Marketing</div><div class="func-demand-badge live">Active</div></div><div class="app-list"><div class="app-row"><div><div class="app-name">Adobe Experience</div></div><div class="app-right"><span class="app-status enabled">Enabled</span><span class="app-how">Request →</span></div></div><div class="app-row"><div><div class="app-name">Salesforce Marketing</div></div><div class="app-right"><span class="app-status in-progress">Enabling</span></div></div></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- B: Leader persona -->
+    <div class="persona-view" id="B-leader">
+      <div class="persona-banner leader">
+        <div class="pb-icon">👥</div>
+        <div>
+          <div class="pb-title leader">Leader / Line Manager — your complete tech picture</div>
+          <div class="pb-desc">Your standard app bundle is auto-configured. This page shows your provisioning status, IT4IT services, and how to support your blended team.</div>
+          <div class="pb-tags"><span class="pb-tag leader">Auto-provisioned</span><span class="pb-tag leader">P&amp;O-led</span><span class="pb-tag leader">Guided Experience</span></div>
+        </div>
+      </div>
+
+      <!-- Journey -->
+      <div style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);padding:4px 0 2px;border-bottom:2px solid var(--border)">Your provisioning journey</div>
+      <div class="journey-strip" style="margin-top:0">
+        <div class="journey-steps">
+          <div class="journey-step"><div class="js-circle done">✓</div><div class="js-label">Identified for placement</div><div class="js-sub">Snacking P&amp;O</div></div>
+          <div class="journey-step"><div class="js-circle done">✓</div><div class="js-label">P&amp;O notifies CXA</div><div class="js-sub">MGS P&amp;O &amp; CXA</div></div>
+          <div class="journey-step"><div class="js-circle active">3</div><div class="js-label">HRIS profile created</div><div class="js-sub">In progress</div></div>
+          <div class="journey-step"><div class="js-circle pending">4</div><div class="js-label">Bundle configured</div><div class="js-sub">CXA team</div></div>
+          <div class="journey-step"><div class="js-circle pending">5</div><div class="js-label">You're notified</div><div class="js-sub">Automated email</div></div>
+        </div>
+      </div>
+
+      <!-- Bundle -->
+      <div style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);padding:4px 0 2px;border-bottom:2px solid var(--border);margin-top:4px">Your standard app bundle</div>
+      <div class="cat-section" style="margin-top:0">
+        <div class="cat-header"><div class="cat-stripe" style="background:var(--snack-orange)"></div><div class="cat-icon">📦</div><div><div class="cat-title">Standard Line Manager App Bundle</div><div class="cat-sub">Automatically configured — no request needed</div></div></div>
+        <div class="bundle-grid">
+          <div class="bundle-card"><div class="bundle-name">🔴 Mars Apps <span class="bundle-badge">Heritage Mars</span></div><div class="bundle-apps"><div class="bundle-app">Ariba <span class="bundle-app-status auto">Auto-provisioned</span></div><div class="bundle-app">Concur <span class="bundle-app-status auto">Auto-provisioned</span></div><div class="bundle-app">MobileXpense <span class="bundle-app-status auto">Auto-provisioned</span></div><div class="bundle-app">Workday <span class="bundle-app-status auto">Auto-provisioned</span></div><div class="bundle-app">ServiceNow MyHub <span class="bundle-app-status auto">Auto-provisioned</span></div></div></div>
+          <div class="bundle-card"><div class="bundle-name">🟡 Kellanova Apps <span class="bundle-badge">Heritage Kellanova</span></div><div class="bundle-apps"><div class="bundle-app">Concur <span class="bundle-app-status auto">Auto-provisioned</span></div><div class="bundle-app">KBUY / Smart by GEP <span class="bundle-app-status auto">Auto-provisioned</span></div><div class="bundle-app">SAP SuccessFactors <span class="bundle-app-status auto">Auto-provisioned</span></div><div class="bundle-app">ServiceNow HRSD – EPIC <span class="bundle-app-status auto">Auto-provisioned</span></div><div class="bundle-app">Digital Concierge <span class="bundle-app-status config">Being configured</span></div></div></div>
+        </div>
+      </div>
+
+      <!-- IT4IT for leaders -->
+      <div style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);padding:4px 0 2px;border-bottom:2px solid var(--border);margin-top:4px">IT4IT — same services as all associates</div>
+      <div class="cat-section" style="margin-top:0">
+        <div class="cat-header"><div class="cat-stripe" style="background:var(--mars-blue)"></div><div class="cat-icon">💻</div><div><div class="cat-title">Everyday tech services</div><div class="cat-sub">Wi-Fi · Meeting Spaces · Teams · Help Desk</div></div></div>
+        <div class="svc-grid">
+          <div class="svc-card"><div class="svc-card-top"><div class="svc-name">Guest Wi-Fi</div><div class="status-badge a"><div class="status-dot a"></div>In progress</div></div><div class="svc-desc">Daily log-in required. Seamless access from Oct 2026.</div></div>
+          <div class="svc-card"><div class="svc-card-top"><div class="svc-name">Meeting Spaces</div><div class="status-badge r"><div class="status-dot r"></div>Friction</div></div><div class="svc-desc">Cross-entity booking solution being tested.</div></div>
+          <div class="svc-card"><div class="svc-card-top"><div class="svc-name">Microsoft Teams</div><div class="status-badge a"><div class="status-dot a"></div>In progress</div></div><div class="svc-desc">Federation active. Full tenant merge coming.</div></div>
+          <div class="svc-card"><div class="svc-card-top"><div class="svc-name">IT Help Desk</div><div class="status-badge a"><div class="status-dot a"></div>In progress</div></div><div class="svc-desc">Legacy systems active. One desk coming end 2027.</div></div>
+        </div>
+      </div>
+
+      <!-- Supporting team -->
+      <div class="how-to-panel" style="background:linear-gradient(135deg,#7A4000 0%,var(--snack-orange) 100%)">
+        <div class="htp-left"><div class="htp-title">Your team member needs a cross-company app?</div><div class="htp-sub">Direct them to the ServiceNow Cross-Company Request Form. If the app isn't enabled yet, they submit an enablement form — the CAM team handles it from there.</div></div>
+        <button class="htp-btn">ServiceNow for your team →</button>
+      </div>
+    </div>
+
+  </div>
+</div><!-- /version-b -->
+
+<script>
+// Timestamp
+function setTimestamp(){var now=new Date();document.getElementById('timestamp').textContent=now.toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long',year:'numeric'})+' at '+now.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'})+' '+Intl.DateTimeFormat('en-GB',{timeZoneName:'short'}).formatToParts(now).find(p=>p.type==='timeZoneName').value}
+setTimestamp();
+
+// Persona
+var currentPersona='assoc';
+function switchPersona(p){
+  currentPersona=p;
+  document.querySelectorAll('.persona-btn').forEach(b=>{b.classList.remove('active-assoc','active-leader')});
+  document.getElementById('pBtn-'+p).classList.add(p==='assoc'?'active-assoc':'active-leader');
+  // Version A
+  document.querySelectorAll('[id^="A-"]').forEach(v=>{v.classList.remove('active')});
+  document.querySelectorAll('[id^="A-"][id$="-'+p+'"]').forEach(v=>{v.classList.add('active')});
+  // Version B
+  document.querySelectorAll('[id^="B-"]').forEach(v=>{v.classList.remove('active')});
+  var bv=document.getElementById('B-'+p);if(bv)bv.classList.add('active');
+}
+
+// Version switcher
+function switchVersion(v){
+  document.getElementById('version-a').style.display=v==='a'?'block':'none';
+  document.getElementById('version-b').style.display=v==='b'?'block':'none';
+  document.getElementById('vsA').classList.toggle('active',v==='a');
+  document.getElementById('vsB').classList.toggle('active',v==='b');
+}
+
+// Version A tabs
+function showTabA(id,el){
+  document.querySelectorAll('[id^="tabA-"]').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('tabA-'+id).classList.add('active');
+  el.classList.add('active');
+  // Re-apply persona
+  document.querySelectorAll('#tabA-'+id+' .persona-view').forEach(v=>v.classList.remove('active'));
+  var target=document.getElementById('A-'+id+'-'+currentPersona);
+  if(target)target.classList.add('active');
+}
+
+// Guide A
+function showGuideA(id){
+  document.querySelectorAll('#guide-content-a > div').forEach(d=>d.style.display='none');
+  document.getElementById('guideA-'+id).style.display='';
+  document.querySelectorAll('.guide-btn').forEach(b=>b.classList.remove('active'));
+  var btn=document.getElementById('gbtn-'+id);if(btn)btn.classList.add('active');
+}
+
+function switchTabAndGuide(ver,tab,guide,navId){
+  showTabA(tab,document.getElementById(navId));
+  setTimeout(()=>showGuideA(guide),50);
+}
+
+function toggleFaq(el){var c=el.querySelector('.faq-chevron'),a=el.nextElementSibling,o=a.classList.contains('open');document.querySelectorAll('.faq-a').forEach(x=>x.classList.remove('open'));document.querySelectorAll('.faq-chevron').forEach(x=>x.classList.remove('open'));if(!o){a.classList.add('open');c.classList.add('open')}}
+</script>
+</body>
+</html>
