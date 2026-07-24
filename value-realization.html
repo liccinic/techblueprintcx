@@ -1,0 +1,149 @@
+<!--
+  IMO Digital & Data — Value Realization & Synergies
+  Content taken from the Value Realization one-slider (slide 34).
+
+  Drop into the left/two-thirds column, same as Change-Experience.aspx.
+  Starts at the Purpose block. No hero.
+-->
+<div id="imo-page">
+<style>
+#imo-page{
+  --blue:#0000A0;
+  --crimson:#E4002B;
+  --cyan:#00A0DF;
+  --amber:#F5A100;
+  --ink:#12141A;
+  --body:#4A4F58;
+  --mute:#6E747F;
+  --rule:#E4E7ED;
+  --tint:#EEF3FC;
+  --white:#FFFFFF;
+  --shadow:0 1px 3px rgba(16,24,40,.08), 0 1px 2px rgba(16,24,40,.04);
+  --sans:"Mars Centra","Centra No2","Poppins","Segoe UI",system-ui,-apple-system,sans-serif;
+
+  font-family:var(--sans);font-size:15px;line-height:1.6;color:var(--body);
+  -webkit-font-smoothing:antialiased;
+}
+#imo-page *{box-sizing:border-box;}
+#imo-page p{margin:0;}
+#imo-page h2,#imo-page h3{margin:0;color:var(--ink);font-weight:700;letter-spacing:-0.01em;}
+#imo-page :focus-visible{outline:2px solid var(--blue);outline-offset:2px;border-radius:4px;}
+#imo-page .eyebrow{font-size:10.5px;font-weight:700;letter-spacing:0.13em;text-transform:uppercase;}
+#imo-page .block + .block{margin-top:26px;}
+
+/* purpose */
+#imo-page .purpose{background:var(--tint);border-left:5px solid var(--blue);border-radius:0 8px 8px 0;padding:22px 28px 24px;box-shadow:var(--shadow);}
+#imo-page .purpose .eyebrow{color:var(--blue);}
+#imo-page .purpose p{margin-top:9px;font-size:16px;line-height:1.6;color:var(--ink);font-weight:600;}
+#imo-page .purpose b{color:var(--blue);font-weight:700;}
+
+/* bar cards */
+#imo-page .barcard{background:var(--white);border-radius:8px;overflow:hidden;box-shadow:var(--shadow);}
+#imo-page .barcard > .bar{display:block;height:4px;}
+#imo-page .barcard .inner{padding:22px 26px 26px;}
+#imo-page .barcard h2{font-size:13px;font-weight:700;letter-spacing:0.13em;text-transform:uppercase;margin-bottom:14px;}
+#imo-page .b-crimson{background:var(--crimson);}  #imo-page .h-crimson{color:var(--crimson);}
+#imo-page .b-cyan{background:var(--cyan);}        #imo-page .h-cyan{color:var(--cyan);}
+#imo-page .b-amber{background:var(--amber);}
+#imo-page .barcard > .inner > p{font-size:15px;line-height:1.65;}
+
+/* help list */
+#imo-page .helplist{list-style:none;margin:0;padding:0;}
+#imo-page .helplist li{font-size:15px;line-height:1.6;padding:13px 0 13px 20px;position:relative;}
+#imo-page .helplist li + li{border-top:1px solid var(--rule);}
+#imo-page .helplist li::before{content:"";position:absolute;left:0;top:22px;width:6px;height:6px;border-radius:50%;background:var(--cyan);}
+#imo-page .helplist b{color:var(--ink);font-weight:700;}
+
+/* open section headings */
+#imo-page .sec-head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:16px;}
+#imo-page .sec-head h2{font-size:26px;letter-spacing:-0.02em;}
+#imo-page .sec-head span{font-size:13px;color:var(--mute);}
+#imo-page .open-block{margin-top:44px;}
+
+/* value levers */
+#imo-page .lever{margin-bottom:16px;}
+#imo-page .lever .inner{padding:20px 26px 24px;}
+#imo-page .lever .cat{color:var(--amber);margin-bottom:8px;}
+#imo-page .lever p{font-size:14.5px;line-height:1.6;}
+
+/* priorities */
+#imo-page .prio{background:var(--white);border-radius:8px;box-shadow:var(--shadow);padding:20px 26px 22px;margin-bottom:16px;}
+#imo-page .prio-n{width:34px;height:34px;border-radius:50%;background:var(--blue);color:var(--white);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;margin-bottom:14px;}
+#imo-page .prio p{font-size:14.5px;font-weight:700;color:var(--ink);line-height:1.45;}
+</style>
+
+<!-- PURPOSE -->
+<div class="block purpose">
+  <div class="eyebrow">Purpose</div>
+  <p><b>We are the guardians of value across Digital &amp; Data</b>, making sure the committed tech impact is translated into measurable value. We connect strategy, execution, and investments through a consistent and trusted approach, with clear ownership, active management, and a value-based decision-making process.</p>
+</div>
+
+<!-- WHAT WE DO -->
+<div class="block barcard">
+  <span class="bar b-crimson"></span>
+  <div class="inner">
+    <h2 class="h-crimson">What we do</h2>
+    <p>We establish and steward a single Digital &amp; Data value framework across integration and BAU, ensuring consistency in how value is defined, measured, and managed. We translate impact into measurable value and turn performance insights into value-based decisions on priorities, investments, and trade-offs, while safeguarding value integrity and ownership through realization.</p>
+  </div>
+</div>
+
+<!-- HOW WE CAN HELP -->
+<div class="block barcard">
+  <span class="bar b-cyan"></span>
+  <div class="inner">
+    <h2 class="h-cyan">How we can help</h2>
+    <ul class="helplist">
+      <li><b>Provide one trusted view of value:</b> unify integration and BAU across regions, functions, and programs, and more.</li>
+      <li><b>Turn performance into action:</b> expose trade-offs for timely decisions.</li>
+      <li><b>Tell the value story:</b> convert data into a clear outcomes narrative.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- VALUE LEVERS -->
+<div class="open-block">
+  <div class="sec-head">
+    <h2>Value levers</h2>
+    <span>What changes when we're involved early.</span>
+  </div>
+
+  <div class="barcard lever">
+    <span class="bar b-amber"></span>
+    <div class="inner">
+      <div class="eyebrow cat">Value integrity &amp; transparency</div>
+      <p>Provide one trusted, Finance-aligned view across integration, BAU, regions, and functions.</p>
+    </div>
+  </div>
+
+  <div class="barcard lever">
+    <span class="bar b-amber"></span>
+    <div class="inner">
+      <div class="eyebrow cat">Decision intelligence</div>
+      <p>Turn data into insights that guide priorities, investments, and trade-offs.</p>
+    </div>
+  </div>
+
+  <div class="barcard lever">
+    <span class="bar b-amber"></span>
+    <div class="inner">
+      <div class="eyebrow cat">Value culture &amp; capability</div>
+      <p>Embed consistent value practices and decision-making across Digital &amp; Data.</p>
+    </div>
+  </div>
+</div>
+
+<!-- PRIORITIES -->
+<div class="open-block">
+  <div class="sec-head">
+    <h2>Priorities</h2>
+    <span>Sequenced, each one unlocks the next.</span>
+  </div>
+
+  <div class="prio"><div class="prio-n">1</div><p>Define and steward the value framework: ways of working, methodology, etc.</p></div>
+  <div class="prio"><div class="prio-n">2</div><p>Protect value integrity and delivery across different programs</p></div>
+  <div class="prio"><div class="prio-n">3</div><p>Deploy the VCO Analytics Control Tower</p></div>
+  <div class="prio"><div class="prio-n">4</div><p>Implement the VCO Operating Model</p></div>
+  <div class="prio"><div class="prio-n">5</div><p>Establish Value Creation as a core global Digital &amp; Data capability</p></div>
+</div>
+
+</div>
