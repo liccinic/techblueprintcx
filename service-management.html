@@ -1,0 +1,199 @@
+<!--
+  IMO Digital & Data — Service Management
+  Content taken from the Service Management one-slider (slide 39).
+
+  Drop into the left/two-thirds column, same as Change-Experience.aspx.
+  Starts at the Purpose block. No hero.
+-->
+
+<div id="imo-page">
+<style>
+#imo-page{
+  --blue:#0000A0;
+  --crimson:#E4002B;
+  --cyan:#00A0DF;
+  --amber:#F5A100;
+  --ink:#12141A;
+  --body:#4A4F58;
+  --mute:#6E747F;
+  --rule:#E4E7ED;
+  --tint:#EEF3FC;
+  --white:#FFFFFF;
+  --shadow:0 1px 3px rgba(16,24,40,.08), 0 1px 2px rgba(16,24,40,.04);
+  --sans:"Mars Centra","Centra No2","Poppins","Segoe UI",system-ui,-apple-system,sans-serif;
+
+  font-family:var(--sans);font-size:15px;line-height:1.6;color:var(--body);
+  -webkit-font-smoothing:antialiased;
+}
+#imo-page *{box-sizing:border-box;}
+#imo-page p{margin:0;}
+#imo-page h2,#imo-page h3{margin:0;color:var(--ink);font-weight:700;letter-spacing:-0.01em;}
+#imo-page :focus-visible{outline:2px solid var(--blue);outline-offset:2px;border-radius:4px;}
+#imo-page .eyebrow{font-size:10.5px;font-weight:700;letter-spacing:0.13em;text-transform:uppercase;}
+#imo-page .block + .block{margin-top:26px;}
+
+/* purpose */
+#imo-page .purpose{background:var(--tint);border-left:5px solid var(--blue);border-radius:0 8px 8px 0;padding:22px 28px 24px;box-shadow:var(--shadow);}
+#imo-page .purpose .eyebrow{color:var(--blue);}
+#imo-page .purpose p{margin-top:9px;font-size:16px;line-height:1.6;color:var(--ink);font-weight:600;}
+#imo-page .purpose b{color:var(--blue);font-weight:700;}
+
+/* bar cards */
+#imo-page .barcard{background:var(--white);border-radius:8px;overflow:hidden;box-shadow:var(--shadow);}
+#imo-page .barcard > .bar{display:block;height:4px;}
+#imo-page .barcard .inner{padding:22px 26px 26px;}
+#imo-page .barcard h2{font-size:13px;font-weight:700;letter-spacing:0.13em;text-transform:uppercase;margin-bottom:14px;}
+#imo-page .b-crimson{background:var(--crimson);}  #imo-page .h-crimson{color:var(--crimson);}
+#imo-page .b-cyan{background:var(--cyan);}        #imo-page .h-cyan{color:var(--cyan);}
+#imo-page .b-amber{background:var(--amber);}
+#imo-page .barcard > .inner > p{font-size:15px;line-height:1.65;}
+
+/* accordion */
+#imo-page .acc-item + .acc-item{border-top:1px solid var(--rule);}
+#imo-page .acc-btn{
+  width:100%;background:none;border:0;padding:14px 0;cursor:pointer;font-family:inherit;
+  font-size:15px;font-weight:700;color:var(--ink);text-align:left;display:flex;align-items:center;gap:11px;
+}
+#imo-page .acc-btn::before{
+  content:"";flex:none;width:0;height:0;
+  border-left:6px solid var(--ink);border-top:4.5px solid transparent;border-bottom:4.5px solid transparent;
+  transition:transform .18s ease;transform-origin:30% 50%;
+}
+#imo-page .acc-btn[aria-expanded="true"]::before{transform:rotate(90deg);}
+#imo-page .acc-panel{padding:0 0 18px 17px;}
+#imo-page .acc-panel p{font-size:14.5px;}
+#imo-page .acc-panel[hidden]{display:none;}
+
+/* open section headings */
+#imo-page .sec-head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:16px;}
+#imo-page .sec-head h2{font-size:26px;letter-spacing:-0.02em;}
+#imo-page .sec-head span{font-size:13px;color:var(--mute);}
+#imo-page .open-block{margin-top:44px;}
+
+/* value levers */
+#imo-page .lever{margin-bottom:16px;}
+#imo-page .lever .inner{padding:20px 26px 24px;}
+#imo-page .lever .arrow{display:block;color:var(--blue);font-size:22px;font-weight:900;line-height:1;margin-bottom:12px;}
+#imo-page .lever .cat{color:var(--amber);margin-bottom:8px;}
+#imo-page .lever p{font-size:14.5px;line-height:1.6;}
+
+/* priorities */
+#imo-page .prio{background:var(--white);border-radius:8px;box-shadow:var(--shadow);padding:20px 26px 22px;margin-bottom:16px;}
+#imo-page .prio-n{width:34px;height:34px;border-radius:50%;background:var(--blue);color:var(--white);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;margin-bottom:14px;}
+#imo-page .prio h3{font-size:14.5px;margin-bottom:4px;}
+#imo-page .prio p{font-size:14.5px;line-height:1.5;}
+
+@media (prefers-reduced-motion:reduce){ #imo-page *{transition:none !important;} }
+</style>
+
+<!-- PURPOSE -->
+<div class="block purpose">
+  <div class="eyebrow">Purpose</div>
+  <p>Partnering with delivery teams and functional stakeholders to ensure that all integration technology launched at Mars Snacking is <b>supportable, compliant, cost-optimized, and delivers immediate strategic value.</b></p>
+</div>
+
+<!-- WHAT WE DO -->
+<div class="block barcard">
+  <span class="bar b-crimson"></span>
+  <div class="inner">
+    <h2 class="h-crimson">What we do</h2>
+    <p>The Service Management function coordinates integrated project schedules, manages interdependencies and technical issue resolution, monitors delivery partner performance, and governs the master testing and release calendars across all digital shared services workstreams.</p>
+  </div>
+</div>
+
+<!-- HOW WE CAN HELP -->
+<div class="block barcard">
+  <span class="bar b-cyan"></span>
+  <div class="inner">
+    <h2 class="h-cyan">How we can help</h2>
+    <div class="acc">
+
+      <div class="acc-item">
+        <button class="acc-btn" type="button" aria-expanded="true" aria-controls="sm1">Digital services are fit-for-purpose</button>
+        <div class="acc-panel" id="sm1">
+          <p>The release calendar aligns with testing and cutover schedules, so what goes live is ready to be supported.</p>
+        </div>
+      </div>
+
+      <div class="acc-item">
+        <button class="acc-btn" type="button" aria-expanded="false" aria-controls="sm2">Alignment and collaboration</button>
+        <div class="acc-panel" id="sm2" hidden>
+          <p>We work with integration leads to make sure the work aligns with target architectures, objectives, and the integration roadmap.</p>
+        </div>
+      </div>
+
+      <div class="acc-item">
+        <button class="acc-btn" type="button" aria-expanded="false" aria-controls="sm3">Central hub for all MGS-DT workstreams</button>
+        <div class="acc-panel" id="sm3" hidden>
+          <p>One place managing plans, resources, and dependencies across every MGS-DT workstream.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- VALUE LEVERS -->
+<div class="open-block">
+  <div class="sec-head">
+    <h2>Value levers</h2>
+    <span>What changes when we're involved early.</span>
+  </div>
+
+  <div class="barcard lever">
+    <span class="bar b-amber"></span>
+    <div class="inner">
+      <span class="arrow">&darr;</span>
+      <div class="eyebrow cat">Risk reduction</div>
+      <p>Minimizes rework, delays, and disruption through dependency management, readiness checks, and aligned release governance.</p>
+    </div>
+  </div>
+
+  <div class="barcard lever">
+    <span class="bar b-amber"></span>
+    <div class="inner">
+      <span class="arrow">&uarr;</span>
+      <div class="eyebrow cat">Synergy realization</div>
+      <p>Prevents silos and optimizes resources to drive cost savings, budget efficiencies, and value capture.</p>
+    </div>
+  </div>
+
+  <div class="barcard lever">
+    <span class="bar b-amber"></span>
+    <div class="inner">
+      <span class="arrow">&uarr;</span>
+      <div class="eyebrow cat">Execution predictability</div>
+      <p>Speeds up delivery and ensures consistent execution timelines via a unified release calendar and centralized orchestration.</p>
+    </div>
+  </div>
+</div>
+
+<!-- PRIORITIES -->
+<div class="open-block">
+  <div class="sec-head">
+    <h2>Priorities</h2>
+    <span>Sequenced, each one unlocks the next.</span>
+  </div>
+
+  <div class="prio"><div class="prio-n">1</div><h3>Framework Adoption</h3><p>PMXi adoption across all integration projects.</p></div>
+  <div class="prio"><div class="prio-n">2</div><h3>Playbook Access</h3><p>Offer intuitive role-based user journeys.</p></div>
+  <div class="prio"><div class="prio-n">3</div><h3>Support Optimization</h3><p>Enhance shared services take-on to reduce team friction.</p></div>
+  <div class="prio"><div class="prio-n">4</div><h3>Financial Transparency</h3><p>Establish accurate, transparent development and run costs.</p></div>
+  <div class="prio"><div class="prio-n">5</div><h3>Controls Auditing</h3><p>Strengthen alignment with Cyber and IT Controls.</p></div>
+</div>
+
+</div>
+
+<script>
+(function(){
+  var btns = document.querySelectorAll("#imo-page .acc-btn");
+  Array.prototype.forEach.call(btns, function(btn){
+    btn.addEventListener("click", function(){
+      var open = btn.getAttribute("aria-expanded") === "true";
+      btn.setAttribute("aria-expanded", String(!open));
+      var panel = document.getElementById(btn.getAttribute("aria-controls"));
+      if(panel) panel.hidden = open;
+    });
+  });
+})();
+</script>
