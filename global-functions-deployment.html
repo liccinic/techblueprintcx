@@ -1,0 +1,141 @@
+<!--
+  IMO Digital & Data — Global Functions (IMO Digital & Data Deployment)
+  Content taken from the Global Functions one-slider (slide 31).
+
+  Drop into the left/two-thirds column, same as Change-Experience.aspx.
+  Starts at the Purpose block. No hero.
+-->
+<div id="imo-page">
+<style>
+#imo-page{
+  --blue:#0000A0;
+  --crimson:#E4002B;
+  --cyan:#00A0DF;
+  --amber:#F5A100;
+  --ink:#12141A;
+  --body:#4A4F58;
+  --mute:#6E747F;
+  --rule:#E4E7ED;
+  --tint:#EEF3FC;
+  --white:#FFFFFF;
+  --shadow:0 1px 3px rgba(16,24,40,.08), 0 1px 2px rgba(16,24,40,.04);
+  --sans:"Mars Centra","Centra No2","Poppins","Segoe UI",system-ui,-apple-system,sans-serif;
+
+  font-family:var(--sans);font-size:15px;line-height:1.6;color:var(--body);
+  -webkit-font-smoothing:antialiased;
+}
+#imo-page *{box-sizing:border-box;}
+#imo-page p{margin:0;}
+#imo-page h2,#imo-page h3{margin:0;color:var(--ink);font-weight:700;letter-spacing:-0.01em;}
+#imo-page :focus-visible{outline:2px solid var(--blue);outline-offset:2px;border-radius:4px;}
+#imo-page .eyebrow{font-size:10.5px;font-weight:700;letter-spacing:0.13em;text-transform:uppercase;}
+#imo-page .block + .block{margin-top:26px;}
+
+/* purpose */
+#imo-page .purpose{background:var(--tint);border-left:5px solid var(--blue);border-radius:0 8px 8px 0;padding:22px 28px 24px;box-shadow:var(--shadow);}
+#imo-page .purpose .eyebrow{color:var(--blue);}
+#imo-page .purpose p{margin-top:9px;font-size:16px;line-height:1.6;color:var(--ink);font-weight:600;}
+#imo-page .purpose b{color:var(--blue);font-weight:700;}
+
+/* bar cards */
+#imo-page .barcard{background:var(--white);border-radius:8px;overflow:hidden;box-shadow:var(--shadow);}
+#imo-page .barcard > .bar{display:block;height:4px;}
+#imo-page .barcard .inner{padding:22px 26px 26px;}
+#imo-page .barcard h2{font-size:13px;font-weight:700;letter-spacing:0.13em;text-transform:uppercase;margin-bottom:14px;}
+#imo-page .b-crimson{background:var(--crimson);}  #imo-page .h-crimson{color:var(--crimson);}
+#imo-page .b-cyan{background:var(--cyan);}        #imo-page .h-cyan{color:var(--cyan);}
+#imo-page .b-amber{background:var(--amber);}
+#imo-page .barcard > .inner > p{font-size:15px;line-height:1.65;}
+
+/* help list */
+#imo-page .helplist{list-style:none;margin:0;padding:0;}
+#imo-page .helplist li{font-size:15px;line-height:1.6;padding:13px 0 13px 20px;position:relative;}
+#imo-page .helplist li + li{border-top:1px solid var(--rule);}
+#imo-page .helplist li::before{content:"";position:absolute;left:0;top:22px;width:6px;height:6px;border-radius:50%;background:var(--cyan);}
+#imo-page .helplist b{color:var(--ink);font-weight:700;}
+
+/* open section headings */
+#imo-page .sec-head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:16px;}
+#imo-page .sec-head h2{font-size:26px;letter-spacing:-0.02em;}
+#imo-page .sec-head span{font-size:13px;color:var(--mute);}
+#imo-page .open-block{margin-top:44px;}
+
+/* value levers */
+#imo-page .lever{margin-bottom:16px;}
+#imo-page .lever .inner{padding:20px 26px 24px;}
+#imo-page .lever .cat{color:var(--amber);margin-bottom:8px;}
+#imo-page .lever p{font-size:14.5px;line-height:1.6;}
+
+/* priorities */
+#imo-page .prio{background:var(--white);border-radius:8px;box-shadow:var(--shadow);padding:20px 26px 22px;margin-bottom:16px;}
+#imo-page .prio-n{width:34px;height:34px;border-radius:50%;background:var(--blue);color:var(--white);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;margin-bottom:14px;}
+#imo-page .prio p{font-size:14.5px;font-weight:700;color:var(--ink);line-height:1.45;}
+</style>
+
+<!-- PURPOSE -->
+<div class="block purpose">
+  <div class="eyebrow">Purpose</div>
+  <p><b>Lead Digital &amp; Data integrated planning across global functions</b>, creating a unified roadmap and acting as the connective tissue between central technical teams and functional teams to drive the execution of our integration goals.</p>
+</div>
+
+<!-- WHAT WE DO -->
+<div class="block barcard">
+  <span class="bar b-crimson"></span>
+  <div class="inner">
+    <h2 class="h-crimson">What we do</h2>
+    <p>We lead integrated planning for IMO Digital &amp; Data, synthesizing timelines, resource needs, and critical milestones while driving execution and adherence to Central IMO standards. We use the navigator framework and operations to connect program directives with project execution, and we manage the interdependencies, escalations, and major solutioning between the IMO Digital &amp; Data functions to unblock critical paths.</p>
+  </div>
+</div>
+
+<!-- HOW WE CAN HELP -->
+<div class="block barcard">
+  <span class="bar b-cyan"></span>
+  <div class="inner">
+    <h2 class="h-cyan">How we can help</h2>
+    <ul class="helplist">
+      <li>Provide <b>seamless visibility</b> and enable <b>better decision-making</b> through clearly designed reporting structures and process flows.</li>
+      <li><b>Unblock critical program paths</b> by driving cross-functional resolution strategies for complex conflicts before they impact key milestones.</li>
+      <li><b>Act as a central liaison</b> to foster collaboration across transversal teams, maximizing synergy and accelerating adoption.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- VALUE LEVERS -->
+<div class="open-block">
+  <div class="sec-head">
+    <h2>Value levers</h2>
+    <span>What changes when we're involved early.</span>
+  </div>
+
+  <div class="barcard lever">
+    <span class="bar b-amber"></span>
+    <div class="inner">
+      <div class="eyebrow cat">Accelerate global delivery</div>
+      <p>Enable the delivery of tech solutions in functions and regions at the best and fastest pace possible.</p>
+    </div>
+  </div>
+
+  <div class="barcard lever">
+    <span class="bar b-amber"></span>
+    <div class="inner">
+      <div class="eyebrow cat">Unify the vision</div>
+      <p>Ensure alignment with overarching integration goals through a unified and clear technology roadmap.</p>
+    </div>
+  </div>
+</div>
+
+<!-- PRIORITIES -->
+<div class="open-block">
+  <div class="sec-head">
+    <h2>Priorities</h2>
+    <span>Sequenced, each one unlocks the next.</span>
+  </div>
+
+  <div class="prio"><div class="prio-n">1</div><p>Establish the Functional Navigator Operating Model and build a high-performing team of Navigators</p></div>
+  <div class="prio"><div class="prio-n">2</div><p>Oversee finalization of the 3-year integrated program plan and establish a quarterly refresh process</p></div>
+  <div class="prio"><div class="prio-n">3</div><p>Co-create the Digital and Data Central Control Tower to enable program visibility and stakeholder management</p></div>
+  <div class="prio"><div class="prio-n">4</div><p>Activate and mature dependency management and escalation processes across all program layers</p></div>
+  <div class="prio"><div class="prio-n">5</div><p>Drive execution excellence for the top 10 programs to ensure their on-time delivery and strategic success</p></div>
+</div>
+
+</div>
