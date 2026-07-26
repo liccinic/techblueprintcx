@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Critical enablers — IMO Digital &amp; Data</title>
+<style>
+  :root{
+    --mars-blue:#0000A0;
+    --kellanova-red:#F60B45;
+    --wrigley-light:#CCEDFF;
+
+    --mars-light:#BFBFF1;
+    --kellanova-light:#FFCFF1;
+    --wrigley-tint:#CCEDFF;
+    --snacking-light:#FFE8CC;
+    --service-bg:#DAEBF9;
+
+    --mid-mars:#6060C9;
+    --mid-kellanova:#FB6D9B;
+    --mid-wrigley:#66C6F5;
+    --mid-snacking:#FFBA66;
+    --service-accent:#A2CDF1;
+
+    --mars-dark-gray:#3C3C3C;
+    --white:#FFFFFF;
+    --font:"Centra No2","Mars Centra","Segoe UI",system-ui,-apple-system,Arial,sans-serif;
+    --emoji:"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji","Segoe UI Symbol",sans-serif;
+  }
+
+  *{box-sizing:border-box;}
+
+  /* the iframe's own canvas — must match the SharePoint section, not default white */
+  html,body{margin:0;padding:0;background:var(--mars-blue);overflow-x:hidden;}
+  body{font-family:var(--font);color:var(--white);-webkit-font-smoothing:antialiased;}
+
+  .wrap{max-width:1100px;margin:0 auto;padding:8px 16px 24px;}
+
+  .group-head{display:flex;align-items:baseline;gap:14px;margin:0 0 30px;}
+  .group-name{
+    margin:0;font-size:12px;font-weight:700;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--wrigley-light);white-space:nowrap;
+  }
+  .group-rule{flex:1;height:1px;background:rgba(255,255,255,.28);}
+
+  .deck{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;}
+
+  .btn{
+    position:relative;overflow:hidden;
+    display:flex;flex-direction:column;align-items:flex-start;gap:18px;
+    min-height:216px;padding:22px 20px 20px;border-radius:14px;
+    text-decoration:none;
+    transition:transform .16s ease, box-shadow .16s ease;
+  }
+  .btn:hover{transform:translateY(-3px);box-shadow:0 12px 30px rgba(0,0,40,.34);}
+  .btn:focus-visible{outline:3px solid var(--wrigley-light);outline-offset:3px;}
+
+  .btn-glyph{
+    position:absolute;top:-24px;right:-24px;width:140px;height:140px;
+    pointer-events:none;transition:transform .16s ease;
+  }
+  .btn:hover .btn-glyph{transform:rotate(-6deg) scale(1.06);}
+  .btn-glyph svg{display:block;width:140px;height:140px;}
+
+  .btn-emoji{
+    position:relative;display:flex;align-items:center;justify-content:center;
+    width:44px;height:44px;margin:0 0 auto;border-radius:12px;flex:0 0 auto;
+    background:rgba(255,255,255,.78);
+    font-family:var(--emoji);font-size:22px;line-height:1;
+  }
+
+  .btn-body{
+    position:relative;display:flex;flex-direction:column;align-items:flex-start;
+    width:100%;min-width:0;
+  }
+
+  .btn-title{
+    display:block;margin:0 0 10px;font-size:19px;line-height:1.25;
+    font-weight:700;letter-spacing:-.02em;
+  }
+  .btn-desc{
+    display:block;margin:0 0 14px;font-size:14px;line-height:1.5;
+    color:var(--mars-dark-gray);
+  }
+  .btn-cue{
+    display:inline-flex;align-items:center;gap:6px;margin:0;
+    font-size:13.5px;font-weight:700;
+  }
+  .btn-cue svg{width:15px;height:15px;flex:0 0 auto;transition:transform .16s ease;}
+  .btn:hover .btn-cue svg{transform:translateX(4px);}
+
+  /* ---- per-card primary + glyph ---- */
+
+  .e-mars{background:var(--mars-light);color:var(--mars-blue);}
+  .e-mars .btn-glyph{color:var(--mid-mars);}
+
+  .e-kellanova{background:var(--kellanova-light);color:var(--kellanova-red);}
+  .e-kellanova .btn-glyph{color:var(--mid-kellanova);}
+
+  .e-wrigley{background:var(--wrigley-tint);color:var(--mars-blue);}
+  .e-wrigley .btn-glyph{color:var(--mid-wrigley);}
+
+  .e-snacking{background:var(--snacking-light);color:var(--mars-blue);}
+  .e-snacking .btn-glyph{color:var(--mid-snacking);}
+
+  .e-service{background:var(--service-bg);color:var(--mars-blue);}
+  .e-service .btn-glyph{color:var(--service-accent);}
+
+  @media (max-width:780px){
+    .deck{grid-template-columns:repeat(2,minmax(0,1fr));}
+  }
+
+  @media (max-width:540px){
+    .wrap{padding:8px 12px 20px;}
+    .deck{grid-template-columns:1fr;gap:10px;}
+    .btn{
+      flex-direction:row;align-items:center;gap:14px;
+      min-height:0;padding:14px 16px;border-radius:12px;
+    }
+    .btn-glyph{display:none;}
+    .btn-emoji{width:38px;height:38px;margin:0;font-size:19px;border-radius:10px;}
+    .btn-title{margin:0 0 4px;font-size:16px;}
+    .btn-desc{margin:0;font-size:13px;line-height:1.45;}
+    .btn-cue{display:none;}
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    .btn,.btn-glyph,.btn-cue svg{transition:none;}
+    .btn:hover{transform:none;}
+    .btn:hover .btn-glyph,.btn:hover .btn-cue svg{transform:none;}
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <div class="group-head">
+    <h2 class="group-name">Critical enablers</h2>
+    <span class="group-rule" aria-hidden="true"></span>
+  </div>
+
+  <div class="deck">
+
+    <!-- Analytics, Reporting & BI — bg #BFBFF1 / primary #0000A0 / glyph #6060C9 -->
+    <a class="btn e-mars" href="https://team.effem.com/sites/imodigitalxdata/SitePages/Analytics-Reporting-BI.aspx" target="_top">
+      <span class="btn-glyph" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18"/><rect x="4.6" y="12" width="3.6" height="8" rx="1"/><rect x="10.2" y="6" width="3.6" height="14" rx="1"/><rect x="15.8" y="9" width="3.6" height="11" rx="1"/></svg></span>
+      <span class="btn-emoji" aria-hidden="true">📊</span>
+      <span class="btn-body">
+        <span class="btn-title">Analytics, Reporting &amp; BI</span>
+        <span class="btn-desc">Trusted dashboards and reporting that turn data into clear, timely decisions.</span>
+        <span class="btn-cue">Explore <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></span>
+      </span>
+    </a>
+
+    <!-- Change Experience — bg #FFCFF1 / primary #F60B45 / glyph #FB6D9B -->
+    <a class="btn e-kellanova" href="https://team.effem.com/sites/imodigitalxdata/SitePages/Change-Experience.aspx" target="_top">
+      <span class="btn-glyph" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m15.6 8.4-2 5.2-5.2 2 2-5.2 5.2-2Z"/></svg></span>
+      <span class="btn-emoji" aria-hidden="true">🧭</span>
+      <span class="btn-body">
+        <span class="btn-title">Change Experience</span>
+        <span class="btn-desc">Communications, training, and adoption so the change sticks with Associates.</span>
+        <span class="btn-cue">Explore <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></span>
+      </span>
+    </a>
+
+    <!-- Data Foundations — bg #CCEDFF / primary #0000A0 / glyph #66C6F5 -->
+    <a class="btn e-wrigley" href="https://team.effem.com/sites/imodigitalxdata/SitePages/Data-Foundations.aspx" target="_top">
+      <span class="btn-glyph" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="4" width="19" height="5.2" rx="1"/><rect x="2.5" y="9.4" width="19" height="5.2" rx="1"/><rect x="2.5" y="14.8" width="19" height="5.2" rx="1"/><path d="M9 4v5.2M15 4v5.2M6 9.4v5.2M12 9.4v5.2M18 9.4v5.2M9 14.8V20M15 14.8V20"/></svg></span>
+      <span class="btn-emoji" aria-hidden="true">🧱</span>
+      <span class="btn-body">
+        <span class="btn-title">Data Foundations</span>
+        <span class="btn-desc">The data domains, master data, and platforms the integration runs on.</span>
+        <span class="btn-cue">Explore <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></span>
+      </span>
+    </a>
+
+    <!-- Snacking Architecture — bg #FFE8CC / primary #0000A0 / glyph #FFBA66 -->
+    <a class="btn e-snacking" href="https://team.effem.com/sites/imodigitalxdata/SitePages/Enterprise-Architecture.aspx" target="_top">
+      <span class="btn-glyph" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="m12 2.8 9 4.7-9 4.7-9-4.7 9-4.7Z"/><path d="m3 12 9 4.7 9-4.7"/><path d="m3 16.6 9 4.6 9-4.6"/></svg></span>
+      <span class="btn-emoji" aria-hidden="true">🏗️</span>
+      <span class="btn-body">
+        <span class="btn-title">Snacking Architecture</span>
+        <span class="btn-desc">The target-state blueprint, and how heritage systems connect into it.</span>
+        <span class="btn-cue">Explore <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></span>
+      </span>
+    </a>
+
+    <!-- Service Management — bg #DAEBF9 / glyph #A2CDF1 -->
+    <a class="btn e-service" href="https://team.effem.com/sites/imodigitalxdata/SitePages/service-management.aspx" target="_top">
+      <span class="btn-glyph" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.6a8.5 8.5 0 0 1-12.3 7.6L3.5 20.5l1.7-5.2A8.5 8.5 0 1 1 21 11.6Z"/><path d="M9.7 9.2a2.4 2.4 0 0 1 4.7.8c0 1.6-2.4 2.4-2.4 2.4"/><path d="M12 15.6h.01"/></svg></span>
+      <span class="btn-emoji" aria-hidden="true">🛠️</span>
+      <span class="btn-body">
+        <span class="btn-title">Service Management</span>
+        <span class="btn-desc">Getting support, raising a request, and knowing who owns what after go-live.</span>
+        <span class="btn-cue">Explore <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></span>
+      </span>
+    </a>
+
+  </div>
+
+</div>
+
+</body>
+</html>
