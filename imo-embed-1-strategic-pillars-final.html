@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Strategic pillars — IMO Digital &amp; Data</title>
+<style>
+  :root{
+    --mars-blue:#0000A0;
+    --wrigley-light:#CCEDFF;
+    --mars-light:#BFBFF1;
+    --mars-dark-gray:#3C3C3C;
+    --white:#FFFFFF;
+    --emoji-chip:#EFEFFB;
+    --font:"Centra No2","Mars Centra","Segoe UI",system-ui,-apple-system,Arial,sans-serif;
+    --emoji:"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji","Segoe UI Symbol",sans-serif;
+  }
+
+  *{box-sizing:border-box;}
+
+  /* the iframe's own canvas — must match the SharePoint section, not default white */
+  html,body{margin:0;padding:0;background:var(--mars-blue);overflow-x:hidden;}
+  body{font-family:var(--font);color:var(--white);-webkit-font-smoothing:antialiased;}
+
+  .wrap{max-width:1100px;margin:0 auto;padding:8px 16px 24px;}
+
+  .group-head{display:flex;align-items:baseline;gap:14px;margin:0 0 30px;}
+  .group-name{
+    margin:0;font-size:12px;font-weight:700;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--wrigley-light);white-space:nowrap;
+  }
+  .group-rule{flex:1;height:1px;background:rgba(255,255,255,.28);}
+
+  .deck{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;}
+
+  .btn{
+    position:relative;overflow:hidden;
+    display:flex;flex-direction:column;align-items:flex-start;gap:18px;
+    min-height:216px;padding:22px 20px 20px;border-radius:14px;
+    text-decoration:none;background:var(--white);
+    transition:transform .16s ease, box-shadow .16s ease;
+  }
+  .btn:hover{transform:translateY(-3px);box-shadow:0 12px 30px rgba(0,0,40,.34);}
+  .btn:focus-visible{outline:3px solid var(--wrigley-light);outline-offset:3px;}
+
+  .btn-glyph{
+    position:absolute;top:-24px;right:-24px;width:140px;height:140px;
+    color:var(--mars-light);pointer-events:none;transition:transform .16s ease;
+  }
+  .btn:hover .btn-glyph{transform:rotate(-6deg) scale(1.06);}
+  .btn-glyph svg{display:block;width:140px;height:140px;}
+
+  .btn-emoji{
+    position:relative;display:flex;align-items:center;justify-content:center;
+    width:44px;height:44px;margin:0 0 auto;border-radius:12px;flex:0 0 auto;
+    background:var(--emoji-chip);
+    font-family:var(--emoji);font-size:22px;line-height:1;
+  }
+
+  .btn-body{
+    position:relative;display:flex;flex-direction:column;align-items:flex-start;
+    width:100%;min-width:0;
+  }
+
+  .btn-title{
+    display:block;margin:0 0 10px;font-size:19px;line-height:1.25;
+    font-weight:700;letter-spacing:-.02em;color:var(--mars-blue);
+  }
+  .btn-desc{
+    display:block;margin:0 0 14px;font-size:14px;line-height:1.5;
+    color:var(--mars-dark-gray);
+  }
+  .btn-cue{
+    display:inline-flex;align-items:center;gap:6px;margin:0;
+    font-size:13.5px;font-weight:700;color:var(--mars-blue);
+  }
+  .btn-cue svg{width:15px;height:15px;flex:0 0 auto;transition:transform .16s ease;}
+  .btn:hover .btn-cue svg{transform:translateX(4px);}
+
+  @media (max-width:780px){
+    .deck{grid-template-columns:repeat(2,minmax(0,1fr));}
+  }
+
+  @media (max-width:540px){
+    .wrap{padding:8px 12px 20px;}
+    .deck{grid-template-columns:1fr;gap:10px;}
+    .btn{
+      flex-direction:row;align-items:center;gap:14px;
+      min-height:0;padding:14px 16px;border-radius:12px;
+    }
+    .btn-glyph{display:none;}
+    .btn-emoji{width:38px;height:38px;margin:0;font-size:19px;border-radius:10px;}
+    .btn-title{margin:0 0 4px;font-size:16px;}
+    .btn-desc{margin:0;font-size:13px;line-height:1.45;}
+    .btn-cue{display:none;}
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    .btn,.btn-glyph,.btn-cue svg{transition:none;}
+    .btn:hover{transform:none;}
+    .btn:hover .btn-glyph,.btn:hover .btn-cue svg{transform:none;}
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <div class="group-head">
+    <h2 class="group-name">Strategic pillars</h2>
+    <span class="group-rule" aria-hidden="true"></span>
+  </div>
+
+  <div class="deck">
+
+    <a class="btn" href="https://team.effem.com/sites/imodigitalxdata/SitePages/operations-governance.aspx" target="_top">
+      <span class="btn-glyph" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3.2"/><path d="M12 2.5v2.2M12 19.3v2.2M21.5 12h-2.2M4.7 12H2.5M18.7 5.3l-1.6 1.6M6.9 17.1l-1.6 1.6M18.7 18.7l-1.6-1.6M6.9 6.9 5.3 5.3"/></svg></span>
+      <span class="btn-emoji" aria-hidden="true">⚙️</span>
+      <span class="btn-body">
+        <span class="btn-title">Delivery: Operations &amp; Governance</span>
+        <span class="btn-desc">How the program runs — cadence, decisions, and the guardrails that keep delivery on track.</span>
+        <span class="btn-cue">Explore <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></span>
+      </span>
+    </a>
+
+    <a class="btn" href="https://team.effem.com/sites/imodigitalxdata/SitePages/global-functions-delivery.aspx" target="_top">
+      <span class="btn-glyph" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 21h19"/><rect x="5" y="3.5" width="14" height="17.5" rx="1.6"/><path d="M9 8h2M13 8h2M9 12h2M13 12h2M9 16h2M13 16h2"/></svg></span>
+      <span class="btn-emoji" aria-hidden="true">🏢</span>
+      <span class="btn-body">
+        <span class="btn-title">Delivery: Global Functions</span>
+        <span class="btn-desc">Technology and data delivery across the global functions that run Mars Snacking.</span>
+        <span class="btn-cue">Explore <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></span>
+      </span>
+    </a>
+
+    <a class="btn" href="https://team.effem.com/sites/imodigitalxdata/SitePages/regional-delivery.aspx" target="_top">
+      <span class="btn-glyph" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><ellipse cx="12" cy="12" rx="4" ry="9"/></svg></span>
+      <span class="btn-emoji" aria-hidden="true">🌍</span>
+      <span class="btn-body">
+        <span class="btn-title">Delivery: Regions &amp; Division</span>
+        <span class="btn-desc">Landing the integration market by market, with the regions and Accelerator division in the lead.</span>
+        <span class="btn-cue">Explore <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></span>
+      </span>
+    </a>
+
+    <a class="btn" href="https://team.effem.com/sites/imodigitalxdata/SitePages/value.aspx" target="_top">
+      <span class="btn-glyph" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17.5 9.5 11l4 4L21 7.5"/><path d="M15.2 7.5H21V13"/><path d="M3 21h18"/></svg></span>
+      <span class="btn-emoji" aria-hidden="true">💎</span>
+      <span class="btn-body">
+        <span class="btn-title">Digital Value &amp; Synergies</span>
+        <span class="btn-desc">Tracking and unlocking the $115M in digital value and synergies.</span>
+        <span class="btn-cue">Explore <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></span>
+      </span>
+    </a>
+
+    <a class="btn" href="https://team.effem.com/sites/imodigitalxdata/SitePages/digital-delivery-model.aspx" target="_top">
+      <span class="btn-glyph" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.4c3 2.3 4.8 5.7 4.8 9.4l-1.9 4.4H9.1L7.2 11.8c0-3.7 1.8-7.1 4.8-9.4Z"/><circle cx="12" cy="10" r="1.9"/><path d="M9.1 16.2 6.4 18v3.1l2.9-1.7M14.9 16.2l2.7 1.8v3.1l-2.9-1.7"/></svg></span>
+      <span class="btn-emoji" aria-hidden="true">🚀</span>
+      <span class="btn-body">
+        <span class="btn-title">Digital Delivery Model</span>
+        <span class="btn-desc">How we build and ship — the operating model behind every digital release.</span>
+        <span class="btn-cue">Explore <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg></span>
+      </span>
+    </a>
+
+  </div>
+
+</div>
+
+</body>
+</html>
