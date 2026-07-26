@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Strategic Enablement Framework — IMO Digital &amp; Data</title>
+<style>
+  :root{
+    --mars-blue:#0000A0;
+    --kellanova-red:#F60B45;
+    --wrigleys-blue:#009EEA;
+    --snacking-orange:#FF8B00;
+    --mars-violet:#6060C9;
+
+    --tint-red:#FFE9F1;
+    --tint-blue:#E3F2FD;
+    --tint-orange:#FFF1DE;
+    --tint-violet:#EDECFA;
+
+    --mars-dark-gray:#3C3C3C;
+    --slate:#6B7280;
+    --white:#FFFFFF;
+    --hairline:#E4E7EC;
+    --shell:#F1F2F4;
+
+    --font:"Centra No2","Mars Centra","Segoe UI",system-ui,-apple-system,Arial,sans-serif;
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;background:var(--white);overflow-x:hidden;}
+  body{font-family:var(--font);color:var(--mars-dark-gray);-webkit-font-smoothing:antialiased;}
+
+  .wrap{max-width:1100px;margin:0 auto;padding:8px 16px 24px;}
+
+  .eyebrow{
+    margin:0 0 16px;font-size:12px;font-weight:700;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--mars-blue);
+  }
+
+  /* ---------- strategic outcomes ---------- */
+
+  .outcomes{
+    display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin:0 0 36px;
+  }
+
+  .card{
+    display:flex;flex-direction:column;align-items:center;text-align:center;
+    padding:24px 20px 20px;border-radius:16px;
+  }
+
+  .card-icon{
+    display:flex;align-items:center;justify-content:center;
+    width:64px;height:64px;border-radius:50%;flex:0 0 auto;margin:0 0 18px;
+    color:var(--white);
+  }
+  .card-icon svg{display:block;width:32px;height:32px;}
+
+  .card-title{margin:0 0 12px;font-size:21px;line-height:1.18;font-weight:700;letter-spacing:-.02em;}
+  .card-desc{margin:0 0 18px;font-size:14.5px;line-height:1.5;color:var(--mars-dark-gray);}
+
+  .card-outcomes{margin:0 0 18px;width:100%;}
+  .outcomes-label{
+    display:block;margin:0 0 5px;font-size:11px;font-weight:700;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--slate);
+  }
+  .outcomes-list{display:block;font-size:14px;line-height:1.45;font-weight:700;}
+
+  .card-cta{
+    display:block;width:100%;margin-top:auto;padding:13px 16px;border-radius:999px;
+    font-size:14.5px;font-weight:700;color:var(--white);text-decoration:none;text-align:center;
+    transition:filter .16s ease, transform .16s ease;
+  }
+  .card-cta:hover{filter:brightness(.92);transform:translateY(-2px);}
+  .card-cta:focus-visible{outline:3px solid var(--mars-blue);outline-offset:3px;}
+
+  .c-red{background:var(--tint-red);}
+  .c-red .card-icon,.c-red .card-cta{background:var(--kellanova-red);}
+  .c-red .card-title,.c-red .outcomes-list{color:var(--kellanova-red);}
+
+  .c-blue{background:var(--tint-blue);}
+  .c-blue .card-icon,.c-blue .card-cta{background:var(--wrigleys-blue);}
+  .c-blue .card-title,.c-blue .outcomes-list{color:var(--wrigleys-blue);}
+
+  .c-orange{background:var(--tint-orange);}
+  .c-orange .card-icon,.c-orange .card-cta{background:var(--snacking-orange);}
+  .c-orange .card-title,.c-orange .outcomes-list{color:var(--snacking-orange);}
+
+  .c-violet{background:var(--tint-violet);}
+  .c-violet .card-icon,.c-violet .card-cta{background:var(--mars-violet);}
+  .c-violet .card-title,.c-violet .outcomes-list{color:var(--mars-violet);}
+
+  /* ---------- critical enablers ---------- */
+
+  .enablers-shell{background:var(--shell);border-radius:16px;padding:16px;}
+  .pills{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;}
+
+  .pill{
+    display:flex;align-items:center;justify-content:center;text-align:center;
+    padding:15px 12px;border-radius:999px;background:var(--mars-blue);
+    color:var(--white);font-size:15px;font-weight:700;line-height:1.2;
+    text-decoration:none;transition:transform .16s ease, box-shadow .16s ease;
+  }
+  .pill:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,0,60,.22);}
+  .pill:focus-visible{outline:3px solid var(--kellanova-red);outline-offset:3px;}
+
+  /* ---------- 2 up ---------- */
+  @media (max-width:900px){
+    .outcomes{grid-template-columns:repeat(2,minmax(0,1fr));}
+    .pills{grid-template-columns:repeat(3,minmax(0,1fr));}
+  }
+
+  /* ---------- compact tiles: keeps mobile height near the desktop height ----------
+     To show the description and business outcomes on mobile instead, delete the two
+     display:none rules below — then raise the web part height to about 1150px.      */
+  @media (max-width:620px){
+    .wrap{padding:8px 12px 20px;}
+    .outcomes{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-bottom:28px;}
+    .card{padding:16px 12px 14px;border-radius:14px;}
+    .card-icon{width:44px;height:44px;margin:0 0 12px;}
+    .card-icon svg{width:22px;height:22px;}
+    .card-title{font-size:15px;line-height:1.2;margin:0 0 14px;}
+    .card-desc{display:none;}
+    .card-outcomes{display:none;}
+    .card-cta{padding:11px 10px;font-size:13px;}
+    .enablers-shell{padding:12px;}
+    .pills{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;}
+    .pill{padding:13px 10px;font-size:13.5px;}
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    .card-cta,.pill{transition:none;}
+    .card-cta:hover,.pill:hover{transform:none;}
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <p class="eyebrow">Strategic outcomes</p>
+
+  <div class="outcomes">
+
+    <!-- 1 — IMO Digital & Data Delivery -->
+    <div class="card c-red">
+      <span class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="13" r="8"/><circle cx="11" cy="13" r="4.4"/><circle cx="11" cy="13" r="1.2" fill="currentColor" stroke="none"/><path d="m11 13 8.4-8.4"/><path d="M15.6 4.6h3.8v3.8"/></svg></span>
+      <h3 class="card-title">IMO Digital &amp; Data Delivery</h3>
+      <p class="card-desc">Enable the Snacking combined business operations through digital, data &amp; technology integration.</p>
+      <div class="card-outcomes">
+        <span class="outcomes-label">Business outcomes</span>
+        <span class="outcomes-list">Scaled digital capabilities · enhanced performance</span>
+      </div>
+      <a class="card-cta" href="#" target="_top">Deliver the integration</a>
+    </div>
+
+    <!-- 2 — Digital Technologies Value & Synergies -->
+    <div class="card c-blue">
+      <span class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2.6"/><path d="m7 15 3.4-3.4 2.4 2.4L18 8.8"/><path d="M14.6 8.8H18v3.4"/></svg></span>
+      <h3 class="card-title">Digital Technologies Value &amp; Synergies</h3>
+      <p class="card-desc">Maximize value through synergy delivery, simplification &amp; technology optimization.</p>
+      <div class="card-outcomes">
+        <span class="outcomes-label">Business outcomes</span>
+        <span class="outcomes-list">$115M digital synergies · lower total cost of ownership</span>
+      </div>
+      <a class="card-cta" href="https://team.effem.com/sites/imodigitalxdata/SitePages/value.aspx" target="_top">Capture the value</a>
+    </div>
+
+    <!-- 3 — Digital Delivery Model -->
+    <div class="card c-orange">
+      <span class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M7.4 15.5c2 0 3.1-1.6 4.6-3.5s2.6-3.5 4.6-3.5a3.5 3.5 0 0 1 0 7c-2 0-3.1-1.6-4.6-3.5S9.4 8.5 7.4 8.5a3.5 3.5 0 0 0 0 7Z"/></svg></span>
+      <h3 class="card-title">Digital Delivery Model</h3>
+      <p class="card-desc">Build a scalable, standard model for delivering work via products &amp; platforms.</p>
+      <div class="card-outcomes">
+        <span class="outcomes-label">Business outcomes</span>
+        <span class="outcomes-list">Speed to market · predictability · quality of digital solutions</span>
+      </div>
+      <a class="card-cta" href="https://team.effem.com/sites/imodigitalxdata/SitePages/digital-delivery-model.aspx" target="_top">Standardize how we work</a>
+    </div>
+
+    <!-- 4 — Future Digital Technology OD -->
+    <div class="card c-violet">
+      <span class="card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8.6" r="3.1"/><path d="M3.4 19.2a5.6 5.6 0 0 1 11.2 0"/><circle cx="17.4" cy="9.8" r="2.3"/><path d="M15.4 14.8a4.7 4.7 0 0 1 5.2 4.4"/></svg></span>
+      <h3 class="card-title">Future Digital Technology OD</h3>
+      <p class="card-desc">Design the future Digital &amp; Data organization, capabilities &amp; operating model.</p>
+      <div class="card-outcomes">
+        <span class="outcomes-label">Business outcomes</span>
+        <span class="outcomes-list">Combined future DT organization</span>
+      </div>
+      <a class="card-cta" href="#" target="_top">Build the future</a>
+    </div>
+
+  </div>
+
+  <p class="eyebrow">Critical enablers</p>
+
+  <div class="enablers-shell">
+    <div class="pills">
+      <a class="pill" href="https://team.effem.com/sites/imodigitalxdata/SitePages/Analytics-Reporting-BI.aspx" target="_top">Analytics &amp; Reporting</a>
+      <a class="pill" href="https://team.effem.com/sites/imodigitalxdata/SitePages/Change-Experience.aspx" target="_top">Change Experience</a>
+      <a class="pill" href="https://team.effem.com/sites/imodigitalxdata/SitePages/Data-Foundations.aspx" target="_top">Data Foundations</a>
+      <a class="pill" href="https://team.effem.com/sites/imodigitalxdata/SitePages/Enterprise-Architecture.aspx" target="_top">Enterprise Architecture</a>
+      <a class="pill" href="https://team.effem.com/sites/imodigitalxdata/SitePages/service-management.aspx" target="_top">Service Management</a>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
