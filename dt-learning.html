@@ -39,7 +39,7 @@
   --snk-light: #FFE8CC;
   --line: #E2E2EF;
   --soft: #F5F5FC;
-  --font: "Mars Centra", "Figtree", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font: "Mars Centra", "MarsCentra", "Figtree", "Segoe UI", system-ui, -apple-system, sans-serif;
   color-scheme: light;
 }
 * { box-sizing: border-box; }
@@ -47,7 +47,7 @@
 [hidden] { display: none !important; }
 body { margin: 0; }
 html { scroll-behavior: smooth; }
-body { background: var(--bg); color: var(--ink); font-family: var(--font); font-size: 15px; line-height: 1.5; }
+body { background: var(--bg); color: var(--ink); font-family: var(--font); font-size: 17px; line-height: 1.5; }
 .wrap {
   max-width: 1240px; margin: 0 auto;
   padding-left: max(16px, env(safe-area-inset-left, 0px));
@@ -55,114 +55,115 @@ body { background: var(--bg); color: var(--ink); font-family: var(--font); font-
   padding-block: 16px 40px;
 }
 h1, h2, h3 { font-family: var(--font); color: var(--blue); margin: 0; text-wrap: balance; }
-h1 { font-size: 26px; line-height: 1.15; font-weight: 700; }
-h2 { font-size: 18px; font-weight: 700; }
-h3 { font-size: 16px; font-weight: 700; line-height: 1.3; }
+h1 { font-size: 34px; line-height: 1.15; font-weight: 700; }
+h2 { font-size: 22px; font-weight: 700; }
+h3 { font-size: 19px; font-weight: 700; line-height: 1.3; }
 p { margin: 0; }
 button, input { font: inherit; color: inherit; }
 :focus-visible { outline: 3px solid var(--wblue); outline-offset: 2px; border-radius: 8px; }
 
 /* ── Title row ── */
 .title-row { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 16px; margin-bottom: 12px; }
-.try { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; font-size: 13px; color: var(--ink-soft); }
-.try button { border: 1px solid var(--line); background: var(--bg); border-radius: 99px; padding: 2px 10px; cursor: pointer; color: var(--blue); font-weight: 500; }
+.try { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-size: 15px; color: var(--ink-soft); }
+.try button { border: 1px solid var(--line); background: var(--bg); border-radius: 99px; padding: 4px 13px; cursor: pointer; color: var(--blue); font-weight: 500; }
 .try button:hover { border-color: var(--blue); }
 
 /* ── Filter bar ── */
 .bar-wrap { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 30; background: var(--bg); padding-block: 8px; margin-inline: -4px; padding-inline: 4px; }
-.bar { display: grid; grid-template-columns: minmax(240px, 1.35fr) repeat(3, minmax(0, 1fr)); gap: 10px; }
+.bar { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+.search { grid-column: 1 / -1; }
 .search { position: relative; display: block; min-width: 0; }
-.search .s-icon { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: var(--blue); pointer-events: none; }
+.search .s-icon { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); color: var(--blue); pointer-events: none; }
 .search input {
-  width: 100%; height: 56px; border: 2px solid var(--blue); border-radius: 14px; background: var(--bg);
-  padding: 0 44px 0 48px; font-size: 17px; color: var(--ink); box-shadow: 0 4px 16px rgba(0, 0, 160, .10);
+  width: 100%; height: 64px; border: 2px solid var(--blue); border-radius: 16px; background: var(--bg);
+  padding: 0 50px 0 56px; font-size: 19px; color: var(--ink); box-shadow: 0 4px 16px rgba(0, 0, 160, .10);
 }
 .search input::placeholder { color: #8C8CA6; }
 .search input:focus { outline: none; box-shadow: 0 0 0 4px var(--mars-light); }
 .search input::-webkit-search-cancel-button { display: none; }
-.s-clear { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); width: 30px; height: 30px; border-radius: 50%; border: 0; background: var(--soft); color: var(--blue); cursor: pointer; display: grid; place-items: center; }
+.s-clear { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); width: 34px; height: 34px; border-radius: 50%; border: 0; background: var(--soft); color: var(--blue); cursor: pointer; display: grid; place-items: center; }
 
 .dd { position: relative; min-width: 0; }
 .dd-btn {
-  width: 100%; height: 56px; border: 1.5px solid var(--line); border-radius: 14px; background: var(--bg); cursor: pointer;
-  display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 10px; padding: 0 12px 0 8px; text-align: left;
+  width: 100%; height: 64px; border: 1.5px solid var(--line); border-radius: 16px; background: var(--bg); cursor: pointer;
+  display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 12px; padding: 0 14px 0 9px; text-align: left;
   transition: border-color .15s, background .15s;
 }
 .dd-btn:hover { border-color: var(--blue); }
 .dd-btn[aria-expanded="true"] { border-color: var(--blue); box-shadow: 0 0 0 3px var(--mars-light); }
-.dd-ic { width: 38px; height: 38px; border-radius: 10px; display: grid; place-items: center; background: var(--soft); color: var(--blue); }
+.dd-ic { width: 46px; height: 46px; border-radius: 12px; display: grid; place-items: center; background: var(--soft); color: var(--blue); }
 .dd-txt { min-width: 0; line-height: 1.2; }
-.dd-label { display: block; font-size: 11px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; color: var(--ink-soft); }
-.dd-val { display: block; font-size: 14.5px; font-weight: 700; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.dd-label { display: block; font-size: 12.5px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; color: var(--ink-soft); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.dd-val { display: block; font-size: 17px; font-weight: 700; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .dd-chev { color: var(--blue); transition: transform .15s; }
 .dd-btn[aria-expanded="true"] .dd-chev { transform: rotate(180deg); }
 .dd.active .dd-btn { border-color: var(--blue); background: var(--soft); }
 .dd.active .dd-val { color: var(--blue); }
 
 .dd-menu {
-  position: absolute; top: calc(100% + 6px); left: 0; width: max(100%, 300px); max-height: min(62vh, 440px); overflow-y: auto;
+  position: absolute; top: calc(100% + 6px); left: 0; width: max(100%, 340px); max-height: min(62vh, 440px); overflow-y: auto;
   background: var(--bg); border: 1px solid var(--line); border-radius: 14px; box-shadow: 0 14px 36px rgba(0, 0, 60, .18);
   padding: 6px; display: grid; gap: 2px; z-index: 40;
 }
 .dd:last-child .dd-menu { left: auto; right: 0; }
 .dd-menu { overscroll-behavior: contain; }
 .dd-menu.up { top: auto; bottom: calc(100% + 6px); }
-.dd-menu.cols { grid-template-columns: 1fr 1fr; width: max(100%, 380px); }
+.dd-menu.cols { grid-template-columns: 1fr 1fr; width: max(100%, 460px); }
 .dd-menu.cols .o-all { grid-column: 1 / -1; }
 .o {
   border: 0; background: transparent; border-radius: 10px; cursor: pointer; text-align: left; width: 100%;
-  display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 10px; padding: 7px 8px;
+  display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 12px; padding: 8px 10px;
 }
 .o:hover:not(:disabled), .o:focus-visible { background: var(--soft); outline: none; }
 .o:disabled { opacity: .38; cursor: default; }
-.o .ic { width: 32px; height: 32px; border-radius: 9px; display: grid; place-items: center; flex: none; }
+.o .ic { width: 40px; height: 40px; border-radius: 11px; display: grid; place-items: center; flex: none; }
 .o .txt { min-width: 0; line-height: 1.2; }
-.o .eb { display: block; font-size: 10.5px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; }
-.o .nm { display: block; font-size: 14px; font-weight: 600; color: var(--ink); }
-.o .n { min-width: 22px; height: 20px; border-radius: 99px; padding: 0 6px; background: var(--soft); color: var(--blue); font-size: 11.5px; font-weight: 700; display: grid; place-items: center; font-variant-numeric: tabular-nums; }
+.o .eb { display: block; font-size: 12px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; }
+.o .nm { display: block; font-size: 16.5px; font-weight: 600; color: var(--ink); }
+.o .n { min-width: 26px; height: 23px; border-radius: 99px; padding: 0 7px; background: var(--soft); color: var(--blue); font-size: 13px; font-weight: 700; display: grid; place-items: center; font-variant-numeric: tabular-nums; }
 .o[aria-selected="true"] { background: var(--blue); }
 .o[aria-selected="true"] .nm, .o[aria-selected="true"] .eb { color: #FFFFFF !important; }
 .o[aria-selected="true"] .ic, .o[aria-selected="true"] .n { background: #FFFFFF !important; }
-.dd-menu.cols .o .nm { font-size: 13px; }
-.dd-menu.cols .o .ic { width: 28px; height: 28px; }
+.dd-menu.cols .o .nm { font-size: 15px; }
+.dd-menu.cols .o .ic { width: 36px; height: 36px; }
 
 /* ── Active line ── */
 .status { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding-block: 6px 2px; }
-.count { font-size: 15px; font-weight: 700; color: var(--blue); font-variant-numeric: tabular-nums; }
+.count { font-size: 17.5px; font-weight: 700; color: var(--blue); font-variant-numeric: tabular-nums; }
 .pills { display: flex; flex-wrap: wrap; gap: 6px; }
-.pill { display: inline-flex; align-items: center; gap: 6px; border: 0; background: var(--blue); color: #FFFFFF; border-radius: 99px; padding: 3px 9px 3px 11px; font-size: 12.5px; font-weight: 600; cursor: pointer; }
+.pill { display: inline-flex; align-items: center; gap: 6px; border: 0; background: var(--blue); color: #FFFFFF; border-radius: 99px; padding: 5px 11px 5px 13px; font-size: 14.5px; font-weight: 600; cursor: pointer; }
 .pill:hover { background: var(--blue-deep); }
-.hint { font-size: 13.5px; color: var(--ink-soft); }
-.clear { border: 0; background: none; color: var(--blue); font-weight: 600; cursor: pointer; text-decoration: underline; padding: 0; font-size: 13px; }
+.hint { font-size: 15.5px; color: var(--ink-soft); }
+.clear { border: 0; background: none; color: var(--blue); font-weight: 600; cursor: pointer; text-decoration: underline; padding: 0; font-size: 15px; }
 
 .main { display: grid; gap: 18px; margin-top: 10px; scroll-margin-top: 90px; }
 
 /* ── First steps ── */
 .path { border: 1.5px solid var(--blue); border-radius: 14px; overflow: hidden; }
-.path-head { background: var(--blue); color: #FFFFFF; padding: 10px 16px; display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; }
-.path-head h2 { color: #FFFFFF; font-size: 16px; }
-.path-head p { font-size: 12.5px; opacity: .9; }
+.path-head { background: var(--blue); color: #FFFFFF; padding: 13px 18px; display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; }
+.path-head h2 { color: #FFFFFF; font-size: 20px; }
+.path-head p { font-size: 14.5px; opacity: .9; }
 .path-right { display: flex; align-items: center; gap: 12px; }
-.meter { display: flex; align-items: center; gap: 8px; font-size: 12.5px; font-weight: 700; font-variant-numeric: tabular-nums; }
-.meter-bar { width: 90px; height: 6px; border-radius: 99px; background: rgba(255, 255, 255, .3); overflow: hidden; }
+.meter { display: flex; align-items: center; gap: 8px; font-size: 14.5px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.meter-bar { width: 100px; height: 8px; border-radius: 99px; background: rgba(255, 255, 255, .3); overflow: hidden; }
 .meter-fill { height: 100%; background: #FFFFFF; border-radius: 99px; transition: width .3s; }
-.toggle-steps { border: 1.5px solid rgba(255, 255, 255, .6); background: transparent; color: #FFFFFF; border-radius: 8px; padding: 2px 10px; font-size: 12.5px; font-weight: 600; cursor: pointer; }
+.toggle-steps { border: 1.5px solid rgba(255, 255, 255, .6); background: transparent; color: #FFFFFF; border-radius: 8px; padding: 4px 12px; font-size: 14.5px; font-weight: 600; cursor: pointer; }
 .toggle-steps:hover { background: rgba(255, 255, 255, .15); }
-.stages { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
-.stage { padding: 12px 14px 14px; display: grid; gap: 6px; align-content: start; border-right: 1px solid var(--line); min-width: 0; }
+.stages { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+.stage { padding: 14px 16px 16px; display: grid; gap: 8px; align-content: start; border-right: 1px solid var(--line); min-width: 0; }
 .stage:last-child { border-right: 0; }
-.stage-head { display: flex; align-items: center; gap: 8px; }
-.stage-num { width: 24px; height: 24px; border-radius: 50%; background: var(--mars-light); color: var(--blue); flex: none; display: grid; place-items: center; font-weight: 700; font-size: 12.5px; }
+.stage-head { display: flex; align-items: center; gap: 10px; }
+.stage-num { width: 32px; height: 32px; border-radius: 50%; background: var(--mars-light); color: var(--blue); flex: none; display: grid; place-items: center; font-weight: 700; font-size: 15px; }
 .stage.complete .stage-num { background: var(--blue); color: #FFFFFF; }
-.stage-title { font-weight: 700; color: var(--blue); font-size: 14.5px; line-height: 1.2; }
-.stage-why { font-size: 12px; color: var(--ink-soft); }
-.task { display: grid; grid-template-columns: auto 1fr; gap: 0 8px; align-items: start; padding: 6px 9px; border-radius: 9px; background: var(--soft); }
-.task input { width: 16px; height: 16px; margin: 2px 0 0; accent-color: var(--blue); cursor: pointer; grid-row: span 2; }
-.task a { color: var(--ink); font-weight: 600; font-size: 13px; line-height: 1.3; text-decoration: none; }
+.stage-title { font-weight: 700; color: var(--blue); font-size: 17.5px; line-height: 1.2; }
+.stage-why { font-size: 14px; color: var(--ink-soft); }
+.task { display: grid; grid-template-columns: auto 1fr; gap: 0 10px; align-items: start; padding: 8px 11px; border-radius: 10px; background: var(--soft); }
+.task input { width: 19px; height: 19px; margin: 2px 0 0; accent-color: var(--blue); cursor: pointer; grid-row: span 2; }
+.task a { color: var(--ink); font-weight: 600; font-size: 15.5px; line-height: 1.3; text-decoration: none; }
 .task a:hover { color: var(--blue); text-decoration: underline; }
-.task small { font-size: 11.5px; color: var(--ink-soft); }
+.task small { font-size: 13px; color: var(--ink-soft); }
 .task.done a { color: var(--ink-soft); text-decoration: line-through; }
-.path-hint { border: 1.5px dashed var(--mars-light); border-radius: 12px; padding: 10px 14px; color: var(--ink-soft); font-size: 13.5px; display: flex; gap: 10px; align-items: center; }
+.path-hint { border: 1.5px dashed var(--mars-light); border-radius: 12px; padding: 13px 16px; color: var(--ink-soft); font-size: 16px; display: flex; gap: 10px; align-items: center; }
 .path-hint svg { color: var(--blue); flex: none; }
 .path-hint b { color: var(--blue); }
 .path-hint button { border: 0; background: none; color: var(--blue); font-weight: 600; text-decoration: underline; cursor: pointer; padding: 0; }
@@ -172,43 +173,40 @@ button, input { font: inherit; color: inherit; }
 .results.updated { animation: rise .3s ease-out; }
 @keyframes rise { from { opacity: .35; transform: translateY(6px); } to { opacity: 1; transform: none; } }
 .topic { display: grid; gap: 10px; }
-.topic-head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
-.topic-head p { font-size: 13px; color: var(--ink-soft); }
-.ticon { width: 30px; height: 30px; border-radius: 9px; display: grid; place-items: center; flex: none; }
-.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 12px; }
-.card { border: 1px solid var(--line); border-radius: 14px; padding: 15px; display: flex; flex-direction: column; gap: 8px; background: var(--bg); transition: border-color .15s; min-width: 0; }
+.topic-head { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.topic-head p { font-size: 15.5px; color: var(--ink-soft); }
+.ticon { width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center; flex: none; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(310px, 1fr)); gap: 14px; }
+.card { border: 1px solid var(--line); border-radius: 16px; padding: 18px; display: flex; flex-direction: column; gap: 10px; background: var(--bg); transition: border-color .15s; min-width: 0; }
 .card:hover { border-color: #B9B9DF; }
 .card.is-done { background: var(--soft); }
-.meta { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; font-size: 12.5px; font-weight: 600; color: var(--ink-soft); }
-.meta .fmt { display: inline-flex; align-items: center; gap: 5px; color: var(--blue); }
-.badge { font-size: 11.5px; font-weight: 700; padding: 2px 8px; border-radius: 99px; background: var(--snk-light); color: var(--ink); }
-.summary { font-size: 14px; }
-.who { font-size: 12.5px; color: var(--ink-soft); }
+.meta { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 14px; font-size: 14.5px; font-weight: 600; color: var(--ink-soft); }
+.meta .fmt { display: inline-flex; align-items: center; gap: 7px; color: var(--blue); }
+.badge { font-size: 13px; font-weight: 700; padding: 3px 10px; border-radius: 99px; background: var(--snk-light); color: var(--ink); }
+.badge.new { background: var(--red); color: #FFFFFF; }
+.summary { font-size: 16.5px; }
+.who { font-size: 14.5px; color: var(--ink-soft); }
 .who b { color: var(--ink); font-weight: 600; }
 .apps { display: flex; flex-wrap: wrap; gap: 6px; }
-.app-tag { border: 0; background: var(--wri-light); color: var(--ink); font-size: 12px; font-weight: 600; padding: 3px 9px; border-radius: 6px; cursor: pointer; }
+.app-tag { border: 0; background: var(--wri-light); color: var(--ink); font-size: 14px; font-weight: 600; padding: 4px 11px; border-radius: 7px; cursor: pointer; }
 .app-tag:hover { background: var(--wblue); color: #FFFFFF; }
 .app-tag[aria-pressed="true"] { background: var(--blue); color: #FFFFFF; }
-details { font-size: 13.5px; }
-summary { cursor: pointer; font-weight: 600; color: var(--blue); font-size: 13px; list-style: none; display: inline-flex; align-items: center; gap: 6px; }
+details { font-size: 15.5px; }
+summary { cursor: pointer; font-weight: 600; color: var(--blue); font-size: 15px; list-style: none; display: inline-flex; align-items: center; gap: 6px; }
 summary::-webkit-details-marker { display: none; }
 summary::before { content: "+"; font-weight: 700; width: 14px; }
 details[open] summary::before { content: "\2013"; }
 details ul { margin: 6px 0 0; padding-left: 20px; display: grid; gap: 3px; }
 .card-foot { margin-top: auto; padding-top: 4px; display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
-.open { display: inline-flex; align-items: center; gap: 6px; background: var(--blue); color: #FFFFFF; text-decoration: none; font-weight: 600; font-size: 13.5px; padding: 7px 13px; border-radius: 9px; }
+.open { display: inline-flex; align-items: center; gap: 6px; background: var(--blue); color: #FFFFFF; text-decoration: none; font-weight: 600; font-size: 15.5px; padding: 9px 16px; border-radius: 10px; }
 .open:hover { background: var(--blue-deep); }
-.done-toggle { display: inline-flex; align-items: center; gap: 7px; font-size: 12.5px; font-weight: 600; color: var(--ink-soft); cursor: pointer; user-select: none; }
-.done-toggle input { width: 16px; height: 16px; accent-color: var(--blue); margin: 0; cursor: pointer; }
+.done-toggle { display: inline-flex; align-items: center; gap: 8px; font-size: 14.5px; font-weight: 600; color: var(--ink-soft); cursor: pointer; user-select: none; }
+.done-toggle input { width: 19px; height: 19px; accent-color: var(--blue); margin: 0; cursor: pointer; }
 .is-done .done-toggle { color: var(--blue); }
 .empty { text-align: center; padding: 32px 16px; color: var(--ink-soft); border: 1.5px dashed var(--line); border-radius: 14px; display: grid; gap: 6px; justify-items: center; }
-.help { border-top: 1px solid var(--line); padding-top: 14px; font-size: 12.5px; color: var(--ink-soft); display: grid; gap: 3px; }
+.help { border-top: 1px solid var(--line); padding-top: 16px; font-size: 14.5px; color: var(--ink-soft); display: grid; gap: 3px; }
 .help b { color: var(--ink); }
 
-@media (max-width: 1000px) {
-  .bar { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-  .search { grid-column: 1 / -1; }
-}
 @media (max-width: 760px) {
   .bar-wrap { position: static; }
   .main { scroll-margin-top: 10px; }
@@ -217,7 +215,7 @@ details ul { margin: 6px 0 0; padding-left: 20px; display: grid; gap: 3px; }
 }
 @media (max-width: 600px) {
   .bar { grid-template-columns: 1fr; gap: 8px; }
-  .dd-btn, .search input { height: 52px; }
+  .dd-btn, .search input { height: 58px; }
   .dd-menu, .dd:last-child .dd-menu, .dd-menu.cols { left: 0; right: auto; width: 100%; }
   .dd-menu.cols { grid-template-columns: 1fr; }
 }
@@ -235,7 +233,7 @@ details ul { margin: 6px 0 0; padding-left: 20px; display: grid; gap: 3px; }
   <div class="bar-wrap">
     <div class="bar" role="search">
       <label class="search" for="q">
-        <svg class="s-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+        <svg class="s-icon" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
         <input id="q" type="search" placeholder="What do you need help with?" aria-label="Search training" autocomplete="off">
         <button class="s-clear" type="button" id="q-clear" aria-label="Clear search" hidden>
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
@@ -283,6 +281,7 @@ details ul { margin: 6px 0 0; padding-left: 20px; display: grid; gap: 3px; }
     'Microsoft Authenticator': '<rect x="6" y="2.5" width="12" height="19" rx="2.5"/><path d="M9.5 12l2 2 3.5-4"/>',
     'Outlook': '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 6l8.5 7 8.5-7"/>',
     'Microsoft Teams': '<path d="M3 5h12v9H8l-5 4z"/><path d="M15 9h6v8l-3.5-2.5H11v-.5"/>',
+    'Windows 365': '<rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/><path d="M9.2 12.5a2 2 0 0 1 .3-4 2.8 2.8 0 0 1 5.3.7 1.7 1.7 0 0 1 .1 3.3z"/>',
     'Digital Concierge': '<path d="M4 17a8 8 0 0 1 16 0z"/><path d="M2.5 20h19M12 9V7M10 7h4"/>',
     'SAP Concur': '<path d="M6 3h12v18l-3-2-3 2-3-2-3 2z"/><path d="M12 7v8M14 8.5h-3a1.5 1.5 0 0 0 0 3h2a1.5 1.5 0 0 1 0 3h-3"/>',
     'MobileXpense': '<rect x="6" y="2.5" width="12" height="19" rx="2.5"/><path d="M9.5 8h5M9.5 11.5h5M9.5 15h3"/>',
@@ -296,20 +295,20 @@ details ul { margin: 6px 0 0; padding-left: 20px; display: grid; gap: 3px; }
     pack: '<path d="M12 3l9 5-9 5-9-5z"/><path d="M3 13l9 5 9-5"/>',
     hub: '<circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/>'
   };
-  const X = '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>';
-  const CHEV = '<svg class="dd-chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>';
+  const X = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>';
+  const CHEV = '<svg class="dd-chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>';
   const svg = (p, s) => `<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${p}</svg>`;
 
   const TOPICS = [
     { id: 'cxa', name: 'Cross-Company Access', blurb: 'Request access, use your second account and manage cross-company approvals.', bg: 'var(--mars-light)', fg: 'var(--blue)' },
-    { id: 'sec', name: 'Security & Sign-In', blurb: 'Set up Okta and MFA so you can sign in safely to both companies\u2019 systems.', bg: 'var(--kel-light)', fg: 'var(--red)' },
-    { id: 'dig', name: 'Digital Workplace', blurb: 'Collaborate in Microsoft 365 and get help through Digital Concierge.', bg: 'var(--wri-light)', fg: 'var(--wblue)' },
+    { id: 'sec', name: 'Security & Sign-In', blurb: 'Reset your password and set up Okta and MFA so you can sign in safely to both companies\u2019 systems.', bg: 'var(--kel-light)', fg: 'var(--red)' },
+    { id: 'dig', name: 'Digital Workplace', blurb: 'Collaborate in Microsoft 365, connect to your Cloud PC and get help through Digital Concierge.', bg: 'var(--wri-light)', fg: 'var(--wblue)' },
     { id: 'fin', name: 'Finance', blurb: 'Submit, review and approve expenses in Concur and MobileXpense.', bg: 'var(--snk-light)', fg: 'var(--orange)' },
     { id: 'com', name: 'Commercial', blurb: 'Buy and approve goods and services in KBuy and SAP Ariba.', bg: 'var(--mars-light)', fg: 'var(--blue)' },
-    { id: 'net', name: 'Networks', blurb: 'Get online when you visit the other company\u2019s sites.', bg: 'var(--wri-light)', fg: 'var(--wblue)' },
+    { id: 'net', name: 'Networks', blurb: 'Get online on the guest network at Mars offices.', bg: 'var(--wri-light)', fg: 'var(--wblue)' },
     { id: 'lrn', name: 'Additional Learning', blurb: 'More tips and eLearning for working across Mars and Kellanova.', bg: 'var(--kel-light)', fg: 'var(--red)' }
   ];
-  const APPS = ['Okta Verify', 'Microsoft Authenticator', 'Outlook', 'Microsoft Teams', 'Digital Concierge', 'SAP Concur', 'MobileXpense', 'KBuy', 'SAP Ariba', 'Guest Wi-Fi'];
+  const APPS = ['Okta Verify', 'Microsoft Authenticator', 'Outlook', 'Microsoft Teams', 'Windows 365', 'Digital Concierge', 'SAP Concur', 'MobileXpense', 'KBuy', 'SAP Ariba', 'Guest Wi-Fi'];
   const FORMATS = {
     video: { name: 'Video', verb: 'Watch video' },
     qrg: { name: 'Quick reference guide', verb: 'Open guide' },
@@ -341,6 +340,10 @@ details ul { margin: 6px 0 0; padding-left: 20px; display: grid; gap: 3px; }
       who: 'Legacy Mars and Kellanova Line Managers', roles: LMS,
       url: 'https://team.effem.com/:v:/s/MarsSnackingIntegrationLearningHub/IQCrrszhiEjBSLE3JF1kaEd-AX0lT_P2yrZXq_pizMjnln4?e=FDEjdx' },
 
+    { id: 'mars-password', topic: 'sec', fmt: 'qrg', dur: '8 minutes', apps: ['Okta Verify'], isNew: true, title: 'Reset Your Mars Password',
+      summary: 'Securely reset your Mars password and set up multi-factor authentication (MFA) using the self-service Okta Magic Link.',
+      who: 'Legacy Kellanova Associates who need @effem.com credentials', roles: KEL,
+      url: 'https://team.effem.com/:p:/s/MarsSnackingIntegrationLearningHub/IQATJxyNWk9cT7ltjXgseBMyAQXc_joIlLen0DX1e88veyE?e=1ORacL' },
     { id: 'okta-setup', topic: 'sec', fmt: 'video', dur: '1 minute', apps: ['Okta Verify'], title: 'Okta Verify Laptop Setup',
       summary: 'Set up Okta Verify on your laptop so you can securely sign in to Mars applications.',
       who: 'Legacy Kellanova Associates', roles: KEL,
@@ -367,6 +370,11 @@ details ul { margin: 6px 0 0; padding-left: 20px; display: grid; gap: 3px; }
       covers: ['Chat and email', 'Teams meetings', 'Cross-company Teams and shared channels', 'File sharing', 'FAQs and where to get help'],
       who: 'Legacy Mars and Kellanova Associates', roles: ALL,
       url: 'https://team.effem.com/:p:/s/MarsSnackingIntegrationLearningHub/IQCzUPz9iZteTY2Gd-rrEgagAb1xO4ioeQFWXX2R3DlnrAc?e=zlOXFW' },
+    { id: 'w365', topic: 'dig', fmt: 'qrg', dur: '8 minutes', apps: ['Windows 365'], isNew: true, title: 'Windows 365 Virtual Desktop',
+      summary: 'Request, sign in to and connect to your Windows 365 Cloud PC (virtual desktop).',
+      covers: ['How to request your Cloud PC', 'Logging on and connecting, with step-by-step screenshots', 'Direct links', 'Tips for a smooth first sign-in'],
+      who: 'Legacy Mars and Kellanova Associates', roles: ALL,
+      url: 'https://team.effem.com/:p:/s/MarsSnackingIntegrationLearningHub/IQD4GB4pnxl6Q7_dXvwp4TxiAf6G51PQCWGtd7ROu7hDWZE?e=VgP56K' },
     { id: 'dc-welcome', topic: 'dig', fmt: 'video', dur: '6 minutes', apps: ['Digital Concierge'], title: 'Welcome to Digital Concierge',
       summary: 'An introductory video for Digital Concierge.',
       who: 'Associates working across both companies', roles: ALL,
@@ -401,10 +409,11 @@ details ul { margin: 6px 0 0; padding-left: 20px; display: grid; gap: 3px; }
       who: 'Legacy Kellanova Requisitioners and Line Managers', roles: KEL,
       url: 'https://team.effem.com/:p:/s/MarsSnackingIntegrationLearningHub/IQAoYlz1Dh4RRpDdcFhdCaftAZuNG55E2a56Vp5zfVpz8co?e=iQgePL' },
 
-    { id: 'wifi', topic: 'net', fmt: 'qrg', dur: '30 minutes', apps: ['Guest Wi-Fi'], title: 'Accessing Guest Wi-Fi',
-      summary: 'Connect to the guest Wi-Fi network at legacy Kellanova and Mars sites.',
-      who: 'All Associates', roles: ALL,
-      url: 'https://team.effem.com/sites/MarsSnackingIntegrationLearningHub/Shared%20Documents/Job%20Function%20Content/Technology/Accessing%20Guest%20Wi-Fi.pdf?web=1' },
+    { id: 'wifi', topic: 'net', fmt: 'qrg', dur: '5 minutes', apps: ['Guest Wi-Fi'], title: 'Accessing Guest Wi-Fi',
+      summary: 'Connect to the Mars-Guest Wi-Fi network at Mars offices, with step-by-step instructions and screenshots.',
+      covers: ['Mars Affiliate Login', 'Visitor Registration'],
+      who: 'Legacy Mars and Kellanova Associates', roles: ALL,
+      url: 'https://team.effem.com/:p:/s/MarsSnackingIntegrationLearningHub/IQAMWEXr59jvS6kWzzbBUL92ATh-7ajQVG12lxPBaz10X64?e=XceCWS' },
 
     { id: 'worksmart', topic: 'lrn', fmt: 'hub', dur: 'Varies', apps: [], title: 'Work Smarter Together Hub',
       summary: 'Integration resources, workplace tools and practical learning for working across Mars and Kellanova.',
@@ -426,11 +435,11 @@ details ul { margin: 6px 0 0; padding-left: 20px; display: grid; gap: 3px; }
     { id: 'mars-lm', eyebrow: 'Legacy Mars', label: 'Line Manager', icon: 'team', fg: 'var(--blue)', bg: 'var(--mars-light)', plural: 'Legacy Mars Line Managers',
       stages: [['signin', ['kel-mfa']], ['access', ['incognito', 'mailbox']], ['approve', ['kel-concur', 'kbuy', 'dc-requests']]] },
     { id: 'kel-lm', eyebrow: 'Legacy Kellanova', label: 'Line Manager', icon: 'team', fg: 'var(--red)', bg: 'var(--kel-light)', plural: 'Legacy Kellanova Line Managers',
-      stages: [['signin', ['okta-setup', 'okta-lm']], ['access', ['incognito', 'mailbox']], ['buy', ['mars-concur', 'ariba']]] },
+      stages: [['signin', ['mars-password', 'okta-setup', 'okta-lm']], ['access', ['incognito', 'mailbox']], ['buy', ['mars-concur', 'ariba']]] },
     { id: 'mars-assoc', eyebrow: 'Legacy Mars', label: 'Associate', icon: 'person', fg: 'var(--blue)', bg: 'var(--mars-light)', plural: 'Legacy Mars Associates',
       stages: [['learn', ['cxa-overview']], ['work', ['collab', 'dc-welcome', 'wifi']]] },
     { id: 'kel-assoc', eyebrow: 'Legacy Kellanova', label: 'Associate', icon: 'person', fg: 'var(--red)', bg: 'var(--kel-light)', plural: 'Legacy Kellanova Associates',
-      stages: [['signin', ['okta-setup', 'okta-push', 'okta-code']], ['learn', ['cxa-overview']], ['work', ['collab']]] }
+      stages: [['signin', ['mars-password', 'okta-setup', 'okta-push', 'okta-code']], ['learn', ['cxa-overview']], ['work', ['collab']]] }
   ];
 
   const byId = Object.fromEntries(ITEMS.map(i => [i.id, i]));
@@ -464,7 +473,7 @@ details ul { margin: 6px 0 0; padding-left: 20px; display: grid; gap: 3px; }
   };
   const match = (i, skip) => Object.keys(tests).every(k => k === skip || tests[k](i));
 
-  ['approvals', 'expenses', 'Okta', 'mailbox', 'Teams'].forEach(w => {
+  ['approvals', 'expenses', 'Okta', 'password', 'mailbox', 'Teams'].forEach(w => {
     const b = document.createElement('button'); b.type = 'button'; b.textContent = w; b.dataset.try = w; $('try').appendChild(b);
   });
 
@@ -477,30 +486,30 @@ details ul { margin: 6px 0 0; padding-left: 20px; display: grid; gap: 3px; }
   const DD = {
     persona: {
       label: 'Persona', allText: 'Everyone',
-      btnIcon: () => { const p = personaOf(state.persona); return { html: svg(ICON[p.icon], 20), bg: p.bg, fg: p.fg }; },
+      btnIcon: () => { const p = personaOf(state.persona); return { html: svg(ICON[p.icon], 26), bg: p.bg, fg: p.fg }; },
       value: () => { const p = personaOf(state.persona); return p.id === 'all' ? 'Everyone' : `${p.eyebrow} ${p.label}`; },
       options: () => PERSONAS.map(p => optHtml('persona', p.id,
         ITEMS.filter(i => match(i, 'persona') && (p.id === 'all' || i.roles.includes(p.id))).length,
-        `<span class="ic" style="background:${p.bg};color:${p.fg};border-radius:50%">${svg(ICON[p.icon], 18)}</span>`,
+        `<span class="ic" style="background:${p.bg};color:${p.fg};border-radius:50%">${svg(ICON[p.icon], 23)}</span>`,
         `<span class="eb" style="color:${p.fg}">${esc(p.eyebrow)}</span><span class="nm">${esc(p.label)}</span>`)).join('')
     },
     topic: {
       label: 'Function / Workstream', cols: false,
-      btnIcon: () => { const t = topicOf(state.topic); return t ? { html: svg(ICON[t.id], 20), bg: t.bg, fg: t.fg } : { html: svg(ICON.grid, 20), bg: 'var(--soft)', fg: 'var(--blue)' }; },
+      btnIcon: () => { const t = topicOf(state.topic); return t ? { html: svg(ICON[t.id], 26), bg: t.bg, fg: t.fg } : { html: svg(ICON.grid, 26), bg: 'var(--soft)', fg: 'var(--blue)' }; },
       value: () => state.topic === 'all' ? 'All workstreams' : topicOf(state.topic).name,
       options: () => optHtml('topic', 'all', ITEMS.filter(i => match(i, 'topic')).length,
-          `<span class="ic" style="background:var(--soft);color:var(--blue)">${svg(ICON.grid, 17)}</span>`, `<span class="nm">All workstreams</span>`) +
+          `<span class="ic" style="background:var(--soft);color:var(--blue)">${svg(ICON.grid, 22)}</span>`, `<span class="nm">All workstreams</span>`) +
         TOPICS.map(t => optHtml('topic', t.id, ITEMS.filter(i => match(i, 'topic') && i.topic === t.id).length,
-          `<span class="ic" style="background:${t.bg};color:${t.fg}">${svg(ICON[t.id], 17)}</span>`, `<span class="nm">${esc(t.name)}</span>`)).join('')
+          `<span class="ic" style="background:${t.bg};color:${t.fg}">${svg(ICON[t.id], 22)}</span>`, `<span class="nm">${esc(t.name)}</span>`)).join('')
     },
     app: {
       label: 'Application', cols: true,
-      btnIcon: () => state.app === 'all' ? { html: svg(ICON.apps, 20), bg: 'var(--soft)', fg: 'var(--blue)' } : { html: svg(AICON[state.app], 20), bg: 'var(--wri-light)', fg: 'var(--blue)' },
+      btnIcon: () => state.app === 'all' ? { html: svg(ICON.apps, 26), bg: 'var(--soft)', fg: 'var(--blue)' } : { html: svg(AICON[state.app], 26), bg: 'var(--wri-light)', fg: 'var(--blue)' },
       value: () => state.app === 'all' ? 'All applications' : state.app,
       options: () => optHtml('app', 'all', ITEMS.filter(i => match(i, 'app')).length,
-          `<span class="ic" style="background:var(--soft);color:var(--blue)">${svg(ICON.apps, 16)}</span>`, `<span class="nm">All applications</span>`, 'o-all') +
+          `<span class="ic" style="background:var(--soft);color:var(--blue)">${svg(ICON.apps, 21)}</span>`, `<span class="nm">All applications</span>`, 'o-all') +
         APPS.map(a => optHtml('app', a, ITEMS.filter(i => match(i, 'app') && i.apps.includes(a)).length,
-          `<span class="ic" style="background:var(--wri-light);color:var(--blue)">${svg(AICON[a], 15)}</span>`, `<span class="nm">${esc(a)}</span>`)).join('')
+          `<span class="ic" style="background:var(--wri-light);color:var(--blue)">${svg(AICON[a], 20)}</span>`, `<span class="nm">${esc(a)}</span>`)).join('')
     }
   };
 
@@ -557,7 +566,7 @@ details ul { margin: 6px 0 0; padding-left: 20px; display: grid; gap: 3px; }
   function renderPath() {
     const p = personaOf(state.persona);
     if (!p.stages) {
-      $('path-slot').innerHTML = `<div class="path-hint">${svg(ICON.everyone, 22)}<span><b>New to working across Mars and Kellanova?</b> <button type="button" data-open="persona">Choose your persona</button> to see which trainings to complete first, in order.</span></div>`;
+      $('path-slot').innerHTML = `<div class="path-hint">${svg(ICON.everyone, 30)}<span><b>New to working across Mars and Kellanova?</b> <button type="button" data-open="persona">Choose your persona</button> to see which trainings to complete first, in order.</span></div>`;
       return;
     }
     const ids = p.stages.flatMap(s => s[1]);
@@ -589,9 +598,10 @@ details ul { margin: 6px 0 0; padding-left: 20px; display: grid; gap: 3px; }
     const f = FORMATS[it.fmt], isDone = done.has(it.id);
     return `<article class="card${isDone ? ' is-done' : ''}" id="card-${it.id}">
       <div class="meta">
-        <span class="fmt">${svg(FICON[it.fmt], 15)}${f.name}</span>
+        <span class="fmt">${svg(FICON[it.fmt], 19)}${f.name}</span>
         ${it.dur ? `<span>${esc(it.dur)}</span>` : ''}
         ${it.region ? `<span class="badge">${esc(it.region)} only</span>` : ''}
+        ${it.isNew ? `<span class="badge new">New</span>` : ''}
       </div>
       <h3>${esc(it.title)}</h3>
       <p class="summary">${esc(it.summary)}</p>
@@ -600,7 +610,7 @@ details ul { margin: 6px 0 0; padding-left: 20px; display: grid; gap: 3px; }
       ${it.covers ? `<details><summary>What's covered</summary><ul>${it.covers.map(c => `<li>${esc(c)}</li>`).join('')}</ul></details>` : ''}
       <div class="card-foot">
         <a class="open" href="${esc(it.url)}" target="_blank" rel="noopener">${f.verb}
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
         <label class="done-toggle" for="done-${it.id}"><input type="checkbox" id="done-${it.id}" data-done="${it.id}" ${isDone ? 'checked' : ''}>${isDone ? 'Done' : 'Mark as done'}</label>
       </div>
     </article>`;
@@ -628,7 +638,7 @@ details ul { margin: 6px 0 0; padding-left: 20px; display: grid; gap: 3px; }
       res.innerHTML = TOPICS.filter(t => list.some(i => i.topic === t.id)).map(t =>
         `<section class="topic" id="topic-${t.id}">
           <div class="topic-head">
-            <span class="ticon" style="background:${t.bg};color:${t.fg}">${svg(ICON[t.id], 17)}</span>
+            <span class="ticon" style="background:${t.bg};color:${t.fg}">${svg(ICON[t.id], 25)}</span>
             <h2>${esc(t.name)}</h2><p>${esc(t.blurb)}</p>
           </div>
           <div class="grid">${list.filter(i => i.topic === t.id).map(card).join('')}</div>
