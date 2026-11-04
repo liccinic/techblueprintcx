@@ -3,744 +3,447 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Technology Training Hub</title>
+<title>Technology Learning Hub</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Figtree:wght@400;500;600;700&display=swap">
 <style>
-/* ── Mars Centra ─────────────────────────────────────────────
-   Uses the font if it's installed on the device. For everyone else it loads the
-   web font files from the Hub's Site Assets/fonts folder (update the URLs if they
-   live elsewhere). Until they're uploaded the page falls back to Figtree. */
-@font-face { font-family: "Mars Centra"; font-weight: 400; font-style: normal; font-display: swap;
-  src: local("Mars Centra"), local("MarsCentra-Regular"), local("Mars Centra Regular"),
-       url("https://team.effem.com/sites/MarsSnackingIntegrationLearningHub/SiteAssets/fonts/MarsCentra-Regular.woff2") format("woff2"); }
-@font-face { font-family: "Mars Centra"; font-weight: 500; font-style: normal; font-display: swap;
-  src: local("Mars Centra Medium"), local("MarsCentra-Medium"),
-       url("https://team.effem.com/sites/MarsSnackingIntegrationLearningHub/SiteAssets/fonts/MarsCentra-Medium.woff2") format("woff2"); }
-@font-face { font-family: "Mars Centra"; font-weight: 700; font-style: normal; font-display: swap;
-  src: local("Mars Centra Bold"), local("MarsCentra-Bold"),
-       url("https://team.effem.com/sites/MarsSnackingIntegrationLearningHub/SiteAssets/fonts/MarsCentra-Bold.woff2") format("woff2"); }
-
-/* Layout: one compact, pinned filter bar (search + Persona / Workstream / Application dropdowns) → active-filter line →
-   collapsible first steps → results. Everything that changes sits directly under the bar. Single light theme (white ground). */
-:root {
-  --bg: #FFFFFF;
-  --ink: #3C3C3C;          /* Mars Dark Gray */
-  --ink-soft: #6A6A78;
-  --blue: #0000A0;         /* Mars Blue */
-  --blue-deep: #00007A;
-  --red: #F60B45;          /* Kellanova Red */
-  --wblue: #009EEA;        /* Wrigley Blue */
-  --orange: #FF8B00;       /* Snacking Orange */
-  --mars-light: #BFBFF1;
-  --kel-light: #FFCFF1;
-  --wri-light: #CCEDFF;
-  --snk-light: #FFE8CC;
-  --line: #E2E2EF;
-  --soft: #F5F5FC;
-  --font: "Mars Centra", "MarsCentra", "Figtree", "Segoe UI", system-ui, -apple-system, sans-serif;
+/* Layout: white page. A Mars Blue search hero (big search with live suggestions, two rich dropdowns,
+   quick-pick chips), then topic blocks of single-line "I need to…" guides. Coming-soon items fold away. */
+:root{
   color-scheme: light;
+  --bg:#FFFFFF;
+  --ink:#3C3C3C;
+  --ink-soft:#6B6B7A;
+  --mars:#0000A0;
+  --mars-deep:#00007A;
+  --red:#F60B45;
+  --wrig:#009EEA;
+  --orange:#FF8B00;
+  --mars-light:#BFBFF1;
+  --kel-light:#FFCFF1;
+  --wrig-light:#CCEDFF;
+  --snack-light:#FFE8CC;
+  --line:#E6E6F0;
+  --panel:#F7F7FC;
+  --display:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif;
+  --body:"Figtree","Segoe UI",system-ui,-apple-system,sans-serif;
 }
-* { box-sizing: border-box; }
-/* Needed when hosted outside the preview (e.g. SharePoint): without it, elements with display:grid/flex ignore the hidden attribute. */
-[hidden] { display: none !important; }
-body { margin: 0; }
-html { scroll-behavior: smooth; }
-body { background: var(--bg); color: var(--ink); font-family: var(--font); font-size: 17px; line-height: 1.5; }
-.wrap {
-  max-width: 1240px; margin: 0 auto;
-  padding-left: max(16px, env(safe-area-inset-left, 0px));
-  padding-right: max(16px, env(safe-area-inset-right, 0px));
-  padding-block: 16px 40px;
-}
-h1, h2, h3 { font-family: var(--font); color: var(--blue); margin: 0; text-wrap: balance; }
-h1 { font-size: 34px; line-height: 1.15; font-weight: 700; }
-h2 { font-size: 22px; font-weight: 700; }
-h3 { font-size: 19px; font-weight: 700; line-height: 1.3; }
-p { margin: 0; }
-button, input { font: inherit; color: inherit; }
-:focus-visible { outline: 3px solid var(--wblue); outline-offset: 2px; border-radius: 8px; }
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.5}
+.wrap{max-width:1100px;margin:0 auto;padding-inline:clamp(16px,4vw,36px);padding-block:20px 48px}
+:focus-visible{outline:3px solid var(--wrig);outline-offset:2px}
 
-/* ── Title row ── */
-.title-row { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 16px; margin-bottom: 12px; }
-.try { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-size: 15px; color: var(--ink-soft); }
-.try button { border: 1px solid var(--line); background: var(--bg); border-radius: 99px; padding: 4px 13px; cursor: pointer; color: var(--blue); font-weight: 500; }
-.try button:hover { border-color: var(--blue); }
+/* Hero */
+.hero{position:relative;z-index:3;background:var(--mars);color:#FFFFFF;border-radius:24px;padding:clamp(22px,4vw,36px);isolation:isolate}
+.hero .deco{position:absolute;inset:0;border-radius:inherit;overflow:hidden;z-index:-1;pointer-events:none}
+.hero .deco i{position:absolute;border-radius:50%;opacity:.9}
+.eyebrow{font-size:.74rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--mars-light);display:flex;gap:10px;align-items:center}
+.dots{display:inline-flex;gap:4px}
+.dots i{width:8px;height:8px;border-radius:2px;display:block}
+.hero h1{font-family:var(--display);font-weight:800;font-size:clamp(1.9rem,4.6vw,3rem);line-height:1;margin:10px 0 10px;letter-spacing:-.02em;color:#FFFFFF}
+.hero .ask{margin:0 0 18px;font-size:1.08rem;color:#E2E2FA;max-width:52ch}
 
-/* ── Filter bar ── */
-.bar-wrap { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 30; background: var(--bg); padding-block: 8px; margin-inline: -4px; padding-inline: 4px; }
-.bar { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
-.search { grid-column: 1 / -1; }
-.search { position: relative; display: block; min-width: 0; }
-.search .s-icon { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); color: var(--blue); pointer-events: none; }
-.search input {
-  width: 100%; height: 64px; border: 2px solid var(--blue); border-radius: 16px; background: var(--bg);
-  padding: 0 50px 0 56px; font-size: 19px; color: var(--ink); box-shadow: 0 4px 16px rgba(0, 0, 160, .10);
-}
-.search input::placeholder { color: #8C8CA6; }
-.search input:focus { outline: none; box-shadow: 0 0 0 4px var(--mars-light); }
-.search input::-webkit-search-cancel-button { display: none; }
-.s-clear { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); width: 34px; height: 34px; border-radius: 50%; border: 0; background: var(--soft); color: var(--blue); cursor: pointer; display: grid; place-items: center; }
+.search{position:relative}
+.search svg.mag{position:absolute;left:20px;top:50%;transform:translateY(-50%);color:var(--mars)}
+.search input{width:100%;font:inherit;font-size:1.15rem;color:var(--ink);background:#FFFFFF;border:3px solid transparent;border-radius:16px;padding:17px 120px 17px 56px;box-shadow:0 14px 34px -18px rgba(0,0,0,.55);transition:border-color .15s,box-shadow .2s}
+.search input:focus{outline:none;border-color:var(--wrig);box-shadow:0 0 0 6px rgba(0,158,234,.25),0 14px 34px -18px rgba(0,0,0,.55)}
+.search input::placeholder{color:#8A8A99}
+.search .count{position:absolute;right:14px;top:50%;transform:translateY(-50%);font-size:.8rem;font-weight:700;color:var(--mars);background:var(--wrig-light);border-radius:999px;padding:5px 11px;font-variant-numeric:tabular-nums;white-space:nowrap}
 
-.dd { position: relative; min-width: 0; }
-.dd-btn {
-  width: 100%; height: 64px; border: 1.5px solid var(--line); border-radius: 16px; background: var(--bg); cursor: pointer;
-  display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 12px; padding: 0 14px 0 9px; text-align: left;
-  transition: border-color .15s, background .15s;
-}
-.dd-btn:hover { border-color: var(--blue); }
-.dd-btn[aria-expanded="true"] { border-color: var(--blue); box-shadow: 0 0 0 3px var(--mars-light); }
-.dd-ic { width: 46px; height: 46px; border-radius: 12px; display: grid; place-items: center; background: var(--soft); color: var(--blue); }
-.dd-txt { min-width: 0; line-height: 1.2; }
-.dd-label { display: block; font-size: 12.5px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; color: var(--ink-soft); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.dd-val { display: block; font-size: 17px; font-weight: 700; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.dd-chev { color: var(--blue); transition: transform .15s; }
-.dd-btn[aria-expanded="true"] .dd-chev { transform: rotate(180deg); }
-.dd.active .dd-btn { border-color: var(--blue); background: var(--soft); }
-.dd.active .dd-val { color: var(--blue); }
+.controls{margin-top:12px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.dd{position:relative;min-width:0}
+.dd-btn{width:100%;font:inherit;display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:12px;align-items:center;text-align:left;padding:10px 14px 10px 10px;border-radius:14px;border:2px solid rgba(255,255,255,.28);background:rgba(255,255,255,.1);color:#FFFFFF;cursor:pointer;transition:background .15s,border-color .15s}
+.dd-btn:hover,.dd.open .dd-btn{background:rgba(255,255,255,.18);border-color:rgba(255,255,255,.6)}
+.dd-btn.set{background:#FFFFFF;color:var(--mars);border-color:#FFFFFF}
+.dd-btn .ic{width:38px;height:38px;border-radius:10px;display:grid;place-items:center;background:rgba(255,255,255,.16);color:#FFFFFF;font-weight:800;font-size:.85rem}
+.dd-btn.set .ic{color:#FFFFFF}
+.dd-btn small{display:block;font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;opacity:.75}
+.dd-btn b{display:block;font-size:1rem;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dd-btn .chev{transition:transform .2s}
+.dd.open .dd-btn .chev{transform:rotate(180deg)}
+.dd-menu{position:absolute;left:0;right:0;top:calc(100% + 8px);z-index:10;list-style:none;margin:0;padding:6px;background:#FFFFFF;color:var(--ink);border-radius:14px;box-shadow:0 22px 48px -18px rgba(0,0,60,.45),0 0 0 1px var(--line);max-height:340px;overflow:auto;transform-origin:top;animation:pop .16s ease-out}
+@keyframes pop{from{opacity:0;transform:translateY(-6px) scale(.98)}to{opacity:1;transform:none}}
+.dd-menu li{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:12px;align-items:center;padding:9px 10px;border-radius:10px;cursor:pointer}
+.dd-menu li:hover,.dd-menu li.active{background:var(--panel)}
+.dd-menu li[aria-selected="true"]{background:var(--wrig-light)}
+.dd-menu li b{display:block;font-size:.95rem;color:var(--mars);line-height:1.25}
+.dd-menu li small{display:block;font-size:.78rem;color:var(--ink-soft)}
+.dd-menu .n{font-size:.75rem;font-weight:700;color:var(--ink-soft);font-variant-numeric:tabular-nums}
+.dd-menu .tick{color:var(--mars)}
+.sw{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;color:#FFFFFF;font-weight:800;font-size:.75rem;flex:none}
 
-.dd-menu {
-  position: absolute; top: calc(100% + 6px); left: 0; width: max(100%, 340px); max-height: min(62vh, 440px); overflow-y: auto;
-  background: var(--bg); border: 1px solid var(--line); border-radius: 14px; box-shadow: 0 14px 36px rgba(0, 0, 60, .18);
-  padding: 6px; display: grid; gap: 2px; z-index: 40;
-}
-.dd:last-child .dd-menu { left: auto; right: 0; }
-.dd-menu { overscroll-behavior: contain; }
-.dd-menu.up { top: auto; bottom: calc(100% + 6px); }
-.dd-menu.cols { grid-template-columns: 1fr 1fr; width: max(100%, 460px); }
-.dd-menu.cols .o-all { grid-column: 1 / -1; }
-.o {
-  border: 0; background: transparent; border-radius: 10px; cursor: pointer; text-align: left; width: 100%;
-  display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 12px; padding: 8px 10px;
-}
-.o:hover:not(:disabled), .o:focus-visible { background: var(--soft); outline: none; }
-.o:disabled { opacity: .38; cursor: default; }
-.o .ic { width: 40px; height: 40px; border-radius: 11px; display: grid; place-items: center; flex: none; }
-.o .txt { min-width: 0; line-height: 1.2; }
-.o .eb { display: block; font-size: 12px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; }
-.o .nm { display: block; font-size: 16.5px; font-weight: 600; color: var(--ink); }
-.o .n { min-width: 26px; height: 23px; border-radius: 99px; padding: 0 7px; background: var(--soft); color: var(--blue); font-size: 13px; font-weight: 700; display: grid; place-items: center; font-variant-numeric: tabular-nums; }
-.o[aria-selected="true"] { background: var(--blue); }
-.o[aria-selected="true"] .nm, .o[aria-selected="true"] .eb { color: #FFFFFF !important; }
-.o[aria-selected="true"] .ic, .o[aria-selected="true"] .n { background: #FFFFFF !important; }
-.dd-menu.cols .o .nm { font-size: 15px; }
-.dd-menu.cols .o .ic { width: 36px; height: 36px; }
+.chips{margin-top:16px;display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.chips span{font-size:.82rem;color:var(--mars-light);margin-right:2px}
+.chips button{font:inherit;font-size:.86rem;font-weight:600;color:#FFFFFF;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.3);border-radius:999px;padding:5px 13px;cursor:pointer;transition:background .15s,transform .15s}
+.chips button:hover{background:rgba(255,255,255,.24);transform:translateY(-1px)}
+.chips button[aria-pressed="true"]{background:#FFFFFF;color:var(--mars)}
 
-/* ── Active line ── */
-.status { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding-block: 6px 2px; }
-.count { font-size: 17.5px; font-weight: 700; color: var(--blue); font-variant-numeric: tabular-nums; }
-.pills { display: flex; flex-wrap: wrap; gap: 6px; }
-.pill { display: inline-flex; align-items: center; gap: 6px; border: 0; background: var(--blue); color: #FFFFFF; border-radius: 99px; padding: 5px 11px 5px 13px; font-size: 14.5px; font-weight: 600; cursor: pointer; }
-.pill:hover { background: var(--blue-deep); }
-.hint { font-size: 15.5px; color: var(--ink-soft); }
-.clear { border: 0; background: none; color: var(--blue); font-weight: 600; cursor: pointer; text-decoration: underline; padding: 0; font-size: 15px; }
+.hint{margin:16px 2px 0;font-size:.92rem;color:var(--ink-soft);display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center;min-height:1.4em}
+.hint a{color:var(--mars);font-weight:700;text-decoration:none}
+.hint a:hover{text-decoration:underline}
+.hint button{font:inherit;font-weight:700;color:var(--mars);background:none;border:0;padding:0;cursor:pointer;text-decoration:underline}
 
-.main { display: grid; gap: 18px; margin-top: 10px; scroll-margin-top: 90px; }
+/* List */
+.grid{margin-top:18px;columns:2;column-gap:20px}
+.block{border:1px solid var(--line);border-radius:16px;padding:16px 16px 10px;min-width:0;break-inside:avoid;margin-bottom:20px}
+.b-head{display:flex;gap:10px;align-items:center;margin-bottom:6px}
+.b-head .si{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;color:var(--mars);flex:none}
+.b-head h2{font-family:var(--display);font-size:1.18rem;line-height:1.15;margin:0;color:var(--mars)}
+.rows{list-style:none;margin:0;padding:0}
+.row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:center;padding:10px 8px;border-radius:10px;text-decoration:none;color:inherit;transition:background .12s}
+.rows li+li .row{border-top:1px solid var(--line);border-radius:0}
+.rows li+li .row:hover{border-radius:10px}
+a.row:hover{background:var(--panel)}
+.row b{display:block;font-weight:700;font-size:.98rem;line-height:1.3;color:var(--mars)}
+.row small{display:block;font-size:.8rem;color:var(--ink-soft);margin-top:1px}
+.row .go{color:var(--mars);display:grid;transition:transform .15s}
+a.row:hover .go{transform:translateX(3px)}
+.new{font-size:.62rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:2px 6px;border-radius:5px;background:var(--kel-light);color:#9A0030;margin-left:6px;vertical-align:2px}
+.watch{display:flex;flex-wrap:wrap;gap:6px 10px;padding:0 8px 10px;font-size:.8rem;color:var(--ink-soft)}
+.watch a{color:var(--mars);font-weight:600;text-decoration:none}
+.watch a:hover{text-decoration:underline}
+details.soon{margin:4px 0;border-top:1px dashed var(--line);padding:8px 8px 2px}
+details.soon summary{cursor:pointer;font-size:.86rem;font-weight:600;color:var(--ink-soft);list-style:none;display:flex;gap:6px;align-items:center}
+details.soon summary::-webkit-details-marker{display:none}
+details.soon summary::before{content:"+";display:inline-grid;place-items:center;width:18px;height:18px;border-radius:50%;background:var(--snack-light);color:#8A4A00;font-weight:800;font-size:.85rem}
+details.soon[open] summary::before{content:"–"}
+details.soon ul{list-style:none;margin:6px 0 4px;padding:0 0 0 24px;display:grid;gap:4px;font-size:.88rem;color:var(--ink)}
+mark{background:var(--snack-light);color:inherit;border-radius:3px;padding:0 2px}
 
-/* ── First steps ── */
-.path { border: 1.5px solid var(--blue); border-radius: 14px; overflow: hidden; }
-.path-head { background: var(--blue); color: #FFFFFF; padding: 13px 18px; display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; }
-.path-head h2 { color: #FFFFFF; font-size: 20px; }
-.path-head p { font-size: 14.5px; opacity: .9; }
-.path-right { display: flex; align-items: center; gap: 12px; }
-.meter { display: flex; align-items: center; gap: 8px; font-size: 14.5px; font-weight: 700; font-variant-numeric: tabular-nums; }
-.meter-bar { width: 100px; height: 8px; border-radius: 99px; background: rgba(255, 255, 255, .3); overflow: hidden; }
-.meter-fill { height: 100%; background: #FFFFFF; border-radius: 99px; transition: width .3s; }
-.toggle-steps { border: 1.5px solid rgba(255, 255, 255, .6); background: transparent; color: #FFFFFF; border-radius: 8px; padding: 4px 12px; font-size: 14.5px; font-weight: 600; cursor: pointer; }
-.toggle-steps:hover { background: rgba(255, 255, 255, .15); }
-.stages { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
-.stage { padding: 14px 16px 16px; display: grid; gap: 8px; align-content: start; border-right: 1px solid var(--line); min-width: 0; }
-.stage:last-child { border-right: 0; }
-.stage-head { display: flex; align-items: center; gap: 10px; }
-.stage-num { width: 32px; height: 32px; border-radius: 50%; background: var(--mars-light); color: var(--blue); flex: none; display: grid; place-items: center; font-weight: 700; font-size: 15px; }
-.stage.complete .stage-num { background: var(--blue); color: #FFFFFF; }
-.stage-title { font-weight: 700; color: var(--blue); font-size: 17.5px; line-height: 1.2; }
-.stage-why { font-size: 14px; color: var(--ink-soft); }
-.task { display: grid; grid-template-columns: auto 1fr; gap: 0 10px; align-items: start; padding: 8px 11px; border-radius: 10px; background: var(--soft); }
-.task input { width: 19px; height: 19px; margin: 2px 0 0; accent-color: var(--blue); cursor: pointer; grid-row: span 2; }
-.task a { color: var(--ink); font-weight: 600; font-size: 15.5px; line-height: 1.3; text-decoration: none; }
-.task a:hover { color: var(--blue); text-decoration: underline; }
-.task small { font-size: 13px; color: var(--ink-soft); }
-.task.done a { color: var(--ink-soft); text-decoration: line-through; }
-.path-hint { border: 1.5px dashed var(--mars-light); border-radius: 12px; padding: 13px 16px; color: var(--ink-soft); font-size: 16px; display: flex; gap: 10px; align-items: center; }
-.path-hint svg { color: var(--blue); flex: none; }
-.path-hint b { color: var(--blue); }
-.path-hint button { border: 0; background: none; color: var(--blue); font-weight: 600; text-decoration: underline; cursor: pointer; padding: 0; }
+.empty{margin-top:24px;padding:28px;text-align:center;border:1.5px dashed var(--line);border-radius:16px;color:var(--ink-soft)}
+.empty b{display:block;color:var(--mars);font-size:1.05rem;margin-bottom:4px}
+.empty button{font:inherit;font-weight:700;color:var(--mars);background:none;border:0;padding:0;cursor:pointer;text-decoration:underline}
+.note{margin-top:30px;padding-top:16px;border-top:1px solid var(--line);font-size:.84rem;color:var(--ink-soft);display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-between}
 
-/* ── Results ── */
-.results { display: grid; gap: 22px; }
-.results.updated { animation: rise .3s ease-out; }
-@keyframes rise { from { opacity: .35; transform: translateY(6px); } to { opacity: 1; transform: none; } }
-.topic { display: grid; gap: 10px; }
-.topic-head { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
-.topic-head p { font-size: 15.5px; color: var(--ink-soft); }
-.ticon { width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center; flex: none; }
-.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(310px, 1fr)); gap: 14px; }
-.card { border: 1px solid var(--line); border-radius: 16px; padding: 18px; display: flex; flex-direction: column; gap: 10px; background: var(--bg); transition: border-color .15s; min-width: 0; }
-.card:hover { border-color: #B9B9DF; }
-.card.is-done { background: var(--soft); }
-.meta { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 14px; font-size: 14.5px; font-weight: 600; color: var(--ink-soft); }
-.meta .fmt { display: inline-flex; align-items: center; gap: 7px; color: var(--blue); }
-.badge { font-size: 13px; font-weight: 700; padding: 3px 10px; border-radius: 99px; background: var(--snk-light); color: var(--ink); }
-.badge.new { background: var(--red); color: #FFFFFF; }
-.summary { font-size: 16.5px; }
-.who { font-size: 14.5px; color: var(--ink-soft); }
-.who b { color: var(--ink); font-weight: 600; }
-.apps { display: flex; flex-wrap: wrap; gap: 6px; }
-.app-tag { border: 0; background: var(--wri-light); color: var(--ink); font-size: 14px; font-weight: 600; padding: 4px 11px; border-radius: 7px; cursor: pointer; }
-.app-tag:hover { background: var(--wblue); color: #FFFFFF; }
-.app-tag[aria-pressed="true"] { background: var(--blue); color: #FFFFFF; }
-details { font-size: 15.5px; }
-summary { cursor: pointer; font-weight: 600; color: var(--blue); font-size: 15px; list-style: none; display: inline-flex; align-items: center; gap: 6px; }
-summary::-webkit-details-marker { display: none; }
-summary::before { content: "+"; font-weight: 700; width: 14px; }
-details[open] summary::before { content: "\2013"; }
-details ul { margin: 6px 0 0; padding-left: 20px; display: grid; gap: 3px; }
-.card-foot { margin-top: auto; padding-top: 4px; display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
-.open { display: inline-flex; align-items: center; gap: 6px; background: var(--blue); color: #FFFFFF; text-decoration: none; font-weight: 600; font-size: 15.5px; padding: 9px 16px; border-radius: 10px; }
-.open:hover { background: var(--blue-deep); }
-.done-toggle { display: inline-flex; align-items: center; gap: 8px; font-size: 14.5px; font-weight: 600; color: var(--ink-soft); cursor: pointer; user-select: none; }
-.done-toggle input { width: 19px; height: 19px; accent-color: var(--blue); margin: 0; cursor: pointer; }
-.is-done .done-toggle { color: var(--blue); }
-.empty { text-align: center; padding: 32px 16px; color: var(--ink-soft); border: 1.5px dashed var(--line); border-radius: 14px; display: grid; gap: 6px; justify-items: center; }
-.help { border-top: 1px solid var(--line); padding-top: 16px; font-size: 14.5px; color: var(--ink-soft); display: grid; gap: 3px; }
-.help b { color: var(--ink); }
-
-@media (max-width: 760px) {
-  .bar-wrap { position: static; }
-  .main { scroll-margin-top: 10px; }
-  .stage { border-right: 0; border-bottom: 1px solid var(--line); }
-  .stage:last-child { border-bottom: 0; }
-}
-@media (max-width: 600px) {
-  .bar { grid-template-columns: 1fr; gap: 8px; }
-  .dd-btn, .search input { height: 58px; }
-  .dd-menu, .dd:last-child .dd-menu, .dd-menu.cols { left: 0; right: auto; width: 100%; }
-  .dd-menu.cols { grid-template-columns: 1fr; }
-}
-@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } html { scroll-behavior: auto; } }
+@media (max-width:800px){ .grid{columns:1} }
+@media (max-width:560px){ .controls{grid-template-columns:1fr} .search input{padding-right:16px;font-size:1rem} .search .count{display:none} }
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
 </head>
-<body>
-
+<body style="margin:0">
 <div class="wrap">
-  <div class="title-row">
-    <h1>Find your training</h1>
-    <div class="try" id="try"><span>Try:</span></div>
-  </div>
-
-  <div class="bar-wrap">
-    <div class="bar" role="search">
-      <label class="search" for="q">
-        <svg class="s-icon" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
-        <input id="q" type="search" placeholder="What do you need help with?" aria-label="Search training" autocomplete="off">
-        <button class="s-clear" type="button" id="q-clear" aria-label="Clear search" hidden>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
-        </button>
-      </label>
-      <div class="dd" id="dd-persona"></div>
-      <div class="dd" id="dd-topic"></div>
-      <div class="dd" id="dd-app"></div>
+  <section class="hero" aria-labelledby="hubTitle">
+    <div class="deco" aria-hidden="true">
+      <i style="width:220px;height:220px;right:-70px;top:-90px;background:var(--wrig)"></i>
+      <i style="width:90px;height:90px;right:120px;top:-40px;background:var(--red)"></i>
+      <i style="width:46px;height:46px;right:60px;top:110px;background:var(--orange)"></i>
     </div>
-    <div class="status" id="status-bar">
+    <h1 id="hubTitle">What do you need to do today?</h1>
+    <p class="ask">Search, or tell us who you are and which app you're using.</p>
+
+    <div class="search">
+      <svg class="mag" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input id="q" type="search" placeholder="Search guides" autocomplete="off" aria-label="Search guides">
       <span class="count" id="count" aria-live="polite"></span>
-      <div class="pills" id="pills"></div>
-      <button class="clear" type="button" id="clear-all" hidden>Clear all</button>
     </div>
-  </div>
 
-  <main class="main" id="main" aria-label="Training results">
-    <div id="path-slot"></div>
-    <div class="results" id="results"></div>
-    <footer class="help">
-      <p><b>Links open in a new tab.</b> If a file doesn't open correctly, try the Microsoft Edge browser.</p>
-      <p>Ticking a training as done is saved only in this browser. It's a personal checklist and isn't reported anywhere.</p>
-    </footer>
-  </main>
+    <div class="controls">
+      <div class="dd" id="ddRole"></div>
+      <div class="dd" id="ddApp"></div>
+    </div>
+
+    <div class="chips" id="chips"><span>Popular:</span></div>
+  </section>
+
+  <p class="hint" id="hint" aria-live="polite"></p>
+  <main class="grid" id="main"></main>
+  <div class="empty" id="empty" hidden><b>No guides match that yet</b>Try another word, or <button type="button" id="reset">show everything</button>.</div>
+
+  <footer class="note">
+    <span>If a link does not open correctly, please try the Edge browser.</span>
+    <span>New guides are added as more tools change. Check back often.</span>
+  </footer>
 </div>
 
 <script>
-(function () {
-  const ICON = {
-    cxa: '<path d="M7 7h12l-3.5-3.5M17 17H5l3.5 3.5"/>',
-    sec: '<path d="M12 3l7 3v5c0 4.6-3 8.2-7 10-4-1.8-7-5.4-7-10V6z"/><path d="M9 12l2 2 4-4"/>',
-    dig: '<path d="M4 5h16v11H10l-5 4v-4H4z"/><path d="M8 10h8"/>',
-    fin: '<path d="M6 3h12v18l-3-2-3 2-3-2-3 2z"/><path d="M9 8h6M9 12h6"/>',
-    com: '<path d="M3 4h2.5l2 11h10.5l2-7.5H6.2"/><circle cx="9" cy="19.5" r="1.3"/><circle cx="17" cy="19.5" r="1.3"/>',
-    net: '<path d="M2.5 9a14 14 0 0 1 19 0M5.5 12.5a9.5 9.5 0 0 1 13 0M8.8 16a4.8 4.8 0 0 1 6.4 0"/><circle cx="12" cy="19" r="1"/>',
-    lrn: '<path d="M4 19V5a2 2 0 0 1 2-2h14v15H6a2 2 0 0 0-2 2 2 2 0 0 0 2 2h14"/>',
-    person: '<circle cx="12" cy="8" r="4"/><path d="M4.5 21a7.5 7.5 0 0 1 15 0"/>',
-    team: '<circle cx="12" cy="7" r="3.2"/><path d="M6 20a6 6 0 0 1 12 0"/><circle cx="4.5" cy="10" r="2.2"/><circle cx="19.5" cy="10" r="2.2"/><path d="M1.5 18a4 4 0 0 1 4.5-3.9M22.5 18a4 4 0 0 0-4.5-3.9"/>',
-    everyone: '<circle cx="8" cy="8" r="3.2"/><circle cx="16.5" cy="9" r="2.6"/><path d="M2 20a6 6 0 0 1 12 0M13 15.2a5 5 0 0 1 9 3.8"/>',
-    grid: '<rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/>',
-    apps: '<rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4"/>'
-  };
-  const AICON = {
-    'Okta Verify': '<rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/><circle cx="12" cy="15.5" r="1.4"/>',
-    'Microsoft Authenticator': '<rect x="6" y="2.5" width="12" height="19" rx="2.5"/><path d="M9.5 12l2 2 3.5-4"/>',
-    'Outlook': '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 6l8.5 7 8.5-7"/>',
-    'Microsoft Teams': '<path d="M3 5h12v9H8l-5 4z"/><path d="M15 9h6v8l-3.5-2.5H11v-.5"/>',
-    'Windows 365': '<rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/><path d="M9.2 12.5a2 2 0 0 1 .3-4 2.8 2.8 0 0 1 5.3.7 1.7 1.7 0 0 1 .1 3.3z"/>',
-    'Digital Concierge': '<path d="M4 17a8 8 0 0 1 16 0z"/><path d="M2.5 20h19M12 9V7M10 7h4"/>',
-    'SAP Concur': '<path d="M6 3h12v18l-3-2-3 2-3-2-3 2z"/><path d="M12 7v8M14 8.5h-3a1.5 1.5 0 0 0 0 3h2a1.5 1.5 0 0 1 0 3h-3"/>',
-    'MobileXpense': '<rect x="6" y="2.5" width="12" height="19" rx="2.5"/><path d="M9.5 8h5M9.5 11.5h5M9.5 15h3"/>',
-    'KBuy': '<path d="M3 4h2.5l2 11h10.5l2-7.5H6.2"/><circle cx="9" cy="19.5" r="1.3"/><circle cx="17" cy="19.5" r="1.3"/>',
-    'SAP Ariba': '<path d="M5 8h14l-1 13H6z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/>',
-    'Guest Wi-Fi': '<path d="M2.5 9a14 14 0 0 1 19 0M5.5 12.5a9.5 9.5 0 0 1 13 0M8.8 16a4.8 4.8 0 0 1 6.4 0"/><circle cx="12" cy="19" r="1"/>'
-  };
-  const FICON = {
-    video: '<circle cx="12" cy="12" r="9"/><path d="M10 8.5l5 3.5-5 3.5z"/>',
-    qrg: '<path d="M7 3h7l4 4v14H7z"/><path d="M14 3v4h4M10 12h5M10 16h5"/>',
-    pack: '<path d="M12 3l9 5-9 5-9-5z"/><path d="M3 13l9 5 9-5"/>',
-    hub: '<circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/>'
-  };
-  const X = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>';
-  const CHEV = '<svg class="dd-chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>';
-  const svg = (p, s) => `<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${p}</svg>`;
+/* ==================================================================
+   HOW TO UPDATE THIS PAGE  (mirrors the Technology Resource Library)
+   • Each entry in GUIDES is one row of the library.
+     need   = the "I Need To…" column      cat  = Category id (see SECTIONS)
+     status = "live" | "new" | "soon" (Planned – To Build) | "hold" (show, don't promote)
+     url    = the link. Leave "" for anything not built yet: it folds into "Coming soon".
+     roles  = "ma" legacy Mars Associates, "ka" legacy Kellanova Associates,
+              "ml" legacy Mars Line Managers, "kl" legacy Kellanova Line Managers.
+     apps   = ids from APPS (powers the App menu and search).
+   • POPULAR = the quick-pick chips under the search bar.
+   ================================================================== */
 
-  const TOPICS = [
-    { id: 'cxa', name: 'Cross-Company Access', blurb: 'Request access, use your second account and manage cross-company approvals.', bg: 'var(--mars-light)', fg: 'var(--blue)' },
-    { id: 'sec', name: 'Security & Sign-In', blurb: 'Reset your password and set up Okta and MFA so you can sign in safely to both companies\u2019 systems.', bg: 'var(--kel-light)', fg: 'var(--red)' },
-    { id: 'dig', name: 'Digital Workplace', blurb: 'Collaborate in Microsoft 365, connect to your Cloud PC and get help through Digital Concierge.', bg: 'var(--wri-light)', fg: 'var(--wblue)' },
-    { id: 'fin', name: 'Finance', blurb: 'Submit, review and approve expenses in Concur and MobileXpense.', bg: 'var(--snk-light)', fg: 'var(--orange)' },
-    { id: 'com', name: 'Commercial', blurb: 'Buy and approve goods and services in KBuy and SAP Ariba.', bg: 'var(--mars-light)', fg: 'var(--blue)' },
-    { id: 'net', name: 'Networks', blurb: 'Get online on the guest network at Mars offices.', bg: 'var(--wri-light)', fg: 'var(--wblue)' },
-    { id: 'lrn', name: 'Additional Learning', blurb: 'More tips and eLearning for working across Mars and Kellanova.', bg: 'var(--kel-light)', fg: 'var(--red)' }
-  ];
-  const APPS = ['Okta Verify', 'Microsoft Authenticator', 'Outlook', 'Microsoft Teams', 'Windows 365', 'Digital Concierge', 'SAP Concur', 'MobileXpense', 'KBuy', 'SAP Ariba', 'Guest Wi-Fi'];
-  const FORMATS = {
-    video: { name: 'Video', verb: 'Watch video' },
-    qrg: { name: 'Quick reference guide', verb: 'Open guide' },
-    pack: { name: 'Training pack', verb: 'Open training pack' },
-    hub: { name: 'Learning hub', verb: 'Visit the hub' }
-  };
-  const ALL = ['mars-lm', 'kel-lm', 'mars-assoc', 'kel-assoc'];
-  const LMS = ['mars-lm', 'kel-lm'];
-  const KEL = ['kel-assoc', 'kel-lm'];
+const ROLES = [
+  {id:"all", label:"A Mars Snacking Associate"},
+  {id:"ma",  label:"A legacy Mars Associate"},
+  {id:"ka",  label:"A legacy Kellanova Associate"},
+  {id:"ml",  label:"A legacy Mars Line Manager"},
+  {id:"kl",  label:"A legacy Kellanova Line Manager"}
+];
+const ALL = ["ma","ka","ml","kl"], LM = ["ml","kl"], KEL = ["ka","kl"], MARS = ["ma","ml"];
 
-  const ITEMS = [
-    { id: 'cxa-overview', topic: 'cxa', fmt: 'pack', dur: '30 minutes', apps: [], title: 'Cross-Company Access Overview',
-      summary: 'Learn how to request and obtain access to applications owned by the other company, and see what you can access today.',
-      who: 'Associates and Line Managers', roles: ALL,
-      url: 'https://team.effem.com/:p:/s/MarsSnackingIntegrationLearningHub/IQC2MJg4LGk5Tb2UDfeBhds-AeM9frGm0UzPQpvPhc7ZLKA?e=dwnNcJ' },
-    { id: 'incognito', topic: 'cxa', fmt: 'video', dur: '3 minutes', apps: ['Outlook', 'SAP Concur'], title: 'Using Incognito and Accessing Cross-Company Accounts',
-      summary: 'For Line Managers with direct reports in the other company: how to use a secondary account for cross-entity approvals while your legacy account stays the same.',
-      covers: ['Sign in to your secondary Outlook mailbox in an Incognito window', 'Approve expenses, purchase orders, and hardware or software requests', 'Keep the account active', 'Complete approvals in Concur'],
-      who: 'Legacy Mars and Kellanova Line Managers', roles: LMS,
-      url: 'https://team.effem.com/:v:/s/MarsSnackingIntegrationLearningHub/IQAmyg07PNduT6zAWBfNg-rPAdU9ozVFsYXEfgXDxG5fJ7U?e=ruPD1a' },
-    { id: 'mailbox', topic: 'cxa', fmt: 'qrg', dur: '10 minutes', apps: ['Outlook'], title: 'Accessing Your Cross-Company Mailbox',
-      summary: 'Open and manage your cross-company Outlook mailbox securely.',
-      covers: ['Sign in through a private browser window with the right cross-company email address', 'Complete MFA setup', 'Turn on forwarding or automatic replies', 'FAQs: handling approvals, unlocking a mailbox after 30 days of inactivity, and where to get support'],
-      who: 'Legacy Mars and Kellanova Line Managers', roles: LMS,
-      url: 'https://team.effem.com/:p:/s/MarsSnackingIntegrationLearningHub/IQCYSJcsA97IToC92O6oJ-X8ATRG9k35oOzTmGKTR2SdgfQ?e=R0Ht7E' },
-    { id: 'lm-session', topic: 'cxa', fmt: 'video', dur: '50 minutes', apps: [], title: 'Cross-Company Access Line Manager Readiness Session',
-      summary: 'Recorded August 2026 briefing for Line Managers of blended teams across North America, the Accelerator and global functions.',
-      covers: ['Culture and one-team building', 'Location guidance', 'Cross-company access', 'AI-assisted knowledge transfer', 'A 30-60-90 day onboarding roadmap'],
-      who: 'Legacy Mars and Kellanova Line Managers', roles: LMS,
-      url: 'https://team.effem.com/:v:/s/MarsSnackingIntegrationLearningHub/IQCrrszhiEjBSLE3JF1kaEd-AX0lT_P2yrZXq_pizMjnln4?e=FDEjdx' },
+const APPS = {
+  outlook:   {name:"Outlook (secondary mailbox)", short:"Outlook", ab:"O",  color:"#0F6CBD", logo:""},
+  m365:      {name:"Microsoft 365 & Teams", short:"Microsoft 365", ab:"M",  color:"#5B5FC7", logo:""},
+  w365:      {name:"Windows 365 Cloud PC", short:"Windows 365", ab:"W",  color:"#0078D4", logo:""},
+  okta:      {name:"Okta Verify", short:"Okta Verify", ab:"Ok", color:"#1A1A1A", logo:""},
+  msauth:    {name:"Microsoft Authenticator", short:"Authenticator", ab:"MA", color:"#2B579A", logo:""},
+  dc:        {name:"Digital Concierge", short:"Digital Concierge", ab:"DC", color:"#6A1B9A", logo:""},
+  servicedesk:{name:"Mars Service Desk", short:"Service Desk", ab:"SD", color:"#0000A0", logo:""},
+  workday:   {name:"MyMars / Workday", short:"MyMars / Workday", ab:"W",  color:"#F38B00", logo:""},
+  concur:    {name:"SAP Concur", short:"SAP Concur", ab:"C",  color:"#0A6ED1", logo:""},
+  mxp:       {name:"MobileXpense", short:"MobileXpense", ab:"MX", color:"#00897B", logo:""},
+  ariba:     {name:"SAP Ariba", short:"SAP Ariba", ab:"Ar", color:"#E35500", logo:""},
+  kbuy:      {name:"KBuy", short:"KBuy", ab:"KB", color:"#C8102E", logo:""},
+  beeline:   {name:"Beeline", short:"Beeline", ab:"B",  color:"#3A7D44", logo:""}
+};
 
-    { id: 'mars-password', topic: 'sec', fmt: 'qrg', dur: '8 minutes', apps: ['Okta Verify'], isNew: true, title: 'Reset Your Mars Password',
-      summary: 'Securely reset your Mars password and set up multi-factor authentication (MFA) using the self-service Okta Magic Link.',
-      who: 'Legacy Kellanova Associates who need @effem.com credentials', roles: KEL,
-      url: 'https://team.effem.com/:p:/s/MarsSnackingIntegrationLearningHub/IQATJxyNWk9cT7ltjXgseBMyAQXc_joIlLen0DX1e88veyE?e=1ORacL' },
-    { id: 'okta-setup', topic: 'sec', fmt: 'video', dur: '1 minute', apps: ['Okta Verify'], title: 'Okta Verify Laptop Setup',
-      summary: 'Set up Okta Verify on your laptop so you can securely sign in to Mars applications.',
-      who: 'Legacy Kellanova Associates', roles: KEL,
-      url: 'https://team.effem.com/:v:/s/MarsSnackingIntegrationLearningHub/IQBNxvR1b0_eSqGD6wKIXkEvAWWDo--NQlgt74AcX66BF0A?e=feGZnE' },
-    { id: 'okta-push', topic: 'sec', fmt: 'video', dur: '30 seconds', apps: ['Okta Verify'], title: 'Okta Push Sign-In',
-      summary: 'Approve an Okta Verify push notification to complete sign-in.',
-      who: 'Legacy Kellanova Associates', roles: KEL,
-      url: 'https://team.effem.com/:v:/s/MarsSnackingIntegrationLearningHub/IQCgn_iVCeAkS5Bw-iIWCpFgAefEf_4Uw6H5tXNWgtGqDrA?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D&e=B54GTl' },
-    { id: 'okta-code', topic: 'sec', fmt: 'video', dur: '30 seconds', apps: ['Okta Verify'], title: 'Okta Device Code Sign-In',
-      summary: 'Sign in with Okta using a device code.',
-      who: 'Legacy Kellanova Associates', roles: KEL,
-      url: 'https://team.effem.com/:v:/s/MarsSnackingIntegrationLearningHub/IQCJ1S8Fiw_8RrCTOqxS1KIiAUUd3UZ29YKnXCcUcyrcYEY?e=bTNpsb' },
-    { id: 'okta-lm', topic: 'sec', fmt: 'qrg', dur: '10 minutes', apps: ['Okta Verify'], title: 'Enable Okta Verify for Easier Mars Access',
-      summary: 'Set up your Mars Okta account and access the applications and tools you need to support your Mars direct reports.',
-      who: 'Legacy Kellanova Line Managers', roles: ['kel-lm'],
-      url: 'https://team.effem.com/:p:/s/MarsSnackingIntegrationLearningHub/IQCbGwAlbz2nS4N3bMprkEmmAfR9fDCXu55-FpvkZkBsxw8?e=lSmwTj' },
-    { id: 'kel-mfa', topic: 'sec', fmt: 'qrg', dur: '10 minutes', apps: ['Microsoft Authenticator'], title: 'Set Up Kellanova MFA',
-      summary: 'Enroll in Microsoft Authenticator and complete MFA setup to securely access Kellanova systems and applications.',
-      who: 'Legacy Mars Line Managers', roles: ['mars-lm'],
-      url: 'https://team.effem.com/:p:/s/MarsSnackingIntegrationLearningHub/IQBVICjLBKlpQr2O3ae_bM7IAc1GA5TW8TUYdlOkSy_mad0?e=bnP7SV' },
+const SECTIONS = [
+  {id:"cca",  title:"Cross-Company Access", lib:"Cross-Company Access", sub:"Set up, use and keep your cross-company account working.", tint:"var(--wrig-light)", ico:"key"},
+  {id:"sign", title:"Sign-In & Security", lib:"Sign-In & Security", sub:"Okta, Microsoft Authenticator and password resets.", tint:"var(--mars-light)", ico:"shield"},
+  {id:"work", title:"Digital Workplace and IT Help", lib:"Digital Workplace and IT Help", sub:"Collaborate across both companies and get support fast.", tint:"var(--snack-light)", ico:"laptop"},
+  {id:"comm", title:"Commercial (Approvals & Purchasing)", lib:"Commercial (Approvals & Purchasing)", sub:"Requisitions, purchasing and contractor onboarding.", tint:"var(--kel-light)", ico:"cart"},
+  {id:"fin",  title:"Finance (including Travel & Expense)", lib:"Finance (including Travel & Expense)", sub:"Submit, approve and stay ahead of expense deadlines.", tint:"var(--wrig-light)", ico:"receipt"},
+  {id:"net",  title:"Networks", lib:"Networks", sub:"Connect to Wi-Fi at any office.", tint:"var(--mars-light)", ico:"wifi"}
+];
 
-    { id: 'collab', topic: 'dig', fmt: 'qrg', dur: '1 hour', apps: ['Microsoft Teams', 'Outlook'], title: 'Cross-Company Collaboration',
-      summary: 'A pack of quick reference guides for collaborating across both companies in Microsoft 365.',
-      covers: ['Chat and email', 'Teams meetings', 'Cross-company Teams and shared channels', 'File sharing', 'FAQs and where to get help'],
-      who: 'Legacy Mars and Kellanova Associates', roles: ALL,
-      url: 'https://team.effem.com/:p:/s/MarsSnackingIntegrationLearningHub/IQCzUPz9iZteTY2Gd-rrEgagAb1xO4ioeQFWXX2R3DlnrAc?e=zlOXFW' },
-    { id: 'w365', topic: 'dig', fmt: 'qrg', dur: '8 minutes', apps: ['Windows 365'], isNew: true, title: 'Windows 365 Virtual Desktop',
-      summary: 'Request, sign in to and connect to your Windows 365 Cloud PC (virtual desktop).',
-      covers: ['How to request your Cloud PC', 'Logging on and connecting, with step-by-step screenshots', 'Direct links', 'Tips for a smooth first sign-in'],
-      who: 'Legacy Mars and Kellanova Associates', roles: ALL,
-      url: 'https://team.effem.com/:p:/s/MarsSnackingIntegrationLearningHub/IQD4GB4pnxl6Q7_dXvwp4TxiAf6G51PQCWGtd7ROu7hDWZE?e=VgP56K' },
-    { id: 'dc-welcome', topic: 'dig', fmt: 'video', dur: '6 minutes', apps: ['Digital Concierge'], title: 'Welcome to Digital Concierge',
-      summary: 'An introductory video for Digital Concierge.',
-      who: 'Associates working across both companies', roles: ALL,
-      url: 'https://team.effem.com/:v:/s/MarsSnackingIntegrationLearningHub/IQBD7-i_nVBWQYP7ph2YK62YASQR9cKa6VidvWp6P98fWWI?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D&e=wLIfNJ' },
-    { id: 'dc-requests', topic: 'dig', fmt: 'qrg', dur: '5 minutes', apps: ['Digital Concierge'], title: 'Managing Digital Concierge Requests',
-      summary: 'Review and approve Digital Concierge requests from your legacy Kellanova Associates, directly from email.',
-      who: 'Legacy Mars Line Managers', roles: ['mars-lm'],
-      url: 'https://team.effem.com/:p:/s/MarsSnackingIntegrationLearningHub/IQCMvOMNg4S7Q6oHe4GzUstJAdzCKxnh3IEsSD6E-R700BU?e=WWBdAv' },
+const HUB = "https://team.effem.com/:f:/s/MarsSnackingIntegrationLearningHub/IgBPYBe76s87RaYZp2aLm5N5Ab5qG459kpidWTi2-cgKvKA?e=ZhxdT0";
+const LMDIR = "https://team.effem.com/:b:/r/sites/BetterTogether/Change%20Management%20Resources/Line%20Managers/Cross%20Company%20Access%20for%20LMs/";
+const KAPPS = LMDIR+"Legacy%20Mars%20Line%20Manager%20-%20Guides%20for%20Kellanova%20Apps/";
+const MAPPS = LMDIR+"Legacy%20Kellanova%20Line%20Manager%20-%20Guide%20for%20Mars%20Apps/";
+const TECH = "https://team.effem.com/sites/MarsSnackingIntegrationLearningHub/Shared%20Documents/Job%20Function%20Content/Technology/";
 
-    { id: 'kel-concur', topic: 'fin', fmt: 'qrg', dur: '10 minutes', apps: ['SAP Concur'], title: 'Kellanova SAP Concur',
-      summary: 'Access Kellanova SAP Concur, complete MFA setup, and review or approve expense reports for your Kellanova direct reports.',
-      who: 'Legacy Mars Line Managers', roles: ['mars-lm'],
-      url: 'https://team.effem.com/:p:/s/MarsSnackingIntegrationLearningHub/IQAbvAeIL1T2TqLFJnfAGDCUAX66XnxnHuZr-uhnRUNg74M?e=AkctxB' },
-    { id: 'mars-concur', topic: 'fin', fmt: 'qrg', dur: 'By region', apps: ['SAP Concur', 'MobileXpense'], title: 'Mars SAP Concur',
-      summary: 'Find the right Mars Concur or MobileXpense access information and support channel for your region.',
-      who: 'Legacy Kellanova Line Managers', roles: ['kel-lm'],
-      url: 'https://team.effem.com/:p:/s/MarsSnackingIntegrationLearningHub/IQA7tIIYh42oRLSx7psthdRiAU-4JswBeiimiOEwhcL3VjM?e=Xsn3z2' },
-    { id: 'mxp', topic: 'fin', fmt: 'pack', dur: '', region: 'Europe', apps: ['MobileXpense'], title: 'MobileXpense (MXP) Training',
-      summary: 'Travel and expense claims in MobileXpense, from setup to approval.',
-      covers: ['Set up your account and reimbursement details', 'Sign in on desktop or with the SpendCatcher mobile app', 'Create cash expenses and mileage claims', 'Complete corporate card transactions, split costs and submit reports', 'Line Managers: find, review, approve or reject team reports', 'Global Travel & Expense Policy, do\u2019s and don\u2019ts, and the T&E Helpdesk'],
-      who: 'Associates and Line Managers in Europe', roles: ALL,
-      url: 'https://team.effem.com/:p:/s/MarsSnackingIntegrationLearningHub/IQDap025HIqNTp2N-AnTult2AVlfxQ3PMwR4P9d7Qix6DF0?e=sA83rQ' },
+const GUIDES = [
+  /* Cross-Company Access */
+  {cat:"cca", need:"I need to understand Cross-Company Access", title:"Cross-Company Access: Start Here", desc:"What Cross-Company Access (CCA) is, whether you need it, and where to go for each task. Your front door to all CCA guides.", who:"All Associates & Line Managers", roles:ALL, format:"Quick reference guide", time:"5 min", status:"live", apps:[], start:true,
+   url:"https://team.effem.com/:u:/r/sites/MarsSnackingIntegrationLearningHub/SitePages/Digital-Cross-Company-Access.aspx?d=we2a941e1fd8b49b3879006c47e06ad53&csf=1&web=1&e=63dwzn"},
+  {cat:"cca", need:"I need a Mars secondary mailbox / @effem.com account", title:"How to Request a Mars Secondary Mailbox / @effem.com Account", desc:"Step by step: request your Mars secondary account through Digital Concierge, what information you need, and what happens next.", who:"Legacy Kellanova Associates", roles:KEL, format:"Quick reference guide", time:"5 min", status:"new", apps:["dc","outlook"],
+   url:"https://team.effem.com/:p:/s/MarsSnackingIntegrationLearningHub/IQAhZpQwPAcwRoOnPyX2XjMmAcjpJABysV0aaGSGHP6KeCM?e=wrYyvD"},
+  {cat:"cca", need:"I want a quick video walkthrough", title:"Cross-Company Access: 3-Minute Walkthrough", desc:"Open your secondary Outlook mailbox in an Incognito/InPrivate window, approve requests (expenses, purchase orders, hardware and software), keep your account active and complete approvals in Concur.", who:"Associates with a cross-company account", roles:ALL, format:"Video", time:"3 min", status:"live", apps:["outlook","concur"], url:HUB},
+  {cat:"cca", need:"I want a faster way into my secondary mailbox", title:"Mars Secondary Mailbox Desktop Shortcut", desc:"Open your secondary Outlook mailbox from your laptop in one click with the new 'Mars Secondary Mailbox' shortcut.", who:"Legacy Mars Associates (legacy Kellanova coming soon)", roles:MARS, format:"Quick reference guide", time:"3 min", status:"new", apps:["outlook"],
+   url:"https://team.effem.com/:x:/s/MarsSnackingIntegrationLearningHub/IQA8OhFOFCSYQKOccoKPnZTKAadiemOD3fUAlFXUr9q_-xs?e=vCPl0i"},
+  {cat:"cca", need:"I want to keep my secondary mailbox working", title:"5 Pro Tips for Your Cross-Company Mailbox", desc:"Check in weekly, stay under the 2GB limit, avoid the 30-day lock, set a 'not actively monitored' out-of-office, ask your team to flag approvals and stay offline in Teams on your secondary account.", who:"Associates & Line Managers with a cross-company account", roles:ALL, format:"One-pager", time:"3 min", status:"new", apps:["outlook","m365"],
+   url:"https://team.effem.com/:p:/s/MarsSnackingIntegrationLearningHub/IQBISBFZdVrTQI2LZ_Iqc6YwAUATzx3jy_JeaFqeRJO-6OU?e=1fELkz"},
+  {cat:"cca", need:"I'm not sure which email to sign in with", title:"Which Email Address Do I Sign In With?", desc:"Legacy Mars Associates sign in with @kellogg.com (@kellanova.com won't work). Legacy Kellanova Associates sign in with @effem.com.", who:"Associates with a cross-company account", roles:ALL, format:"One-pager", time:"2 min", status:"soon", apps:[], url:""},
+  {cat:"cca", need:"I'm locked out or can't find my credentials", title:"Can't Get In? Fix Your Cross-Company Account Access", desc:"Find your credentials, unlock an inactive account, reset your password and know where to go if you're still stuck.", who:"Associates with a cross-company account", roles:ALL, format:"Quick reference guide", time:"5 min", status:"new", apps:["outlook","okta"],
+   url:"https://team.effem.com/:p:/s/MarsSnackingIntegrationLearningHub/IQDh0C-sK7kUQakS4CT1vRDDAeGuHsj9HFPl9CsQYU2nqoc?e=xlb8vh"},
+  {cat:"cca", need:"I need CCA help in my region", title:"Where to Get Cross-Company Access Help in Your Region", desc:"Find the right support contact for your region alongside the global Mars Service Desk.", who:"All Associates & Line Managers", roles:ALL, format:"One-pager", time:"2 min", status:"soon", apps:["servicedesk"], url:""},
+  {cat:"cca", need:"I lead a blended team", title:"Cross-Company Access Line Manager Readiness Session", desc:"Recorded August 2026 briefing for Line Managers of blended teams: culture and one-team building, location guidance, Cross-Company Access, AI-assisted knowledge transfer and a 30-60-90 day onboarding roadmap.", who:"Legacy Mars & legacy Kellanova Line Managers", roles:LM, format:"Video recording", time:"50 min", status:"live", apps:[], url:HUB},
 
-    { id: 'kbuy', topic: 'com', fmt: 'qrg', dur: '10 minutes', apps: ['KBuy', 'Okta Verify'], title: 'Managing KBuy Approvals',
-      summary: 'Approve or reject Kellanova requisitions, either in KBuy or directly from the approval email.',
-      covers: ['Sign in to KBuy with Okta', 'Go to My Tasks > Pending Approval > Requisitions', 'Approve, or reject with a comment', 'Or act directly from the approval email'],
-      who: 'Legacy Mars Line Managers', roles: ['mars-lm'],
-      url: 'https://team.effem.com/:p:/s/MarsSnackingIntegrationLearningHub/IQCqJUEWCwbRQrMcvpNuwUo1Aaw37vyHc_ir68moMhrsVXU?e=bwcCdS' },
-    { id: 'ariba', topic: 'com', fmt: 'pack', dur: '', apps: ['SAP Ariba'], title: 'Ariba Guided Buying Training',
-      summary: 'Basic system and purchasing training for buying or approving indirect goods and services at Mars.',
-      covers: ['How to sign in to SAP Ariba and which system to approve requests in', 'Key terms, and how a purchase request becomes a purchase order', 'The four buying principles and how many quotes you need', 'Checks to do before you submit a request', 'Practice scenarios, live demo topics and where to get help'],
-      who: 'Legacy Kellanova Requisitioners and Line Managers', roles: KEL,
-      url: 'https://team.effem.com/:p:/s/MarsSnackingIntegrationLearningHub/IQAoYlz1Dh4RRpDdcFhdCaftAZuNG55E2a56Vp5zfVpz8co?e=iQgePL' },
+  /* Sign-In & Security */
+  {cat:"sign", need:"I need to set up Okta", title:"Set Up Okta Verify for Mars Access", desc:"Set up your Mars Okta account and Okta Verify so you can sign in to Mars applications.", who:"Legacy Kellanova Associates & Line Managers", roles:KEL, format:"Quick reference guide", time:"10 min", status:"live", apps:["okta"],
+   url:MAPPS+"Mars%20Okta%20Setup%20_QRG.pdf?d=w2be072f61983422ca668fd6bb66cc86e&csf=1&web=1&e=j5CeRA",
+   extras:{label:"Show me how", items:[{t:"Laptop setup", d:"1 min", url:HUB},{t:"Approve a push", d:"30 sec", url:HUB},{t:"Device code sign-in", d:"30 sec", url:HUB}]}},
+  {cat:"sign", need:"I need to set up Kellanova MFA", title:"Set Up Kellanova MFA (Microsoft Authenticator)", desc:"Enroll in Microsoft Authenticator and complete MFA setup to securely access Kellanova systems and applications.", who:"Legacy Mars Associates & Line Managers", roles:MARS, format:"Quick reference guide", time:"10 min", status:"live", apps:["msauth"],
+   url:KAPPS+"Legacy%20Mars%20Line%20Manager%20-%20Guide%20to%20set%20up%20Kellanova%20Microsoft%20Authenticator%20(MFA).pdf?d=w3f4022d58d494eb08602421ecccd00de&csf=1&web=1&e=gKopcU"},
+  {cat:"sign", need:"I need to reset my Mars password", title:"Reset Your Mars Password", desc:"Securely reset your Mars password and set up MFA using the self-service Okta Magic Link.", who:"Legacy Kellanova Associates with @effem.com credentials", roles:KEL, format:"Quick reference guide", time:"8 min", status:"live", apps:["okta"], url:HUB},
 
-    { id: 'wifi', topic: 'net', fmt: 'qrg', dur: '5 minutes', apps: ['Guest Wi-Fi'], title: 'Accessing Guest Wi-Fi',
-      summary: 'Connect to the Mars-Guest Wi-Fi network at Mars offices, with step-by-step instructions and screenshots.',
-      covers: ['Mars Affiliate Login', 'Visitor Registration'],
-      who: 'Legacy Mars and Kellanova Associates', roles: ALL,
-      url: 'https://team.effem.com/:p:/s/MarsSnackingIntegrationLearningHub/IQAMWEXr59jvS6kWzzbBUL92ATh-7ajQVG12lxPBaz10X64?e=XceCWS' },
+  /* Digital Workplace and IT Help */
+  {cat:"work", need:"I need to work with people in the other company", title:"Cross-Company Collaboration in Microsoft 365", desc:"Chat and email, Teams meetings, cross-company Teams and shared channels, and file sharing across Mars and Kellanova, plus FAQs and where to get help.", who:"Legacy Mars & legacy Kellanova Associates", roles:ALL, format:"Quick reference guide", time:"1 hr", status:"live", apps:["m365"],
+   url:TECH+"Cross-Company%20MS%20Teams%20Collaboration.pdf?web=1"},
+  {cat:"work", need:"I need a Windows 365 Cloud PC", title:"Windows 365 Cloud PC: Request & Connect", desc:"Request, sign in to and connect to your Windows 365 Cloud PC (Virtual Desktop), with step-by-step screenshots, direct links and first sign-in tips.", who:"Legacy Mars & legacy Kellanova Associates", roles:ALL, format:"Quick reference guide", time:"8 min", status:"live", apps:["w365"], url:HUB},
+  {cat:"work", need:"I'm new to Digital Concierge", title:"Welcome to Digital Concierge", desc:"An introduction to Digital Concierge, the Mars portal for requesting access and IT services.", who:"Associates with a cross-company account", roles:ALL, format:"Video", time:"6 min", status:"live", apps:["dc"], url:HUB},
+  {cat:"work", need:"I need to approve a Digital Concierge request", title:"Approving Digital Concierge Requests", desc:"Review and approve Digital Concierge requests from legacy Kellanova Associates, directly from email.", who:"Legacy Mars Line Managers", roles:["ml"], format:"Quick reference guide", time:"5 min", status:"live", apps:["dc"],
+   url:KAPPS+"Kellanova%20Digital%20Concierge_QRG.pdf?d=w4ab3d7195aca44289499f6e1e6bcad37&csf=1&web=1&e=ObjeXf"},
+  {cat:"work", need:"I need to submit an IT ticket", title:"How to Submit a Mars IT Support Ticket", desc:"Raise an IT ticket with the Mars Service Desk, including what details to add so it's resolved faster.", who:"Associates with a cross-company account", roles:ALL, format:"Quick reference guide", time:"3 min", status:"soon", apps:["servicedesk"], url:""},
+  {cat:"work", need:"I need to check my ticket or approval", title:"How to Check Your Mars IT Tickets & Approvals", desc:"Track the status of your IT tickets, respond to surveys and find approvals waiting for you.", who:"Associates with a cross-company account", roles:ALL, format:"Quick reference guide", time:"3 min", status:"soon", apps:["servicedesk"], url:""},
+  {cat:"work", need:"I need to contact the Mars Service Desk", title:"How to Contact the Mars Service Desk", desc:"Where and how to reach the Mars Service Desk for urgent or live support.", who:"Associates with a cross-company account", roles:ALL, format:"Quick reference guide", time:"2 min", status:"soon", apps:["servicedesk"], url:""},
+  {cat:"work", need:"I need help with a Mars application", title:"How to Find a Functional Expert for a Mars Application", desc:"Find the right Functional Expert or Key User when you need help with a Mars application.", who:"Associates with a cross-company account", roles:ALL, format:"Quick reference guide", time:"3 min", status:"soon", apps:[], url:""},
+  {cat:"work", need:"I need to manage a distribution list", title:"How to Manage a Mars Distribution List", desc:"Create, update or manage membership of a Mars distribution list.", who:"Legacy Mars Associates", roles:MARS, format:"Quick reference guide", time:"3 min", status:"soon", apps:["outlook"], url:""},
+  {cat:"work", need:"I want to learn more about working smarter", title:"Work Smarter Together Hub", desc:"Integration resources, workplace tools and bite-sized learning for working across Mars and Kellanova.", who:"All Associates", roles:ALL, format:"Learning hub (website)", time:"Self-paced", status:"hold", apps:[],
+   url:"https://kelloggcompany.sharepoint.com/sites/GBL-IT-WorkSmartLearning/SitePages/WorkSmart-Together.aspx"},
 
-    { id: 'worksmart', topic: 'lrn', fmt: 'hub', dur: 'Varies', apps: [], title: 'Work Smarter Together Hub',
-      summary: 'Integration resources, workplace tools and practical learning for working across Mars and Kellanova.',
-      covers: ['Bite-sized tips', 'eLearning', 'Smarty Secrets'],
-      who: 'All Associates', roles: ALL,
-      url: 'https://kelloggcompany.sharepoint.com/sites/GBL-IT-WorkSmartLearning/SitePages/WorkSmart-Together.aspx' }
-  ];
+  /* Commercial */
+  {cat:"comm", need:"I need to approve a KBuy requisition", title:"Approving KBuy Requisitions", desc:"Two ways to approve or reject a Kellanova requisition: in KBuy (sign in with Okta > My Tasks > Pending Approval > Requisitions) or directly from the approval email.", who:"Legacy Mars Line Managers", roles:["ml"], format:"Quick reference guide", time:"10 min", status:"live", apps:["kbuy"],
+   url:KAPPS+"Kellanova%20KBuy_QRG.pdf?d=w9365a6db0d104294a3a2f6a5c432277f&csf=1&web=1&e=Sdcfyv"},
+  {cat:"comm", need:"I need to buy or approve in Ariba", title:"Ariba Guided Buying Training", desc:"Sign in to SAP Ariba, know which system to approve in, learn key terms, the four buying principles, quote requirements and pre-submission checks. Includes practice scenarios.", who:"Legacy Kellanova requisitioners & Line Managers", roles:KEL, format:"Training pack", time:"30 min", status:"live", apps:["ariba"], url:HUB},
+  {cat:"comm", need:"I need to onboard a legacy Kellanova contractor", title:"Contractor Management: Interim Kellanova Contractor Onboarding", desc:"Confirm the supplier contract, submit the request, create the resource and assignment in Beeline, complete background checks, receive credentials and align Line Manager approvals.", who:"Legacy Mars & legacy Kellanova Line Managers", roles:LM, format:"Quick reference guide", time:"10 min", status:"soon", apps:["beeline"], url:""},
+  {cat:"comm", need:"I manage Mars direct reports", title:"Mars Applications for Line Managers", desc:"Access MyMars/Workday, Concur, SAP Ariba and the Mars Service Desk to support your Mars direct reports.", who:"Legacy Kellanova Line Managers", roles:["kl"], format:"Quick reference guide", time:"10 min", status:"live", apps:["workday","concur","ariba","servicedesk"],
+   url:MAPPS+"Mars%20Apps_QRG.pdf?d=wa762c51a45e1471487d56ecf9fa38e0f&csf=1&web=1&e=QAhmAG"},
 
-  const STAGE = {
-    signin: { title: 'Set up your sign-in', why: 'Do this first so you can get into the other company\u2019s systems.' },
-    access: { title: 'Get into your second account', why: 'Open the account and mailbox you\u2019ll use for cross-company work.' },
-    approve: { title: 'Approve for your team', why: 'Handle your direct reports\u2019 expenses and requests.' },
-    buy: { title: 'Buy and approve at Mars', why: 'Expenses and purchasing on Mars tools.' },
-    learn: { title: 'Understand what\u2019s changing', why: 'See what you can access across both companies today.' },
-    work: { title: 'Work together day to day', why: 'Collaborate, get support and connect on site.' }
-  };
-  const PERSONAS = [
-    { id: 'all', eyebrow: 'Show', label: 'Everyone', icon: 'everyone', fg: 'var(--blue)', bg: 'var(--soft)' },
-    { id: 'mars-lm', eyebrow: 'Legacy Mars', label: 'Line Manager', icon: 'team', fg: 'var(--blue)', bg: 'var(--mars-light)', plural: 'Legacy Mars Line Managers',
-      stages: [['signin', ['kel-mfa']], ['access', ['incognito', 'mailbox']], ['approve', ['kel-concur', 'kbuy', 'dc-requests']]] },
-    { id: 'kel-lm', eyebrow: 'Legacy Kellanova', label: 'Line Manager', icon: 'team', fg: 'var(--red)', bg: 'var(--kel-light)', plural: 'Legacy Kellanova Line Managers',
-      stages: [['signin', ['mars-password', 'okta-setup', 'okta-lm']], ['access', ['incognito', 'mailbox']], ['buy', ['mars-concur', 'ariba']]] },
-    { id: 'mars-assoc', eyebrow: 'Legacy Mars', label: 'Associate', icon: 'person', fg: 'var(--blue)', bg: 'var(--mars-light)', plural: 'Legacy Mars Associates',
-      stages: [['learn', ['cxa-overview']], ['work', ['collab', 'dc-welcome', 'wifi']]] },
-    { id: 'kel-assoc', eyebrow: 'Legacy Kellanova', label: 'Associate', icon: 'person', fg: 'var(--red)', bg: 'var(--kel-light)', plural: 'Legacy Kellanova Associates',
-      stages: [['signin', ['mars-password', 'okta-setup', 'okta-push', 'okta-code']], ['learn', ['cxa-overview']], ['work', ['collab']]] }
-  ];
+  /* Finance */
+  {cat:"fin", need:"I need to know expense approval deadlines", title:"Expense Approval Deadlines: Avoid Escalations", desc:"Legacy Kellanova reports escalate every 7 days (with late fees for the Associate). Mars reports escalate after 10 days. How to stay ahead of both.", who:"Line Managers of blended teams", roles:LM, format:"One-pager", time:"2 min", status:"soon", apps:["concur"], url:""},
+  {cat:"fin", need:"I need to approve Kellanova expenses", title:"Kellanova SAP Concur for Line Managers", desc:"Access Kellanova SAP Concur, complete MFA setup and review or approve expense reports for your Kellanova direct reports.", who:"Legacy Mars Line Managers", roles:["ml"], format:"Quick reference guide", time:"10 min", status:"live", apps:["concur","msauth"],
+   url:KAPPS+"Kellanova%20SAP%20Concur_QRG.pdf?d=wda991b3a6caf43f0a737ff64fb3032c8&csf=1&web=1&e=zzKIVD"},
+  {cat:"fin", need:"I need Mars Concur or MobileXpense access", title:"Mars SAP Concur & MobileXpense Access by Region", desc:"Find the correct Mars Concur or MobileXpense access information and support channel for your region.", who:"Legacy Kellanova Line Managers", roles:["kl"], format:"Quick reference guide", time:"5 min", status:"live", apps:["concur","mxp"],
+   url:MAPPS+"Mars%20SAP%20Concur%20Regional%20Info_QRG.pdf?d=wa5e5d56ece17441ea0051bce080e9d5d&csf=1&web=1&e=Sxo6Oc"},
+  {cat:"fin", need:"I need to submit or approve expenses in Europe", title:"MobileXpense (MXP) Training", desc:"Set up your account, sign in on desktop or the SpendCatcher app, create cash, mileage and corporate card claims, and submit reports. Line Managers learn to review and approve.", who:"Europe Associates & Line Managers", roles:ALL, format:"Training pack", time:"30 min", status:"live", apps:["mxp"], url:HUB},
 
-  const byId = Object.fromEntries(ITEMS.map(i => [i.id, i]));
-  const store = {
-    get(k, d) { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } },
-    set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
-  };
-  const done = new Set(store.get('techhub-done-v1', []));
-  const hash = (location.hash || '').slice(1);
-  const state = {
-    persona: PERSONAS.some(p => p.id === hash) ? hash : store.get('techhub-role', 'all'),
-    topic: 'all', app: 'all', q: '',
-    stepsOpen: store.get('techhub-steps-open', true),
-    open: null
-  };
-  if (!PERSONAS.some(p => p.id === state.persona)) state.persona = 'all';
+  /* Networks */
+  {cat:"net", need:"I need Wi-Fi at a Mars office", title:"Connecting to Mars Guest Wi-Fi", desc:"Connect to the Mars-Guest Wi-Fi network at Mars offices using Mars Affiliate Login or Visitor Registration.", who:"Legacy Mars & legacy Kellanova Associates", roles:ALL, format:"Quick reference guide", time:"5 min", status:"live", apps:[],
+   url:TECH+"Accessing%20Guest%20Wi-Fi.pdf?web=1"}
+];
 
-  const $ = id => document.getElementById(id);
-  const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
-  const topicOf = id => TOPICS.find(t => t.id === id);
-  const personaOf = id => PERSONAS.find(p => p.id === id);
+const ICONS = {
+  key:'<circle cx="8" cy="15" r="4"/><path d="m11 12 9-9M17 6l3 3M14 9l2 2"/>',
+  shield:'<path d="M12 3 4 6v6c0 4.5 3.4 8 8 9 4.6-1 8-4.5 8-9V6z"/><path d="m9 12 2 2 4-4"/>',
+  laptop:'<rect x="4" y="5" width="16" height="11" rx="1.5"/><path d="M2 19h20"/>',
+  cart:'<path d="M3 4h2l2.5 11h11L21 7H6.5"/><circle cx="9" cy="19.5" r="1.4"/><circle cx="17" cy="19.5" r="1.4"/>',
+  receipt:'<path d="M6 3h12v18l-3-2-3 2-3-2-3 2z"/><path d="M9 8h6M9 12h6M9 16h3"/>',
+  wifi:'<path d="M2 9a15 15 0 0 1 20 0M5 12.5a10 10 0 0 1 14 0M8.5 16a5 5 0 0 1 7 0"/><circle cx="12" cy="19.5" r="1"/>',
+  user:'<circle cx="12" cy="8" r="3.5"/><path d="M5 20c0-3.9 3.1-7 7-7s7 3.1 7 7"/>',
+  grid:'<rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/>',
+  team:'<circle cx="12" cy="7" r="3"/><circle cx="5" cy="14" r="2"/><circle cx="19" cy="14" r="2"/><path d="M7 21c0-2.8 2.2-5 5-5s5 2.2 5 5"/>'
+};
+const svg = (k,s=18) => `<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[k]}</svg>`;
+const chev = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>';
+const down = '<svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>';
+const tick = '<svg class="tick" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"/></svg>';
 
-  const tests = {
-    persona: i => state.persona === 'all' || i.roles.includes(state.persona),
-    topic: i => state.topic === 'all' || i.topic === state.topic,
-    app: i => state.app === 'all' || i.apps.includes(state.app),
-    q: i => {
-      const q = state.q.trim().toLowerCase();
-      return !q || [i.title, i.summary, i.who, i.apps.join(' '), (i.covers || []).join(' '), topicOf(i.topic).name].join(' ').toLowerCase().includes(q);
-    }
-  };
-  const match = (i, skip) => Object.keys(tests).every(k => k === skip || tests[k](i));
+const POPULAR = ["Locked out","Okta","Secondary mailbox","Concur","Wi-Fi","Cloud PC"];
+const ROLE_META = {
+  all:{sub:"See every guide", sw:"var(--mars)", ic:"grid"},
+  ma:{sub:"Using Kellanova tools", sw:"var(--mars)", ic:"user"},
+  ka:{sub:"Using Mars tools", sw:"var(--red)", ic:"user"},
+  ml:{sub:"Leading Kellanova direct reports", sw:"var(--mars)", ic:"team"},
+  kl:{sub:"Leading Mars direct reports", sw:"var(--red)", ic:"team"}
+};
 
-  ['approvals', 'expenses', 'Okta', 'password', 'mailbox', 'Teams'].forEach(w => {
-    const b = document.createElement('button'); b.type = 'button'; b.textContent = w; b.dataset.try = w; $('try').appendChild(b);
+const state = {role:"all", app:"", q:""};
+try{ const r = localStorage.getItem("tlh-role2"); if(r && ROLES.some(x=>x.id===r)) state.role = r; }catch(e){}
+
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const hl = t => { t = esc(t); if(!state.q) return t;
+  const words = state.q.split(/\s+/).map(w=>w.toLowerCase().replace(/[^a-z0-9@]+/g,"")).filter(w=>w.length>1);
+  if(!words.length) return t;
+  const pat = words.map(w=>w.split("").map(c=>c.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")).join("[-\\s.]?")).join("|");
+  return t.replace(new RegExp("("+pat+")","ig"),"<mark>$1</mark>"); };
+const text = g => [g.need,g.title,g.desc,g.who,g.format,...g.apps.map(k=>APPS[k].name)].join(" ").toLowerCase();
+const roleOk = (g,r=state.role) => r==="all" || g.roles.includes(r);
+/* forgiving search: ignores hyphens, spaces and punctuation ("wifi" = "Wi-Fi"), matches every word in any order, plus a few everyday synonyms */
+const norm = s => String(s).toLowerCase().replace(/[^a-z0-9@]+/g,"");
+const ALIAS = {wireless:"wifi", internet:"wifi", vdi:"cloudpc", virtualpc:"cloudpc", mfa:"authenticator", twofactor:"authenticator", email:"mailbox", expenses:"expense"};
+const matches = (g,q) => { const t = norm(text(g)), whole = norm(q);
+  if(whole && (t.includes(whole) || (ALIAS[whole] && t.includes(ALIAS[whole])))) return true;
+  const words = q.split(/\s+/).map(norm).filter(w=>w.length>=3);
+  return words.length>0 && words.every(w => t.includes(w) || (ALIAS[w] && t.includes(ALIAS[w]))); };
+const pass = g => roleOk(g) && (!state.app || g.apps.includes(state.app)) && (!state.q || matches(g, state.q));
+const ready = g => g.status!=="soon" && g.url;
+const roleLabel = r => { const t = ROLES.find(x=>x.id===r).label.replace(/^A /,""); return t.charAt(0).toUpperCase()+t.slice(1); };
+
+/* ---------- dropdown component ---------- */
+function makeDropdown(el, cfg){
+  let open = false, active = -1;
+  function opts(){ return cfg.options(); }
+  function draw(){
+    const cur = opts().find(o=>o.value===cfg.get()) || opts()[0];
+    el.className = "dd" + (open ? " open" : "");
+    el.innerHTML = `<button type="button" class="dd-btn${cfg.get()&&cfg.get()!=="all"?" set":""}" id="${el.id}-btn" aria-haspopup="listbox" aria-expanded="${open}">
+        <span class="ic" ${cfg.get()&&cfg.get()!=="all"&&cur.color?`style="background:${cur.color}"`:""}>${cur.icon}</span>
+        <span><small>${cfg.label}</small><b>${esc(cur.btn || cur.label)}</b></span>${down}</button>
+      ${open ? `<ul class="dd-menu" role="listbox" aria-label="${cfg.label}">${opts().map((o,i)=>`<li role="option" id="${el.id}-o${i}" data-i="${i}" aria-selected="${o.value===cfg.get()}" class="${i===active?"active":""}">
+          <span class="sw" style="background:${o.color}">${o.icon}</span><span><b>${esc(o.label)}</b>${o.sub?`<small>${esc(o.sub)}</small>`:""}</span>${o.value===cfg.get()?tick:`<span class="n">${o.n ?? ""}</span>`}</li>`).join("")}</ul>` : ""}`;
+    if(open && active>=0){ const a = el.querySelector(".dd-menu .active"); a && a.scrollIntoView({block:"nearest"}); }
+  }
+  function pick(i){ const o = opts()[i]; if(!o) return; cfg.set(o.value); close(true); }
+  function close(focus){ open=false; active=-1; draw(); if(focus) el.querySelector(".dd-btn").focus(); }
+  el.addEventListener("click", e=>{
+    e.inDropdown = true;
+    const li = e.target.closest("li[data-i]"); if(li){ pick(+li.dataset.i); return; }
+    if(e.target.closest(".dd-btn")){ open=!open; active = open ? Math.max(0, opts().findIndex(o=>o.value===cfg.get())) : -1; closeOthers(el); draw(); }
   });
+  el.addEventListener("keydown", e=>{
+    const n = opts().length;
+    if(!open && (e.key==="ArrowDown"||e.key==="Enter"||e.key===" ") && e.target.closest(".dd-btn")){ e.preventDefault(); open=true; active=Math.max(0, opts().findIndex(o=>o.value===cfg.get())); closeOthers(el); draw(); return; }
+    if(!open) return;
+    if(e.key==="ArrowDown"){ e.preventDefault(); active=(active+1)%n; draw(); }
+    else if(e.key==="ArrowUp"){ e.preventDefault(); active=(active-1+n)%n; draw(); }
+    else if(e.key==="Enter"||e.key===" "){ e.preventDefault(); pick(active); }
+    else if(e.key==="Escape"||e.key==="Tab"){ close(e.key==="Escape"); }
+  });
+  el._close = ()=>{ if(open){ open=false; draw(); } };
+  el._draw = draw;
+  draw();
+}
+const DDS = [];
+function closeOthers(keep){ DDS.forEach(d=>{ if(d!==keep) d._close(); }); }
+document.addEventListener("click", e=>{ if(!e.inDropdown) closeOthers(null); });
 
-  // ── Dropdowns ──
-  function optHtml(group, id, n, icHtml, txtHtml, extraCls) {
-    const on = state[group] === id;
-    return `<button class="o${extraCls ? ' ' + extraCls : ''}" type="button" role="option" data-${group}="${esc(id)}" aria-selected="${on}" ${n === 0 && !on ? 'disabled' : ''}>
-      ${icHtml}<span class="txt">${txtHtml}</span><span class="n" aria-label="${n} trainings">${n}</span></button>`;
-  }
-  const DD = {
-    persona: {
-      label: 'Persona', allText: 'Everyone',
-      btnIcon: () => { const p = personaOf(state.persona); return { html: svg(ICON[p.icon], 26), bg: p.bg, fg: p.fg }; },
-      value: () => { const p = personaOf(state.persona); return p.id === 'all' ? 'Everyone' : `${p.eyebrow} ${p.label}`; },
-      options: () => PERSONAS.map(p => optHtml('persona', p.id,
-        ITEMS.filter(i => match(i, 'persona') && (p.id === 'all' || i.roles.includes(p.id))).length,
-        `<span class="ic" style="background:${p.bg};color:${p.fg};border-radius:50%">${svg(ICON[p.icon], 23)}</span>`,
-        `<span class="eb" style="color:${p.fg}">${esc(p.eyebrow)}</span><span class="nm">${esc(p.label)}</span>`)).join('')
-    },
-    topic: {
-      label: 'Function / Workstream', cols: false,
-      btnIcon: () => { const t = topicOf(state.topic); return t ? { html: svg(ICON[t.id], 26), bg: t.bg, fg: t.fg } : { html: svg(ICON.grid, 26), bg: 'var(--soft)', fg: 'var(--blue)' }; },
-      value: () => state.topic === 'all' ? 'All workstreams' : topicOf(state.topic).name,
-      options: () => optHtml('topic', 'all', ITEMS.filter(i => match(i, 'topic')).length,
-          `<span class="ic" style="background:var(--soft);color:var(--blue)">${svg(ICON.grid, 22)}</span>`, `<span class="nm">All workstreams</span>`) +
-        TOPICS.map(t => optHtml('topic', t.id, ITEMS.filter(i => match(i, 'topic') && i.topic === t.id).length,
-          `<span class="ic" style="background:${t.bg};color:${t.fg}">${svg(ICON[t.id], 22)}</span>`, `<span class="nm">${esc(t.name)}</span>`)).join('')
-    },
-    app: {
-      label: 'Application', cols: true,
-      btnIcon: () => state.app === 'all' ? { html: svg(ICON.apps, 26), bg: 'var(--soft)', fg: 'var(--blue)' } : { html: svg(AICON[state.app], 26), bg: 'var(--wri-light)', fg: 'var(--blue)' },
-      value: () => state.app === 'all' ? 'All applications' : state.app,
-      options: () => optHtml('app', 'all', ITEMS.filter(i => match(i, 'app')).length,
-          `<span class="ic" style="background:var(--soft);color:var(--blue)">${svg(ICON.apps, 21)}</span>`, `<span class="nm">All applications</span>`, 'o-all') +
-        APPS.map(a => optHtml('app', a, ITEMS.filter(i => match(i, 'app') && i.apps.includes(a)).length,
-          `<span class="ic" style="background:var(--wri-light);color:var(--blue)">${svg(AICON[a], 20)}</span>`, `<span class="nm">${esc(a)}</span>`)).join('')
-    }
-  };
+/* ---------- list ---------- */
+function row(g){
+  const extra = g.extras ? `<div class="watch">${esc(g.extras.label)}: ${g.extras.items.map(x=>`<a href="${x.url}" target="_blank" rel="noopener">${esc(x.t)}</a>`).join(" · ")}</div>` : "";
+  return `<li><a class="row" href="${g.url}" target="_blank" rel="noopener" title="${esc(g.desc)}">
+    <span><b>${hl(g.need)}${g.status==="new"?'<span class="new">New</span>':""}</b><small>${hl(g.title)} · ${esc(g.time)}</small></span>
+    <span class="go">${chev}</span></a>${extra}</li>`;
+}
 
-  function renderDropdowns() {
-    Object.keys(DD).forEach(g => {
-      const d = DD[g], el = $('dd-' + g), ic = d.btnIcon(), isOpen = state.open === g;
-      el.classList.toggle('active', state[g] !== 'all');
-      el.innerHTML = `<button class="dd-btn" type="button" data-dd="${g}" aria-haspopup="listbox" aria-expanded="${isOpen}" aria-controls="menu-${g}">
-          <span class="dd-ic" style="background:${ic.bg};color:${ic.fg}">${ic.html}</span>
-          <span class="dd-txt"><span class="dd-label">${d.label}</span><span class="dd-val">${esc(d.value())}</span></span>${CHEV}
-        </button>
-        <div class="dd-menu${d.cols ? ' cols' : ''}" id="menu-${g}" role="listbox" aria-label="${d.label}" ${isOpen ? '' : 'hidden'}>${d.options()}</div>`;
-    });
-  }
-  // Open/close only toggle attributes (no re-render), so the button under the pointer is never swapped out mid-click.
-  function placeMenu(g) {
-    const btn = document.querySelector(`[data-dd="${g}"]`), menu = $('menu-' + g);
-    menu.classList.remove('up');
-    menu.style.left = menu.style.right = menu.style.width = menu.style.maxHeight = '';
-    const r = btn.getBoundingClientRect();
-    const below = window.innerHeight - r.bottom - 14, above = r.top - 14;
-    const want = Math.min(menu.scrollHeight, 440);
-    if (below < Math.min(want, 220) && above > below) {
-      menu.classList.add('up');
-      menu.style.maxHeight = Math.min(440, above) + 'px';
-    } else {
-      menu.style.maxHeight = Math.max(150, Math.min(440, below)) + 'px';
-    }
-    // Keep the menu inside the frame horizontally.
-    const vw = document.documentElement.clientWidth;
-    let m = menu.getBoundingClientRect();
-    if (m.right > vw - 8) { menu.style.left = 'auto'; menu.style.right = '0'; m = menu.getBoundingClientRect(); }
-    if (m.left < 8) { menu.style.right = 'auto'; menu.style.left = (8 - r.left) + 'px'; menu.style.width = (vw - 16) + 'px'; }
-  }
-  function openMenu(g, focusWhich) {
-    if (state.open && state.open !== g) closeMenu(false);
-    const btn = document.querySelector(`[data-dd="${g}"]`), menu = $('menu-' + g);
-    state.open = g;
-    btn.setAttribute('aria-expanded', 'true');
-    menu.hidden = false;
-    placeMenu(g);
-    const opts = [...menu.querySelectorAll('.o:not(:disabled)')];
-    const target = focusWhich === 'last' ? opts[opts.length - 1] : (menu.querySelector('.o[aria-selected="true"]') || opts[0]);
-    if (target) target.focus({ preventScroll: true });
-  }
-  function closeMenu(focusBtn) {
-    const g = state.open; if (!g) return;
-    state.open = null;
-    const btn = document.querySelector(`[data-dd="${g}"]`), menu = $('menu-' + g);
-    if (menu) menu.hidden = true;
-    if (btn) { btn.setAttribute('aria-expanded', 'false'); if (focusBtn) btn.focus({ preventScroll: true }); }
-  }
-
-  function renderPath() {
-    const p = personaOf(state.persona);
-    if (!p.stages) {
-      $('path-slot').innerHTML = `<div class="path-hint">${svg(ICON.everyone, 30)}<span><b>New to working across Mars and Kellanova?</b> <button type="button" data-open="persona">Choose your persona</button> to see which trainings to complete first, in order.</span></div>`;
-      return;
-    }
-    const ids = p.stages.flatMap(s => s[1]);
-    const n = ids.filter(id => done.has(id)).length;
-    $('path-slot').innerHTML = `<section class="path" aria-labelledby="path-h">
-      <div class="path-head">
-        <div><h2 id="path-h">Your first steps as a ${esc(p.eyebrow)} ${esc(p.label)}</h2>
-        <p>Start with these ${ids.length} trainings, left to right, and tick each one off when done.</p></div>
-        <div class="path-right">
-          <div class="meter" aria-live="polite"><div class="meter-bar"><div class="meter-fill" style="width:${n / ids.length * 100}%"></div></div><span>${n} of ${ids.length} done</span></div>
-          <button class="toggle-steps" type="button" id="toggle-steps" aria-expanded="${state.stepsOpen}">${state.stepsOpen ? 'Hide' : 'Show'}</button>
-        </div>
-      </div>
-      <div class="stages" ${state.stepsOpen ? '' : 'hidden'}>${p.stages.map(([key, list], si) => {
-        const complete = list.every(id => done.has(id));
-        return `<div class="stage${complete ? ' complete' : ''}">
-          <div class="stage-head"><span class="stage-num" aria-hidden="true">${complete ? '\u2713' : si + 1}</span><span class="stage-title">${esc(STAGE[key].title)}</span></div>
-          <p class="stage-why">${esc(STAGE[key].why)}</p>
-          ${list.map(id => { const it = byId[id], d = done.has(id); return `<div class="task${d ? ' done' : ''}">
-            <input type="checkbox" id="step-${id}" data-done="${id}" ${d ? 'checked' : ''} aria-label="Mark ${esc(it.title)} as done">
-            <a href="${esc(it.url)}" target="_blank" rel="noopener">${esc(it.title)}</a>
-            <small>${FORMATS[it.fmt].name}${it.dur ? ' · ' + esc(it.dur) : ''}</small></div>`; }).join('')}
-        </div>`;
-      }).join('')}</div>
+function render(){
+  const list = GUIDES.filter(pass);
+  let html = "", live = 0;
+  for(const s of SECTIONS){
+    const items = list.filter(g=>g.cat===s.id);
+    const now = items.filter(ready).sort((a,b)=>(a.status==="new"?0:1)-(b.status==="new"?0:1));
+    const soon = items.filter(g=>!ready(g));
+    if(!items.length) continue;
+    live += now.length;
+    html += `<section class="block" aria-labelledby="h-${s.id}">
+      <div class="b-head"><span class="si" style="background:${s.tint}">${svg(s.ico)}</span><h2 id="h-${s.id}">${s.title}</h2></div>
+      ${now.length ? `<ul class="rows">${now.map(row).join("")}</ul>` : ""}
+      ${soon.length ? `<details class="soon"${state.q?" open":""}><summary>${soon.length} more coming soon</summary><ul>${soon.map(g=>`<li>${hl(g.need)}</li>`).join("")}</ul></details>` : ""}
     </section>`;
   }
+  document.getElementById("main").innerHTML = html;
+  document.getElementById("empty").hidden = !!html;
+  document.getElementById("count").textContent = `${live} guide${live===1?"":"s"}`;
 
-  function card(it) {
-    const f = FORMATS[it.fmt], isDone = done.has(it.id);
-    return `<article class="card${isDone ? ' is-done' : ''}" id="card-${it.id}">
-      <div class="meta">
-        <span class="fmt">${svg(FICON[it.fmt], 19)}${f.name}</span>
-        ${it.dur ? `<span>${esc(it.dur)}</span>` : ''}
-        ${it.region ? `<span class="badge">${esc(it.region)} only</span>` : ''}
-        ${it.isNew ? `<span class="badge new">New</span>` : ''}
-      </div>
-      <h3>${esc(it.title)}</h3>
-      <p class="summary">${esc(it.summary)}</p>
-      <p class="who">For <b>${esc(it.who)}</b></p>
-      ${it.apps.length ? `<div class="apps">${it.apps.map(a => `<button class="app-tag" type="button" data-app="${esc(a)}" aria-pressed="${state.app === a}" title="Show all ${esc(a)} training">${esc(a)}</button>`).join('')}</div>` : ''}
-      ${it.covers ? `<details><summary>What's covered</summary><ul>${it.covers.map(c => `<li>${esc(c)}</li>`).join('')}</ul></details>` : ''}
-      <div class="card-foot">
-        <a class="open" href="${esc(it.url)}" target="_blank" rel="noopener">${f.verb}
-          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
-        <label class="done-toggle" for="done-${it.id}"><input type="checkbox" id="done-${it.id}" data-done="${it.id}" ${isDone ? 'checked' : ''}>${isDone ? 'Done' : 'Mark as done'}</label>
-      </div>
-    </article>`;
-  }
+  const start = GUIDES.find(g=>g.start);
+  const filtered = state.q || state.role!=="all" || state.app;
+  const bits = [];
+  if(state.role!=="all") bits.push(`for <b style="color:var(--mars)">${esc(roleLabel(state.role).replace(/^Legacy/,"legacy"))}s</b>`);
+  if(state.app) bits.push(`using <b style="color:var(--mars)">${esc(APPS[state.app].name)}</b>`);
+  if(state.q) bits.push(`matching “${esc(state.q)}”`);
+  document.getElementById("hint").innerHTML = filtered
+    ? `<span><b style="color:var(--mars)">${live}</b> guide${live===1?"":"s"} ready ${bits.join(" ")}</span><button type="button" id="clear">Show everything</button>`
+    : `<span>New here?</span><a href="${start.url}" target="_blank" rel="noopener">Start with Cross-Company Access: Start Here →</a>`;
 
-  function renderResults(animate) {
-    const list = ITEMS.filter(i => match(i));
-    const p = personaOf(state.persona);
-    $('count').textContent = `${list.length} ${list.length === 1 ? 'training' : 'trainings'}`;
-    const pills = [];
-    if (p.plural) pills.push(['persona', p.plural]);
-    if (state.topic !== 'all') pills.push(['topic', topicOf(state.topic).name]);
-    if (state.app !== 'all') pills.push(['app', state.app]);
-    if (state.q.trim()) pills.push(['q', '\u201c' + state.q.trim() + '\u201d']);
-    $('pills').innerHTML = pills.length
-      ? pills.map(([g, label]) => `<button class="pill" type="button" data-remove="${g}" aria-label="Remove filter ${esc(label)}">${esc(label)}${X}</button>`).join('')
-      : `<span class="hint">Showing everything. Use the filters above to narrow it down.</span>`;
-    $('clear-all').hidden = pills.length < 2;
-    $('q-clear').hidden = !state.q;
+  document.querySelectorAll("#chips button").forEach(b=>b.setAttribute("aria-pressed", state.q.toLowerCase()===b.dataset.q.toLowerCase()));
+  DDS.forEach(d=>d._draw());
+}
 
-    const res = $('results');
-    if (!list.length) {
-      res.innerHTML = `<div class="empty"><p>No training matches this combination yet.</p><p>Remove a filter above, or clear them all.</p></div>`;
-    } else {
-      res.innerHTML = TOPICS.filter(t => list.some(i => i.topic === t.id)).map(t =>
-        `<section class="topic" id="topic-${t.id}">
-          <div class="topic-head">
-            <span class="ticon" style="background:${t.bg};color:${t.fg}">${svg(ICON[t.id], 25)}</span>
-            <h2>${esc(t.name)}</h2><p>${esc(t.blurb)}</p>
-          </div>
-          <div class="grid">${list.filter(i => i.topic === t.id).map(card).join('')}</div>
-        </section>`).join('');
-    }
-    if (animate) { res.classList.remove('updated'); void res.offsetWidth; res.classList.add('updated'); }
-  }
+/* ---------- wire up ---------- */
+const ddRole = document.getElementById("ddRole"), ddApp = document.getElementById("ddApp");
+makeDropdown(ddRole, {
+  label:"I am",
+  get:()=>state.role,
+  set:v=>{ state.role=v; try{ localStorage.setItem("tlh-role2", v); }catch(e){} render(); },
+  options:()=>ROLES.map(r=>({value:r.id, label:roleLabel(r.id), btn:"a "+roleLabel(r.id).replace(/^Legacy/,"legacy"), sub:ROLE_META[r.id].sub, color:ROLE_META[r.id].sw, icon:svg(ROLE_META[r.id].ic,16),
+    n: GUIDES.filter(g=>ready(g) && roleOk(g,r.id)).length}))
+});
+makeDropdown(ddApp, {
+  label:"App",
+  get:()=>state.app,
+  set:v=>{ state.app=v; render(); },
+  options:()=>[{value:"", label:"Any app", sub:"Every tool", color:"var(--mars)", icon:svg("grid",16), n:""}]
+    .concat(Object.entries(APPS).sort((a,b)=>a[1].name.localeCompare(b[1].name))
+      .map(([k,a])=>({value:k, label:a.name, color:a.color, icon:a.logo?`<img src="${a.logo}" alt="" style="width:100%;height:100%;border-radius:9px;background:#fff">`:a.ab,
+        n: GUIDES.filter(g=>g.apps.includes(k) && roleOk(g)).length}))
+      .filter(o=>o.n>0))
+});
+DDS.push(ddRole, ddApp);
 
-  function keepResultsInView() {
-    const bar = document.querySelector('.bar-wrap');
-    const barBottom = getComputedStyle(bar).position === 'sticky' ? bar.getBoundingClientRect().bottom : 0;
-    const top = $('main').getBoundingClientRect().top;
-    // Scroll so the results start just under the pinned bar (measured, not guessed).
-    if (top < barBottom - 4 || top > window.innerHeight - 120) window.scrollBy({ top: top - barBottom - 8 });
-  }
+const chips = document.getElementById("chips");
+chips.insertAdjacentHTML("beforeend", POPULAR.map(p=>`<button type="button" data-q="${esc(p)}" aria-pressed="false">${esc(p)}</button>`).join(""));
+const q = document.getElementById("q");
+chips.addEventListener("click", e=>{ const b=e.target.closest("button[data-q]"); if(!b) return; const same = state.q.toLowerCase()===b.dataset.q.toLowerCase(); q.value = same ? "" : b.dataset.q; state.q = q.value; render(); });
+q.addEventListener("input", ()=>{ state.q = q.value.trim(); render(); });
 
-  function renderAll(animate) { renderDropdowns(); renderPath(); renderResults(animate); }
-  function changed() { renderAll(true); keepResultsInView(); }
-  function setQuery(v) { state.q = v; $('q').value = v; renderDropdowns(); renderResults(true); }
+function clearAll(){ state.q=""; state.app=""; state.role="all"; q.value=""; try{ localStorage.setItem("tlh-role2","all"); }catch(e){} render(); }
+document.addEventListener("click", e=>{ if(e.target.id==="clear" || e.target.id==="reset") clearAll(); });
 
-  // Close an open menu when the pointer goes down anywhere outside it (more reliable than click, incl. touch).
-  document.addEventListener('pointerdown', e => {
-    if (state.open && !e.target.closest('#dd-' + state.open)) closeMenu(false);
-  });
-
-  document.addEventListener('click', e => {
-    const ddBtn = e.target.closest('[data-dd]');
-    if (ddBtn) {
-      const g = ddBtn.dataset.dd;
-      state.open === g ? closeMenu(false) : openMenu(g);
-      return;
-    }
-    const b = e.target.closest('[data-persona],[data-topic],[data-app]');
-    if (b) {
-      const g = 'persona' in b.dataset ? 'persona' : 'topic' in b.dataset ? 'topic' : 'app';
-      const v = b.dataset[g];
-      const fromMenu = b.classList.contains('o');
-      state[g] = (!fromMenu && state[g] === v) ? 'all' : v;
-      if (g === 'persona') store.set('techhub-role', state.persona);
-      state.open = null;
-      changed();
-      if (fromMenu) { const btn = document.querySelector(`[data-dd="${g}"]`); if (btn) btn.focus({ preventScroll: true }); }
-      return;
-    }
-    const op = e.target.closest('[data-open]');
-    if (op) {
-      window.scrollTo({ top: 0, behavior: 'auto' });
-      requestAnimationFrame(() => openMenu(op.dataset.open));
-      return;
-    }
-    const rm = e.target.closest('[data-remove]');
-    if (rm) {
-      const g = rm.dataset.remove;
-      if (g === 'q') { state.q = ''; $('q').value = ''; } else state[g] = 'all';
-      if (g === 'persona') store.set('techhub-role', 'all');
-      changed(); return;
-    }
-    const t = e.target.closest('[data-try]');
-    if (t) { setQuery(t.dataset.try); return; }
-    if (e.target.closest('#q-clear')) { setQuery(''); $('q').focus(); return; }
-    if (e.target.closest('#toggle-steps')) { state.stepsOpen = !state.stepsOpen; store.set('techhub-steps-open', state.stepsOpen); renderPath(); return; }
-    if (e.target.id === 'clear-all') {
-      state.persona = 'all'; state.topic = 'all'; state.app = 'all'; state.q = ''; $('q').value = '';
-      store.set('techhub-role', 'all'); changed(); return;
-    }
-  });
-  document.addEventListener('keydown', e => {
-    // Arrow keys on a closed dropdown button open its menu.
-    const ddBtn = e.target.closest && e.target.closest('[data-dd]');
-    if (ddBtn && !state.open && (e.key === 'ArrowDown' || e.key === 'ArrowUp')) {
-      e.preventDefault(); openMenu(ddBtn.dataset.dd, e.key === 'ArrowUp' ? 'last' : 'first'); return;
-    }
-    if (!state.open) return;
-    if (e.key === 'Escape') { e.preventDefault(); closeMenu(true); return; }
-    const opts = [...$('menu-' + state.open).querySelectorAll('.o:not(:disabled)')];
-    if (!opts.length) return;
-    const i = opts.indexOf(document.activeElement);
-    let next = null;
-    if (e.key === 'ArrowDown') next = opts[(i + 1) % opts.length];
-    else if (e.key === 'ArrowUp') next = opts[(i - 1 + opts.length) % opts.length];
-    else if (e.key === 'Home') next = opts[0];
-    else if (e.key === 'End') next = opts[opts.length - 1];
-    if (next) { e.preventDefault(); next.focus(); }
-  });
-  // Tabbing away (including onto a different dropdown) closes the open menu.
-  document.addEventListener('focusin', e => { if (state.open && !e.target.closest('#dd-' + state.open)) closeMenu(false); });
-  window.addEventListener('resize', () => { if (state.open) placeMenu(state.open); });
-  document.addEventListener('change', e => {
-    const id = e.target.dataset && e.target.dataset.done;
-    if (!id) return;
-    e.target.checked ? done.add(id) : done.delete(id);
-    store.set('techhub-done-v1', [...done]);
-    renderPath(); renderResults(false);
-  });
-  let qTimer;
-  $('q').addEventListener('input', e => {
-    state.q = e.target.value; $('q-clear').hidden = !state.q;
-    clearTimeout(qTimer); qTimer = setTimeout(() => { renderDropdowns(); renderResults(true); }, 120);
-  });
-
-  renderAll(false);
+/* typewriter placeholder: cycles real tasks while the box is empty and unfocused */
+(function(){
+  const reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const lines = ["set up Okta Verify","reset my Mars password","approve a KBuy requisition","connect to Wi-Fi at a Mars office","get a Windows 365 Cloud PC","request my Mars secondary mailbox"];
+  if(reduce){ q.placeholder = "Try: " + lines[0]; return; }
+  let li = 0, ci = 0, dir = 1, wait = 0;
+  setInterval(()=>{
+    if(document.activeElement===q || q.value){ q.placeholder = "Search guides, apps or problems"; return; }
+    if(wait>0){ wait--; return; }
+    const full = lines[li];
+    ci += dir;
+    q.placeholder = "I need to " + full.slice(0, ci) + (dir>0 ? "▍" : "");
+    if(dir>0 && ci>=full.length){ dir=-1; wait=22; }
+    else if(dir<0 && ci<=0){ dir=1; li=(li+1)%lines.length; wait=4; }
+  }, 55);
 })();
+
+render();
 </script>
 </body>
 </html>
