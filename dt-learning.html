@@ -40,13 +40,13 @@ body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16p
 :focus-visible{outline:3px solid var(--wrig);outline-offset:2px}
 
 /* Hero */
-.hero{position:relative;z-index:3;background:var(--mars);color:#FFFFFF;border-radius:24px;padding:clamp(22px,4vw,36px);isolation:isolate}
+.hero{position:relative;z-index:3;background:var(--mars);color:#FFFFFF;border-radius:24px;padding:clamp(20px,3.2vw,28px);isolation:isolate}
 .hero .deco{position:absolute;inset:0;border-radius:inherit;overflow:hidden;z-index:-1;pointer-events:none}
 .hero .deco i{position:absolute;border-radius:50%;opacity:.9}
 .eyebrow{font-size:.74rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--mars-light);display:flex;gap:10px;align-items:center}
 .dots{display:inline-flex;gap:4px}
 .dots i{width:8px;height:8px;border-radius:2px;display:block}
-.hero h1{font-family:var(--display);font-weight:800;font-size:clamp(1.9rem,4.6vw,3rem);line-height:1;margin:10px 0 10px;letter-spacing:-.02em;color:#FFFFFF}
+.hero h1{font-family:var(--display);font-weight:800;font-size:clamp(1.7rem,4vw,2.4rem);line-height:1.05;margin:0 0 6px;letter-spacing:-.02em;color:#FFFFFF}
 .hero .ask{margin:0 0 18px;font-size:1.08rem;color:#E2E2FA;max-width:52ch}
 
 .search{position:relative}
@@ -60,7 +60,7 @@ body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16p
 .dd{position:relative;min-width:0}
 .dd-btn{width:100%;font:inherit;display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:12px;align-items:center;text-align:left;padding:10px 14px 10px 10px;border-radius:14px;border:2px solid rgba(255,255,255,.28);background:rgba(255,255,255,.1);color:#FFFFFF;cursor:pointer;transition:background .15s,border-color .15s}
 .dd-btn:hover,.dd.open .dd-btn{background:rgba(255,255,255,.18);border-color:rgba(255,255,255,.6)}
-.dd-btn.set{background:#FFFFFF;color:var(--mars);border-color:#FFFFFF}
+.dd-btn.set,.dd.open .dd-btn.set,.dd-btn.set:hover{background:#FFFFFF;color:var(--mars);border-color:#FFFFFF}
 .dd-btn .ic{width:38px;height:38px;border-radius:10px;display:grid;place-items:center;background:rgba(255,255,255,.16);color:#FFFFFF;font-weight:800;font-size:.85rem}
 .dd-btn.set .ic{color:#FFFFFF}
 .dd-btn small{display:block;font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;opacity:.75}
@@ -88,6 +88,38 @@ body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16p
 .hint a{color:var(--mars);font-weight:700;text-decoration:none}
 .hint a:hover{text-decoration:underline}
 .hint button{font:inherit;font-weight:700;color:var(--mars);background:none;border:0;padding:0;cursor:pointer;text-decoration:underline}
+
+
+/* Persona checklist: compact strip of step tiles, two rows at most on desktop */
+.checklist{margin-top:14px;border:1.5px solid var(--mars-light);border-radius:16px;padding:12px 14px;background:var(--bg);animation:rise .25s ease-out}
+@keyframes rise{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.ck-head{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center}
+.ck-head h2{font-family:var(--display);font-size:1.02rem;line-height:1.2;margin:0;color:var(--mars);margin-right:auto}
+.ck-head h2 span{font-weight:500;color:var(--ink-soft);font-size:.86rem;margin-left:6px}
+.ck-prog{display:flex;align-items:center;gap:10px}
+.ck-bar{width:120px;height:8px;border-radius:999px;background:var(--panel);box-shadow:inset 0 0 0 1px var(--line);overflow:hidden}
+.ck-bar i{display:block;height:100%;border-radius:inherit;background:var(--mars);transition:width .3s ease}
+.ck-prog b{font-size:.82rem;color:var(--mars);white-space:nowrap;font-variant-numeric:tabular-nums}
+.ck-toggle{font:inherit;font-size:.8rem;font-weight:700;color:var(--mars);background:none;border:1.5px solid var(--mars-light);border-radius:999px;padding:3px 10px;cursor:pointer}
+.ck-toggle:hover{border-color:var(--mars)}
+.ck-list{list-style:none;margin:10px 0 0;padding:0;counter-reset:ck;display:grid;grid-template-columns:repeat(auto-fill,minmax(235px,1fr));gap:8px}
+.ck-item{display:grid;grid-template-columns:24px minmax(0,1fr);gap:4px 10px;align-items:start;padding:9px 10px;border-radius:12px;background:var(--panel);border:1px solid transparent;transition:background .2s,border-color .2s}
+.ck-item.first{background:#FFF0F4;border-color:#FFC2D2}
+.ck-num{counter-increment:ck;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font-weight:800;font-size:.76rem;color:#FFFFFF;background:var(--mars);grid-row:span 2}
+.ck-num::before{content:counter(ck)}
+.ck-item.done{background:#EEF8F1;border-color:transparent}
+.ck-item.done .ck-num{background:#1FA34A}
+.ck-item.done .ck-num::before{content:"✓"}
+.ck-item b{font-size:.9rem;line-height:1.25;color:var(--ink);min-width:0}
+.ck-item.done b{color:var(--ink-soft);text-decoration:line-through;text-decoration-color:var(--mars-light)}
+.ck-first{display:inline-block;font-size:.58rem;font-weight:800;letter-spacing:.07em;text-transform:uppercase;padding:2px 6px;border-radius:5px;background:var(--red);color:#FFFFFF;margin-left:6px;vertical-align:2px}
+.ck-act{display:flex;flex-wrap:wrap;align-items:center;gap:4px 12px;font-size:.78rem}
+.ck-act a{color:var(--mars);font-weight:700;text-decoration:none;white-space:nowrap}
+.ck-act a:hover{text-decoration:underline}
+.ck-done{display:inline-flex;align-items:center;gap:5px;color:var(--ink-soft);font-weight:600;cursor:pointer;white-space:nowrap}
+.ck-done input{width:15px;height:15px;margin:0;accent-color:var(--mars);cursor:pointer}
+.ck-all{margin-top:8px;font-size:.84rem;font-weight:700;color:#1A7A3A}
+@media (max-width:620px){ .ck-bar{width:80px} }
 
 /* List */
 .grid{margin-top:18px;columns:2;column-gap:20px}
@@ -152,6 +184,7 @@ mark{background:var(--snack-light);color:inherit;border-radius:3px;padding:0 2px
   </section>
 
   <p class="hint" id="hint" aria-live="polite"></p>
+  <section class="checklist" id="checklist" hidden aria-labelledby="ckTitle"></section>
   <main class="grid" id="main"></main>
   <div class="empty" id="empty" hidden><b>No guides match that yet</b>Try another word, or <button type="button" id="reset">show everything</button>.</div>
 
@@ -304,13 +337,26 @@ const down = '<svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill=
 const tick = '<svg class="tick" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"/></svg>';
 
 const POPULAR = ["Locked out","Okta","Secondary mailbox","Concur","Wi-Fi","Cloud PC"];
+/* BRAND LOGOS for the "I am" menu. Paste the approved logo image link (SharePoint) or a
+   data:image URI between the quotes. Until then, a plain lettered tile shows instead. */
+const BRAND_LOGOS = {
+  mars: "data:image/png;base64,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",        /* Mars "M" logo */
+  kellanova: "data:image/png;base64,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"    /* Kellogg / Kellanova "K" logo */
+};
 const ROLE_META = {
   all:{sub:"See every guide", sw:"var(--mars)", ic:"grid"},
-  ma:{sub:"Using Kellanova tools", sw:"var(--mars)", ic:"user"},
-  ka:{sub:"Using Mars tools", sw:"var(--red)", ic:"user"},
-  ml:{sub:"Leading Kellanova direct reports", sw:"var(--mars)", ic:"team"},
-  kl:{sub:"Leading Mars direct reports", sw:"var(--red)", ic:"team"}
+  ma:{sub:"Using Kellanova tools", sw:"var(--mars)", brand:"mars"},
+  ka:{sub:"Using Mars tools", sw:"var(--red)", brand:"kellanova"},
+  ml:{sub:"Leading Kellanova direct reports", sw:"var(--mars)", brand:"mars"},
+  kl:{sub:"Leading Mars direct reports", sw:"var(--red)", brand:"kellanova"}
 };
+function roleIcon(id){
+  const m = ROLE_META[id];
+  if(!m.brand) return svg(m.ic,16);
+  const src = BRAND_LOGOS[m.brand];
+  return src ? `<img src="${src}" alt="" style="width:100%;height:100%;object-fit:contain;background:#FFFFFF;border-radius:inherit;padding:2px">`
+             : `<span style="font-weight:800;font-size:15px;line-height:1">${m.brand==="mars"?"M":"K"}</span>`;
+}
 
 const state = {role:"all", app:"", q:""};
 try{ const r = localStorage.getItem("tlh-role2"); if(r && ROLES.some(x=>x.id===r)) state.role = r; }catch(e){}
@@ -411,7 +457,94 @@ function render(){
 
   document.querySelectorAll("#chips button").forEach(b=>b.setAttribute("aria-pressed", state.q.toLowerCase()===b.dataset.q.toLowerCase()));
   DDS.forEach(d=>d._draw());
+  renderChecklist();
 }
+
+
+/* ---------- persona checklists ----------
+   Each step points at a guide by its exact title in GUIDES. "also" adds smaller companion links.
+   first:true shows the red "Do this first" tag. Ticks are saved in the viewer's own browser. */
+const CHECKLISTS = {
+  all:{title:"Your getting-started checklist", intro:"Three quick steps for every Associate. Choose who you are above for a checklist made for you.", steps:[
+    {g:"Cross-Company Access Overview", label:"Understand Cross-Company Access", why:"What it is, whether you need it, and what you can access today."},
+    {g:"Cross Company Collaboration", label:"Learn to work across both companies in Microsoft 365", why:"Chat, meet and share files with colleagues in the other company."},
+    {g:"Guest Wi-Fi", label:"Get online at any Mars office", why:"Save this for your next visit to a Mars site."}
+  ]},
+  ka:{title:"Your checklist · legacy Kellanova Associate", intro:"Work through these in order. Okta comes first because every Mars app needs it.", steps:[
+    {g:"Okta Verify Laptop Setup", label:"Enable Okta Verify", why:"Do this before anything else. Okta Verify is how you sign in to every Mars application.", first:true, also:["Enable Okta Verify for Easier Mars Access"]},
+    {g:"How to Request a Mars Secondary Mailbox / @effem.com Account", label:"Request your Mars secondary mailbox (@effem.com)", why:"Your Mars account for approvals and Mars tools. Requested through Digital Concierge."},
+    {g:"Reset your Mars Password", label:"Set your Mars password and MFA", why:"Use the self-service Okta Magic Link once your @effem.com account arrives."},
+    {g:"5 Pro Tips for Your Cross-Company Mailbox", label:"Keep your secondary mailbox working", why:"Check in weekly and avoid the 30-day lock."},
+    {g:"Cross Company Collaboration", label:"Learn to work across both companies in Microsoft 365", why:"Chat, meetings, shared channels and file sharing."},
+    {g:"Can't Get In? Fix Your Cross-Company Account Access", label:"Bookmark the fix-it guide", why:"Where to go if you're ever locked out or can't find your credentials."}
+  ]},
+  kl:{title:"Your checklist · legacy Kellanova Line Manager", intro:"Get your Mars access ready first, then everything you need to support your Mars direct reports.", steps:[
+    {g:"Enable Okta Verify for Easier Mars Access", label:"Enable Okta Verify", why:"Do this before anything else. Okta Verify is how you sign in to every Mars application.", first:true, also:["Okta Verify Laptop Setup"]},
+    {g:"How to Request a Mars Secondary Mailbox / @effem.com Account", label:"Request your Mars secondary mailbox (@effem.com)", why:"Your Mars account for approving your direct reports' requests."},
+    {g:"Reset your Mars Password", label:"Set your Mars password and MFA", why:"Use the self-service Okta Magic Link once your @effem.com account arrives."},
+    {g:"Accessing Your Cross-Company Mailbox", label:"Open and manage your cross-company mailbox", why:"Sign in privately, set up automatic replies and avoid the 30-day lock.", also:["Using Incognito and Accessing Cross-Company Accounts"]},
+    {g:"Mars SAP Concur", label:"Get your Mars Concur or MobileXpense access", why:"So you can approve your Mars direct reports' expenses in your region."},
+    {g:"Ariba Guided Buying Training", label:"Learn to buy and approve in SAP Ariba", why:"Purchase requests, approvals and the four buying principles."},
+    {g:"Cross-Company Access Line Manager Readiness Session", label:"Watch the Line Manager Readiness Session", why:"Leading a blended team, plus a 30-60-90 day onboarding roadmap."}
+  ]},
+  ma:{title:"Your checklist · legacy Mars Associate", intro:"Set up your Kellanova sign-in first, then get to know your cross-company mailbox.", steps:[
+    {g:"Setup Kellanova MFA", label:"Set up Kellanova MFA (Microsoft Authenticator)", why:"Do this before anything else. You need it to sign in to Kellanova systems.", first:true},
+    {g:"Mars Secondary Mailbox Desktop Shortcut", label:"Add the secondary mailbox desktop shortcut", why:"Open your cross-company mailbox in one click."},
+    {g:"5 Pro Tips for Your Cross-Company Mailbox", label:"Keep your secondary mailbox working", why:"Check in weekly and avoid the 30-day lock."},
+    {g:"Cross Company Collaboration", label:"Learn to work across both companies in Microsoft 365", why:"Chat, meetings, shared channels and file sharing."},
+    {g:"Can't Get In? Fix Your Cross-Company Account Access", label:"Bookmark the fix-it guide", why:"Where to go if you're ever locked out or can't find your credentials."}
+  ]},
+  ml:{title:"Your checklist · legacy Mars Line Manager", intro:"Set up your Kellanova sign-in first, then everything you need to approve for your Kellanova direct reports.", steps:[
+    {g:"Setup Kellanova MFA", label:"Set up Kellanova MFA (Microsoft Authenticator)", why:"Do this before anything else. You need it to sign in to Kellanova systems.", first:true},
+    {g:"Mars Secondary Mailbox Desktop Shortcut", label:"Add the secondary mailbox desktop shortcut", why:"Open your cross-company mailbox in one click."},
+    {g:"Accessing Your Cross-Company Mailbox", label:"Open and manage your cross-company mailbox", why:"Sign in privately, set up automatic replies and avoid the 30-day lock.", also:["Using Incognito and Accessing Cross-Company Accounts"]},
+    {g:"Kellanova SAP Concur", label:"Approve Kellanova expenses in Concur", why:"Review and approve expense reports for your Kellanova direct reports."},
+    {g:"Managing KBuy Approvals", label:"Approve KBuy requisitions", why:"Two ways to approve: in KBuy or straight from the email."},
+    {g:"Managing Digital Concierge Requests", label:"Approve Digital Concierge requests", why:"Approve your Kellanova Associates' IT requests from email."},
+    {g:"Cross-Company Access Line Manager Readiness Session", label:"Watch the Line Manager Readiness Session", why:"Leading a blended team, plus a 30-60-90 day onboarding roadmap."}
+  ]}
+};
+const byTitle = t => GUIDES.find(g=>g.title===t && g.url);
+const ckKey = r => "tlh-check-"+r;
+function loadDone(r){ try{ return JSON.parse(localStorage.getItem(ckKey(r))||"{}") || {}; }catch(e){ return {}; } }
+function saveDone(r,d){ try{ localStorage.setItem(ckKey(r), JSON.stringify(d)); }catch(e){} }
+const ckMem = {};               /* fallback when storage is unavailable */
+let ckOpen = true;
+
+function renderChecklist(){
+  const el = document.getElementById("checklist");
+  const cfg = CHECKLISTS[state.role];
+  if(!cfg || state.q){ el.hidden = true; return; }
+  const steps = cfg.steps.map(st=>({...st, guide:byTitle(st.g)})).filter(st=>st.guide);
+  if(!steps.length){ el.hidden = true; return; }
+  const done = Object.keys(ckMem[state.role]||{}).length ? ckMem[state.role] : loadDone(state.role);
+  ckMem[state.role] = done;
+  const n = steps.filter(st=>done[st.g]).length;
+  el.hidden = false;
+  el.innerHTML = `<div class="ck-head">
+      <h2 id="ckTitle">${esc(cfg.title)}<span>${ckOpen ? "Tick each step as you go" : ""}</span></h2>
+      <div class="ck-prog"><span class="ck-bar" role="progressbar" aria-valuemin="0" aria-valuemax="${steps.length}" aria-valuenow="${n}" aria-label="Checklist progress"><i style="width:${Math.round(n/steps.length*100)}%"></i></span><b>${n} of ${steps.length} done</b>
+      <button type="button" class="ck-toggle" id="ckToggle" aria-expanded="${ckOpen}">${ckOpen?"Hide":"Show"}</button></div>
+    </div>
+    ${ckOpen ? `<ol class="ck-list">${steps.map((st,i)=>{ const g = st.guide, id = `ck-${state.role}-${i}`, isDone = !!done[st.g];
+      return `<li class="ck-item${isDone?" done":""}${st.first && !isDone?" first":""}" title="${esc(st.why)}">
+        <span class="ck-num" aria-hidden="true"></span>
+        <b>${esc(st.label)}${st.first?'<span class="ck-first">Do this first</span>':""}</b>
+        <span class="ck-act"><label class="ck-done" for="${id}"><input type="checkbox" id="${id}" data-step="${esc(st.g)}"${isDone?" checked":""}>Mark as done</label><a href="${g.url}" target="_blank" rel="noopener">Open ${/video/i.test(g.format)?"video":"guide"} →</a></span>
+      </li>`; }).join("")}</ol>
+      ${n===steps.length ? `<div class="ck-all">You're all set. Everything else you might need is below.</div>` : ""}` : ""}`;
+}
+document.getElementById("checklist").addEventListener("change", e=>{
+  const cb = e.target.closest("input[data-step]"); if(!cb) return;
+  const d = ckMem[state.role] || loadDone(state.role);
+  if(cb.checked) d[cb.dataset.step] = true; else delete d[cb.dataset.step];
+  ckMem[state.role] = d; saveDone(state.role, d);
+  renderChecklist();
+  const again = document.getElementById(cb.id); again && again.focus();
+});
+document.getElementById("checklist").addEventListener("click", e=>{
+  if(e.target.id==="ckToggle"){ ckOpen = !ckOpen; renderChecklist(); document.getElementById("ckToggle").focus(); }
+});
 
 /* ---------- wire up ---------- */
 const ddRole = document.getElementById("ddRole"), ddApp = document.getElementById("ddApp");
@@ -419,7 +552,7 @@ makeDropdown(ddRole, {
   label:"I am",
   get:()=>state.role,
   set:v=>{ state.role=v; try{ localStorage.setItem("tlh-role2", v); }catch(e){} render(); },
-  options:()=>ROLES.map(r=>({value:r.id, label:roleLabel(r.id), btn:"a "+roleLabel(r.id).replace(/^Legacy/,"legacy"), sub:ROLE_META[r.id].sub, color:ROLE_META[r.id].sw, icon:svg(ROLE_META[r.id].ic,16),
+  options:()=>ROLES.map(r=>({value:r.id, label:roleLabel(r.id), btn:"a "+roleLabel(r.id).replace(/^Legacy/,"legacy"), sub:ROLE_META[r.id].sub, color:ROLE_META[r.id].sw, icon:roleIcon(r.id),
     n: GUIDES.filter(g=>ready(g) && roleOk(g,r.id)).length}))
 });
 makeDropdown(ddApp, {
